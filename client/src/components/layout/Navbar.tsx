@@ -19,9 +19,11 @@ export function Navbar() {
 
   const navLinks = [
     { name: "Services", href: "/services" },
-    { name: "AI Agents", href: "/#agents" },
-    { name: "Get Proposal", href: "/proposal" },
-    { name: "Admin", href: "/admin" },
+    { name: "Industries", href: "/industries" },
+    { name: "Portfolio", href: "/portfolio" },
+    { name: "Resources", href: "/resources" },
+    { name: "About us", href: "/about" },
+    { name: "Contact us", href: "/contact" },
   ];
 
   return (
@@ -40,7 +42,7 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-6">
           {navLinks.map((link) => (
             <Link key={link.name} href={link.href}>
               <a
@@ -53,16 +55,23 @@ export function Navbar() {
               </a>
             </Link>
           ))}
-          <Link href="/proposal">
-            <Button className="bg-primary hover:bg-primary/90 text-white rounded-full px-6">
-              Start Project
-            </Button>
-          </Link>
+          <div className="flex gap-4 ml-4">
+            <Link href="/proposal">
+              <Button className="bg-primary hover:bg-primary/90 text-white rounded-full px-6">
+                Start Project
+              </Button>
+            </Link>
+            <Link href="/contact">
+              <Button variant="outline" className="border-white/10 hover:bg-white/5 text-foreground rounded-full px-6">
+                Let's Talk
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden text-foreground"
+          className="lg:hidden text-foreground"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X /> : <Menu />}
@@ -71,7 +80,7 @@ export function Navbar() {
 
       {/* Mobile Nav */}
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-xl border-b border-white/10 p-4 flex flex-col gap-4 animate-in slide-in-from-top-5">
+        <div className="lg:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-xl border-b border-white/10 p-4 flex flex-col gap-4 animate-in slide-in-from-top-5">
           {navLinks.map((link) => (
             <Link key={link.name} href={link.href}>
               <a
@@ -82,6 +91,18 @@ export function Navbar() {
               </a>
             </Link>
           ))}
+          <div className="flex flex-col gap-4 mt-4">
+             <Link href="/proposal">
+                <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-full">
+                  Start Project
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button variant="outline" className="w-full border-white/10 hover:bg-white/5 text-foreground rounded-full">
+                  Let's Talk
+                </Button>
+              </Link>
+          </div>
         </div>
       )}
     </nav>

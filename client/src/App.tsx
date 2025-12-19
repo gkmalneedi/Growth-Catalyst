@@ -7,6 +7,7 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import ServicesPage from "@/pages/Services";
 import ProposalPage from "@/pages/Proposal";
+import PlaceholderPage from "@/pages/Placeholder";
 import AdminDashboard from "@/pages/Admin";
 
 function Router() {
@@ -16,6 +17,14 @@ function Router() {
       <Route path="/services" component={ServicesPage} />
       <Route path="/proposal" component={ProposalPage} />
       <Route path="/admin" component={AdminDashboard} />
+      
+      {/* Placeholder Pages */}
+      <Route path="/industries" component={PlaceholderPage} />
+      <Route path="/portfolio" component={PlaceholderPage} />
+      <Route path="/resources" component={PlaceholderPage} />
+      <Route path="/about" component={PlaceholderPage} />
+      <Route path="/contact" component={PlaceholderPage} />
+      
       <Route component={NotFound} />
     </Switch>
   );
