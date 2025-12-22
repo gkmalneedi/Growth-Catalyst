@@ -45,7 +45,7 @@ export default function Home() {
           >
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold leading-tight mb-8">
               We're the Crusaders of <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400">
                 AI-Powered Digital Marketing,
               </span> <br />
               Redefining Engagement
@@ -101,11 +101,11 @@ export default function Home() {
       </section>
 
       {/* 4. AI SECTION */}
-      <section className="py-32 bg-gradient-to-br from-blue-900/20 via-background to-purple-900/20 relative overflow-hidden">
+      <section className="py-32 bg-gradient-to-br from-purple-900/20 via-background to-pink-900/20 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
         <div className="container mx-auto px-4 md:px-8 relative z-10 text-center max-w-4xl">
            <h2 className="text-4xl md:text-6xl font-heading font-bold mb-8">
-             Setting the Pace & Breaking the Barriers of <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Digital Marketing with AI</span>
+             Setting the Pace & Breaking the Barriers of <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Digital Marketing with AI</span>
            </h2>
            <p className="text-xl text-muted-foreground mb-12">
              We're the architects of your digital success, fueled by AI innovations. From ultra-tailored messages to hyper-targeted campaigns, we harness cutting-edge AI solutions and proven techniques to propel your brand to the forefront of the digital landscape.
@@ -260,24 +260,6 @@ export default function Home() {
               </div>
             ))}
          </div>
-      </section>
-
-      {/* 10. FINAL CTA */}
-      <section className="py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-primary/10 -z-10" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.2)_0%,transparent_70%)]" />
-        
-        <div className="container mx-auto px-4 md:px-8 text-center relative z-10">
-          <h2 className="text-5xl md:text-7xl font-heading font-bold mb-8 leading-tight">
-            Ready to Embark on a Strategic <br />
-            <span className="text-primary">Digital Marketing Voyage?</span>
-          </h2>
-          <Link href="/contact">
-            <Button size="lg" className="rounded-full h-20 px-12 text-2xl bg-white text-black hover:bg-white/90 shadow-2xl hover:scale-105 transition-transform duration-300">
-              Talk to Us <ArrowRight className="ml-3 h-8 w-8" />
-            </Button>
-          </Link>
-        </div>
       </section>
 
       <Footer />

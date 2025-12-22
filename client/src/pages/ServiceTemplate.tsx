@@ -80,7 +80,7 @@ export default function ServiceTemplate() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="inline-block mb-6 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium tracking-wide uppercase"
+                className="inline-block mb-6 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium tracking-wide uppercase"
               >
                 {service.title} Services
               </motion.div>
@@ -91,7 +91,7 @@ export default function ServiceTemplate() {
                 className="text-5xl md:text-7xl font-heading font-bold mb-6 text-glow leading-tight"
               >
                 Supercharge Your Growth with <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">{service.title}</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">{service.title}</span>
               </motion.h1>
               <motion.p 
                 initial={{ opacity: 0, y: 30 }}
@@ -107,7 +107,7 @@ export default function ServiceTemplate() {
                 transition={{ delay: 0.3 }}
                 className="flex flex-col sm:flex-row gap-4"
               >
-                <Button size="lg" className="rounded-full h-14 px-8 text-lg bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/20">
+                <Button size="lg" className="rounded-full h-14 px-8 text-lg bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20">
                   Get Started <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
                 <Button variant="outline" size="lg" className="rounded-full h-14 px-8 text-lg border-white/10 hover:bg-white/5">
@@ -129,7 +129,7 @@ export default function ServiceTemplate() {
                  />
                </motion.div>
                {/* Decorative background blur */}
-               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-500/20 blur-[100px] -z-10 rounded-full" />
+               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary/20 blur-[100px] -z-10 rounded-full" />
             </div>
           </div>
         </div>
@@ -296,28 +296,6 @@ export default function ServiceTemplate() {
                  {partner}
                </div>
              ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 6. FINAL CTA */}
-      <section className="py-32 relative overflow-hidden bg-white/5 border-t border-white/5">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.2)_0%,transparent_70%)]" />
-        
-        <div className="container mx-auto px-4 md:px-8 text-center max-w-4xl relative z-10">
-          <h2 className="text-5xl md:text-7xl font-heading font-bold mb-8 leading-tight">
-            Ready to Embark on a Strategic <br />
-            <span className="text-primary">Digital Marketing Voyage?</span>
-          </h2>
-          <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Don't let your competitors get ahead. Partner with Nexus and unlock your true growth potential today.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact">
-              <Button size="lg" className="rounded-full h-20 px-12 text-2xl bg-white text-black hover:bg-white/90 shadow-2xl hover:scale-105 transition-transform duration-300">
-                Talk to Us <ArrowRight className="ml-3 h-8 w-8" />
-              </Button>
-            </Link>
           </div>
         </div>
       </section>
