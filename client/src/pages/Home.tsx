@@ -128,7 +128,7 @@ export default function Home() {
               className="text-4xl md:text-6xl font-heading font-bold mb-8 leading-tight text-white"
             >
               From Strategy to Outcomes: <br />
-              <span className="text-primary">Our Proven Approach Ensures Success</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Our Proven Approach Ensures Success</span>
             </motion.h2>
             <p className="text-xl text-muted-foreground leading-relaxed">
               We're a creative force driven by the belief that the perfect blend of the right people, right ideas, right approach, and right technology can make the impossible, possible.
@@ -163,7 +163,7 @@ export default function Home() {
         <div className="flex flex-col md:flex-row-reverse items-center gap-20">
           <div className="md:w-1/2">
             <h2 className="text-4xl md:text-6xl font-heading font-bold mb-8 leading-tight text-white">
-              With Us, Your Digital Growth isn't Just Rapid - <span className="text-primary">it's Unstoppable</span>
+              With Us, Your Digital Growth isn't Just Rapid - <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">it's Unstoppable</span>
             </h2>
             <p className="text-xl text-muted-foreground mb-12 leading-relaxed">
               Your ‘growth’ forms the foundation of everything we do. We constantly innovate and push the boundaries to propel you forward, elevating your online presence with unprecedented growth opportunities.
@@ -185,7 +185,7 @@ export default function Home() {
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <h2 className="text-4xl md:text-6xl font-heading font-bold mb-8 text-white">
-              Cruise Towards Intelligent Digital Marketing With Our <span className="text-primary">Tailored Services</span>
+              Cruise Towards Intelligent Digital Marketing With Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Tailored Services</span>
             </h2>
             <Link href="/services">
               <Button variant="link" className="text-primary text-lg hover:text-primary/80">Explore More Services &rarr;</Button>
@@ -222,7 +222,7 @@ export default function Home() {
       <section className="py-32 section-black border-b border-white/5">
         <div className="container mx-auto px-4 md:px-8">
           <h2 className="text-3xl md:text-5xl font-heading font-bold text-center mb-20">
-            Some of the Golden Lines that <br/> <span className="text-purple-400">Keep Us Motivated</span>
+            Some of the Golden Lines that <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Keep Us Motivated</span>
           </h2>
           
           <Carousel className="w-full max-w-5xl mx-auto">
