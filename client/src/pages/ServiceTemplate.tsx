@@ -1,11 +1,18 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, BarChart, Users, Globe, ChevronRight } from "lucide-react";
+import { ArrowRight, CheckCircle2, BarChart, Users, Globe, ChevronRight, Star } from "lucide-react";
 import { useLocation } from "wouter";
 import { servicesList } from "@/lib/data";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 // Import generated images
 import automationImg from "@assets/generated_images/marketing_automation_workflow_3d.png";
@@ -226,20 +233,89 @@ export default function ServiceTemplate() {
         </div>
       </section>
 
-      {/* 4. CTA SECTION */}
+      {/* 4. TESTIMONIALS */}
+      <section className="py-24 container mx-auto px-4 md:px-8">
+        <h2 className="text-3xl md:text-5xl font-heading font-bold text-center mb-16">
+          Some of the Golden Lines that <br/> <span className="text-primary">Keep Us Motivated</span>
+        </h2>
+        
+        <Carousel className="w-full max-w-4xl mx-auto">
+          <CarouselContent>
+            {[
+              {
+                quote: "Miraki Digital's Email Marketing services have truly transformed our outreach strategy. Their personalized approach, AI-driven techniques, and expertly tailored campaigns have significantly increased our engagement rates.",
+                name: "Pradeep Reddy",
+                role: "Senior Manager, Accenture"
+              },
+              {
+                quote: "The SEO squad is terrific at achieving organic traffic! Their genuine care for our growth and attention to detail have truly impressed me. We've seen a remarkable increase in our online visibility.",
+                name: "Ramesh Rathi",
+                role: "GM, CipherCloud"
+              },
+              {
+                quote: "Kudos to your outstanding content marketing services! Your strategic approach, creativity, and profound understanding of our business have truly elevated our brand's voice.",
+                name: "Ashok Boddeda",
+                role: "Director, Sysgain INC"
+              }
+            ].map((testimonial, i) => (
+              <CarouselItem key={i}>
+                <div className="p-8 md:p-12 rounded-3xl bg-white/5 border border-white/10 text-center">
+                  <div className="flex justify-center mb-6">
+                    <div className="flex gap-1">
+                      {[1,2,3,4,5].map(s => <Star key={s} className="h-5 w-5 fill-yellow-500 text-yellow-500" />)}
+                    </div>
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-medium leading-relaxed mb-8">"{testimonial.quote}"</h3>
+                  <div>
+                    <div className="font-bold text-lg">{testimonial.name}</div>
+                    <div className="text-primary">{testimonial.role}</div>
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <div className="flex justify-center gap-4 mt-8">
+            <CarouselPrevious className="static translate-y-0" />
+            <CarouselNext className="static translate-y-0" />
+          </div>
+        </Carousel>
+      </section>
+
+      {/* 5. PARTNERS ECOSYSTEM */}
+      <section className="py-20 bg-background border-t border-white/5">
+        <div className="container mx-auto px-4 md:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+            Together, We Propel Your Growth: Our Partners
+          </h2>
+          <p className="text-muted-foreground mb-12 max-w-2xl mx-auto">
+            Fast-track your growth with our strategic partners' ecosystem and unmatched experience in crafting digital dominance.
+          </p>
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-8 md:gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+             {["Meta", "Google Ads", "Bing", "Amazon", "HubSpot", "CleverTap"].map((partner, i) => (
+               <div key={i} className="flex items-center justify-center font-bold text-xl border border-white/10 rounded-xl h-20 bg-white/5">
+                 {partner}
+               </div>
+             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. FINAL CTA */}
       <section className="py-32 relative overflow-hidden bg-white/5 border-t border-white/5">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.2)_0%,transparent_70%)]" />
+        
         <div className="container mx-auto px-4 md:px-8 text-center max-w-4xl relative z-10">
-          <h2 className="text-4xl md:text-6xl font-heading font-bold mb-8 leading-tight">
-            Ready to Transform Your <br/>
-            <span className="text-primary">{service.title}?</span>
+          <h2 className="text-5xl md:text-7xl font-heading font-bold mb-8 leading-tight">
+            Ready to Embark on a Strategic <br />
+            <span className="text-primary">Digital Marketing Voyage?</span>
           </h2>
           <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
             Don't let your competitors get ahead. Partner with Nexus and unlock your true growth potential today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact">
-              <Button size="lg" className="rounded-full h-16 px-12 text-xl bg-white text-black hover:bg-white/90 shadow-2xl hover:scale-105 transition-transform duration-300">
-                Book a Strategy Call <ArrowRight className="ml-2 h-6 w-6" />
+              <Button size="lg" className="rounded-full h-20 px-12 text-2xl bg-white text-black hover:bg-white/90 shadow-2xl hover:scale-105 transition-transform duration-300">
+                Talk to Us <ArrowRight className="ml-3 h-8 w-8" />
               </Button>
             </Link>
           </div>
