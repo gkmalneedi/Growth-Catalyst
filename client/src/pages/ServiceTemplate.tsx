@@ -117,7 +117,7 @@ export default function ServiceTemplate() {
       <Navbar />
 
       {/* 1. HERO SECTION */}
-      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-zinc-950 text-white section-black">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.15),transparent_50%)] -z-10" />
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col lg:flex-row items-center gap-16">
@@ -125,7 +125,7 @@ export default function ServiceTemplate() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="inline-block mb-6 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium tracking-wide uppercase"
+                className="inline-block mb-6 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-sm font-medium tracking-wide uppercase"
               >
                 {service.title} Services
               </motion.div>
@@ -143,7 +143,7 @@ export default function ServiceTemplate() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-xl text-muted-foreground mb-10 max-w-xl leading-relaxed"
+                className="text-xl text-zinc-400 mb-10 max-w-xl leading-relaxed"
               >
                 {service.description} We combine AI-driven insights with creative excellence to deliver measurable results.
               </motion.p>
@@ -162,10 +162,10 @@ export default function ServiceTemplate() {
                  />
                  
                  {/* Floating Elements */}
-                 <div className="absolute -top-10 -right-10 p-4 bg-background border border-white/10 rounded-2xl shadow-xl animate-bounce duration-[3000ms]">
+                 <div className="absolute -top-10 -right-10 p-4 bg-zinc-900 border border-white/10 rounded-2xl shadow-xl animate-bounce duration-[3000ms]">
                    <Users className="h-8 w-8 text-pink-500" />
                  </div>
-                 <div className="absolute -bottom-5 -left-5 p-4 bg-background border border-white/10 rounded-2xl shadow-xl animate-bounce duration-[4000ms]">
+                 <div className="absolute -bottom-5 -left-5 p-4 bg-zinc-900 border border-white/10 rounded-2xl shadow-xl animate-bounce duration-[4000ms]">
                    <BarChart className="h-8 w-8 text-purple-500" />
                  </div>
                </motion.div>
@@ -177,7 +177,7 @@ export default function ServiceTemplate() {
             {stats.map((stat, i) => (
               <div key={i}>
                 <div className="text-5xl font-bold font-heading mb-2">{stat.value}</div>
-                <div className="text-muted-foreground">{stat.label}</div>
+                <div className="text-zinc-400">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -185,10 +185,10 @@ export default function ServiceTemplate() {
       </section>
 
       {/* 2. REDEFINED SECTION */}
-      <section className="py-24 bg-card/30 border-y border-white/5">
+      <section className="py-24 bg-white border-y border-zinc-200">
         <div className="container mx-auto px-4 md:px-8">
            <div className="max-w-4xl">
-             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">{redefined.title}</h2>
+             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-zinc-900">{redefined.title}</h2>
              <p className="text-xl text-muted-foreground leading-relaxed">
                {redefined.desc}
              </p>
@@ -197,8 +197,8 @@ export default function ServiceTemplate() {
       </section>
 
       {/* 3. SERVICES GRID */}
-      <section className="py-24 container mx-auto px-4 md:px-8">
-        <h2 className="text-4xl md:text-5xl font-heading font-bold mb-16 max-w-3xl">
+      <section className="py-24 container mx-auto px-4 md:px-8 bg-zinc-50/50">
+        <h2 className="text-4xl md:text-5xl font-heading font-bold mb-16 max-w-3xl text-zinc-900">
           The {service.title} Magic Happens with Our Tailored Services
         </h2>
         
@@ -215,17 +215,17 @@ export default function ServiceTemplate() {
       </section>
 
       {/* 4. INDUSTRIES */}
-      <section className="py-24 bg-card/30 border-y border-white/5">
+      <section className="py-24 bg-zinc-950 text-white section-black border-y border-white/10">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex justify-between items-center mb-12">
             <h2 className="text-3xl md:text-5xl font-heading font-bold max-w-2xl">
               No Matter Which Industry You Belong to, We've Got You Covered
             </h2>
             <div className="hidden md:flex gap-4">
-              <Button variant="outline" size="icon" className="rounded-full border-white/10">
+              <Button variant="outline" size="icon" className="rounded-full border-white/10 bg-white/5 hover:bg-white/10 text-white">
                 <ArrowRight className="h-5 w-5 rotate-180" />
               </Button>
-              <Button variant="outline" size="icon" className="rounded-full border-white/10">
+              <Button variant="outline" size="icon" className="rounded-full border-white/10 bg-white/5 hover:bg-white/10 text-white">
                 <ArrowRight className="h-5 w-5" />
               </Button>
             </div>
@@ -252,13 +252,13 @@ export default function ServiceTemplate() {
       </section>
 
       {/* 5. SUCCESS STORIES */}
-      <section className="py-24 container mx-auto px-4 md:px-8">
+      <section className="py-24 container mx-auto px-4 md:px-8 bg-white">
         <div className="flex justify-between items-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-heading font-bold">
+          <h2 className="text-3xl md:text-5xl font-heading font-bold text-zinc-900">
             Some Success Stories <br/> To Inspire You
           </h2>
-          <Button variant="link" className="text-lg text-white group">
-            See all <div className="ml-2 w-8 h-8 rounded-full border border-white flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors"><ArrowRight className="h-4 w-4" /></div>
+          <Button variant="link" className="text-lg text-primary group">
+            See all <div className="ml-2 w-8 h-8 rounded-full border border-primary/20 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors"><ArrowRight className="h-4 w-4" /></div>
           </Button>
         </div>
 
@@ -282,39 +282,39 @@ export default function ServiceTemplate() {
       </section>
 
       {/* 6. FAQ */}
-      <section className="py-24 bg-card/30 border-t border-white/5">
+      <section className="py-24 bg-zinc-950 text-white section-black border-t border-white/10">
         <div className="container mx-auto px-4 md:px-8 flex flex-col lg:flex-row gap-16">
           <div className="lg:w-1/3">
             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">
               Frequently Asked Questions (FAQs)
             </h2>
-            <p className="text-muted-foreground">
+            <p className="text-zinc-400">
               As a leading digital marketing agency, we are dedicated to providing comprehensive educational resources and answering frequently asked questions to help our clients.
             </p>
           </div>
           <div className="lg:w-2/3">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1" className="border-b border-white/10">
-                <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-primary py-6">
+                <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-primary py-6 text-white">
                   How can {service.title} help our business grow?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6">
+                <AccordionContent className="text-zinc-400 pb-6">
                   Our strategic approach to {service.title} ensures that every action is aligned with your business goals, driving measurable growth, increased efficiency, and higher ROI through data-driven execution.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2" className="border-b border-white/10">
-                <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-primary py-6">
+                <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-primary py-6 text-white">
                   What makes your {service.title} services unique?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6">
+                <AccordionContent className="text-zinc-400 pb-6">
                   We blend creative storytelling with AI-powered analytics. We don't just execute tasks; we engineer strategies that adapt to market trends and user behavior in real-time.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3" className="border-b border-white/10">
-                <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-primary py-6">
+                <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-primary py-6 text-white">
                   How do you measure success in {service.title}?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6">
+                <AccordionContent className="text-zinc-400 pb-6">
                   We use a comprehensive suite of KPIs tailored to your specific objectives, ranging from engagement metrics and conversion rates to long-term customer lifetime value and brand sentiment analysis.
                 </AccordionContent>
               </AccordionItem>

@@ -27,7 +27,7 @@ export default function SocialMediaOptimization() {
       <Navbar />
 
       {/* 1. HERO SECTION */}
-      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-zinc-950 text-white section-black">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.15),transparent_50%)] -z-10" />
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col lg:flex-row items-center gap-16">
@@ -35,7 +35,7 @@ export default function SocialMediaOptimization() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="inline-block mb-6 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium tracking-wide uppercase"
+                className="inline-block mb-6 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-sm font-medium tracking-wide uppercase"
               >
                 Social Media Optimization
               </motion.div>
@@ -53,7 +53,7 @@ export default function SocialMediaOptimization() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-xl text-muted-foreground mb-10 max-w-xl leading-relaxed"
+                className="text-xl text-zinc-400 mb-10 max-w-xl leading-relaxed"
               >
                 Imagine your brand trending in every feed – our SMO strategies and tactics make it happen.
               </motion.p>
@@ -72,10 +72,10 @@ export default function SocialMediaOptimization() {
                  />
                  
                  {/* Floating Elements */}
-                 <div className="absolute -top-10 -right-10 p-4 bg-background border border-white/10 rounded-2xl shadow-xl animate-bounce duration-[3000ms]">
+                 <div className="absolute -top-10 -right-10 p-4 bg-zinc-900 border border-white/10 rounded-2xl shadow-xl animate-bounce duration-[3000ms]">
                    <Users className="h-8 w-8 text-pink-500" />
                  </div>
-                 <div className="absolute -bottom-5 -left-5 p-4 bg-background border border-white/10 rounded-2xl shadow-xl animate-bounce duration-[4000ms]">
+                 <div className="absolute -bottom-5 -left-5 p-4 bg-zinc-900 border border-white/10 rounded-2xl shadow-xl animate-bounce duration-[4000ms]">
                    <MessageCircle className="h-8 w-8 text-purple-500" />
                  </div>
                </motion.div>
@@ -86,29 +86,29 @@ export default function SocialMediaOptimization() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 border-t border-white/10 pt-12">
             <div>
               <div className="text-5xl font-bold font-heading mb-2">80%</div>
-              <div className="text-muted-foreground">Increase in brand visibility</div>
+              <div className="text-zinc-400">Increase in brand visibility</div>
             </div>
             <div>
               <div className="text-5xl font-bold font-heading mb-2">5x</div>
-              <div className="text-muted-foreground">Growth in social traffic</div>
+              <div className="text-zinc-400">Growth in social traffic</div>
             </div>
             <div>
               <div className="text-5xl font-bold font-heading mb-2">75%</div>
-              <div className="text-muted-foreground">Improvement in customer retention</div>
+              <div className="text-zinc-400">Improvement in customer retention</div>
             </div>
             <div>
               <div className="text-5xl font-bold font-heading mb-2">2x</div>
-              <div className="text-muted-foreground">Lead Generation</div>
+              <div className="text-zinc-400">Lead Generation</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* 2. REDEFINED SECTION */}
-      <section className="py-24 bg-card/30 border-y border-white/5">
+      <section className="py-24 bg-white border-y border-zinc-200">
         <div className="container mx-auto px-4 md:px-8">
            <div className="max-w-4xl">
-             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">Social Engagement Redefined</h2>
+             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-zinc-900">Social Engagement Redefined</h2>
              <p className="text-xl text-muted-foreground leading-relaxed">
                Capture your audience where they spend most of their time — social media. Over 90% of your target audience is active on social media platforms like Facebook, Instagram, Twitter and YouTube. We use AI to draw attention and promote your brand effectively. We ensure maximum engagement and resonance through sentiment analysis, trend forecasting, and personalized content distribution.
              </p>
@@ -117,8 +117,8 @@ export default function SocialMediaOptimization() {
       </section>
 
       {/* 3. SERVICES GRID */}
-      <section className="py-24 container mx-auto px-4 md:px-8">
-        <h2 className="text-4xl md:text-5xl font-heading font-bold mb-16 max-w-3xl">
+      <section className="py-24 container mx-auto px-4 md:px-8 bg-zinc-50/50">
+        <h2 className="text-4xl md:text-5xl font-heading font-bold mb-16 max-w-3xl text-zinc-900">
           The Social Media Magic Happens with Our Tailored Services
         </h2>
         
@@ -172,17 +172,17 @@ export default function SocialMediaOptimization() {
       </section>
 
       {/* 4. INDUSTRIES */}
-      <section className="py-24 bg-card/30 border-y border-white/5">
+      <section className="py-24 bg-zinc-950 text-white section-black border-y border-white/10">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex justify-between items-center mb-12">
             <h2 className="text-3xl md:text-5xl font-heading font-bold max-w-2xl">
               No Matter Which Industry You Belong to, We've Got You Covered
             </h2>
             <div className="hidden md:flex gap-4">
-              <Button variant="outline" size="icon" className="rounded-full border-white/10">
+              <Button variant="outline" size="icon" className="rounded-full border-white/10 bg-white/5 hover:bg-white/10 text-white">
                 <ArrowRight className="h-5 w-5 rotate-180" />
               </Button>
-              <Button variant="outline" size="icon" className="rounded-full border-white/10">
+              <Button variant="outline" size="icon" className="rounded-full border-white/10 bg-white/5 hover:bg-white/10 text-white">
                 <ArrowRight className="h-5 w-5" />
               </Button>
             </div>
@@ -209,13 +209,13 @@ export default function SocialMediaOptimization() {
       </section>
 
       {/* 5. SUCCESS STORIES */}
-      <section className="py-24 container mx-auto px-4 md:px-8">
+      <section className="py-24 container mx-auto px-4 md:px-8 bg-white">
         <div className="flex justify-between items-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-heading font-bold">
+          <h2 className="text-3xl md:text-5xl font-heading font-bold text-zinc-900">
             Some Success Stories <br/> To Inspire You
           </h2>
-          <Button variant="link" className="text-lg text-white group">
-            See all <div className="ml-2 w-8 h-8 rounded-full border border-white flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors"><ArrowRight className="h-4 w-4" /></div>
+          <Button variant="link" className="text-lg text-primary group">
+            See all <div className="ml-2 w-8 h-8 rounded-full border border-primary/20 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors"><ArrowRight className="h-4 w-4" /></div>
           </Button>
         </div>
 
@@ -239,39 +239,39 @@ export default function SocialMediaOptimization() {
       </section>
 
       {/* 6. FAQ */}
-      <section className="py-24 bg-card/30 border-t border-white/5">
+      <section className="py-24 bg-zinc-950 text-white section-black border-t border-white/10">
         <div className="container mx-auto px-4 md:px-8 flex flex-col lg:flex-row gap-16">
           <div className="lg:w-1/3">
             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">
               Frequently Asked Questions (FAQs)
             </h2>
-            <p className="text-muted-foreground">
+            <p className="text-zinc-400">
               As a leading digital marketing agency, we are dedicated to providing comprehensive educational resources and answering frequently asked questions to help our clients.
             </p>
           </div>
           <div className="lg:w-2/3">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1" className="border-b border-white/10">
-                <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-primary py-6">
+                <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-primary py-6 text-white">
                   How AI-powered SMO by Miraki Digital can help us
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6">
+                <AccordionContent className="text-zinc-400 pb-6">
                   AI-powered SMO by Miraki Digital harnesses advanced algorithms to analyze data, optimize content, and target audiences with precision, maximizing engagement and growth.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2" className="border-b border-white/10">
-                <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-primary py-6">
+                <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-primary py-6 text-white">
                   How can AI-fueled SMO strategies help drive success?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6">
+                <AccordionContent className="text-zinc-400 pb-6">
                   AI-fueled strategies allow for real-time trend analysis, predictive engagement modeling, and automated content personalization, ensuring your brand stays ahead of the curve and resonates with your audience instantly.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3" className="border-b border-white/10">
-                <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-primary py-6">
+                <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-primary py-6 text-white">
                   What makes Miraki Digital's SMO services different?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6">
+                <AccordionContent className="text-zinc-400 pb-6">
                   We blend creative storytelling with data-driven AI insights. We don't just post content; we engineer viral moments and build lasting communities through strategic, algorithm-friendly engagement tactics.
                 </AccordionContent>
               </AccordionItem>
