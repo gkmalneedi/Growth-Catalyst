@@ -102,16 +102,16 @@
   
   /* Override text colors for dark mode consistency */
   .text-zinc-900, .text-zinc-800 {
-    @apply text-white !important;
+    @apply !text-white;
   }
   
   .text-muted-foreground {
-    @apply text-white/60 !important;
+    @apply !text-white/60;
   }
   
   /* Cards need to be glass in this new dark theme */
   .bg-white {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 !important;
+    @apply !bg-white/5 !backdrop-blur-md !border !border-white/10;
   }
   
   h1, h2, h3, h4, h5, h6 {
