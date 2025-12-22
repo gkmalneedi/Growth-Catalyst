@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: "Inter", sans-serif;
+  --font-sans: "DM Sans", "Inter", sans-serif;
   --font-heading: "Space Grotesk", sans-serif;
 
   --radius-sm: calc(var(--radius) - 4px);
