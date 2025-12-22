@@ -78,6 +78,9 @@ export default function Home() {
                   delay: 2000,
                 }),
               ]}
+              opts={{
+                loop: true,
+              }}
               className="w-full"
             >
               <CarouselContent>
