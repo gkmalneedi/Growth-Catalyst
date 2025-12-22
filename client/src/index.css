@@ -41,33 +41,33 @@
 
 @layer base {
   :root {
-    /* Light Mode by Default Aesthetics */
-    --background: 0 0% 100%;
-    --foreground: 240 10% 4%;
+    /* Miraki-inspired Dark Theme Aesthetics */
+    --background: 260 30% 8%; /* Deep Dark Purple/Black Base */
+    --foreground: 0 0% 100%;
     
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 4%;
+    --card: 260 25% 12%;
+    --card-foreground: 0 0% 100%;
     
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 4%;
+    --popover: 260 30% 8%;
+    --popover-foreground: 0 0% 100%;
     
     --primary: 290 85% 60%; /* Vibrant Pink/Purple */
     --primary-foreground: 0 0% 100%;
     
-    --secondary: 240 5% 96%;
-    --secondary-foreground: 240 10% 4%;
+    --secondary: 260 20% 15%;
+    --secondary-foreground: 0 0% 100%;
     
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
+    --muted: 260 20% 15%;
+    --muted-foreground: 260 10% 65%;
     
     --accent: 290 85% 60%;
     --accent-foreground: 0 0% 100%;
     
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     
-    --border: 240 5% 90%;
-    --input: 240 5% 90%;
+    --border: 260 20% 20%;
+    --input: 260 20% 20%;
     --ring: 290 85% 60%;
     
     --radius: 0.5rem;
@@ -79,34 +79,39 @@
     --chart-5: 10 100% 60%;
   }
 
-  /* Force light mode styles on everything essentially */
+  /* Force dark mode styles on everything essentially */
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    /* Balanced white background with very subtle gradient for depth */
-    background: linear-gradient(to bottom, #ffffff, #fcfcfc); 
+    /* Miraki-style Deep Gradient Background */
+    background: linear-gradient(135deg, #130f25 0%, #050505 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
   }
   
-  /* Sections styling - Replaced flat black with Miraki-style deep rich gradient */
+  /* Sections styling - Transparent to let body gradient show, or subtle variations */
   .section-black {
-    @apply text-white border-y border-white/10;
-    /* Deep violet to black gradient for a premium, balanced look */
-    background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 60%, #000000 100%);
-    position: relative;
-  }
-
-  /* Add a subtle noise texture to dark sections for "balance" */
-  .section-black::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
+    @apply text-white border-y border-white/5;
+    background: transparent; /* Let the global gradient shine through */
   }
   
-  .section-black > * {
-    position: relative;
-    z-index: 1;
+  /* Light sections now become glass/dark sections to match the theme */
+  section.bg-white, section.bg-zinc-50, section.bg-zinc-950 {
+    background: transparent !important;
+    @apply border-y border-white/5;
+  }
+  
+  /* Override text colors for dark mode consistency */
+  .text-zinc-900, .text-zinc-800 {
+    @apply text-white !important;
+  }
+  
+  .text-muted-foreground {
+    @apply text-white/60 !important;
+  }
+  
+  /* Cards need to be glass in this new dark theme */
+  .bg-white {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 !important;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -116,11 +121,11 @@
 
 @layer utilities {
   .glass {
-    @apply bg-background/60 backdrop-blur-md border border-zinc-200;
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
   }
   
   .glass-card {
-    @apply bg-white/50 backdrop-blur-sm border border-zinc-200 hover:border-primary/50 transition-colors;
+    @apply bg-white/5 backdrop-blur-sm border border-white/10 hover:border-primary/50 transition-colors;
   }
 
   .glass-card-dark {
@@ -128,7 +133,7 @@
   }
 
   .text-glow {
-    text-shadow: 0 0 20px hsla(290, 85%, 60%, 0.3);
+    text-shadow: 0 0 20px hsla(290, 85%, 60%, 0.5);
   }
   
   .container-padding {
