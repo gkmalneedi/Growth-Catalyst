@@ -16,6 +16,7 @@ import SocialMediaOptimization from "@/pages/services/SocialMediaOptimization";
 import Blogs from "@/pages/resources/Blogs";
 import CaseStudies from "@/pages/resources/CaseStudies";
 import PressRelease from "@/pages/resources/PressRelease";
+import ResourceDetail from "@/pages/resources/ResourceDetail";
 
 function Router() {
   return (
@@ -39,6 +40,11 @@ function Router() {
       <Route path="/resources/blogs" component={Blogs} />
       <Route path="/resources/case-studies" component={CaseStudies} />
       <Route path="/resources/press-release" component={PressRelease} />
+
+      {/* Resource Details Routes */}
+      <Route path="/resources/blogs/:slug" component={ResourceDetail} />
+      <Route path="/resources/case-studies/:slug" component={ResourceDetail} />
+      <Route path="/resources/press-release/:slug" component={ResourceDetail} />
       
       {/* Resources Sub-routes fallback */}
       <Route path="/resources/:slug" component={PlaceholderPage} />

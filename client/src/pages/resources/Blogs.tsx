@@ -3,72 +3,10 @@ import { Footer } from "@/components/layout/Footer";
 import { LazyImage } from "@/components/ui/lazy-image";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar, Clock, User, Tag } from "lucide-react";
+import { ArrowRight, Calendar, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-
-const blogs = [
-  {
-    title: 'The Rise of AI in Digital Marketing',
-    slug: '#',
-    category: 'AI & Tech',
-    description: 'How artificial intelligence is reshaping the landscape of digital marketing and customer engagement.',
-    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000',
-    createdAt: 'Aug 25, 2025',
-    author: 'Nexus Team',
-    readTime: '7 min read',
-    featured: true
-  },
-  {
-    title: 'Optimizing for Voice Search in 2025',
-    slug: '#',
-    category: 'SEO',
-    description: 'With smart speakers on the rise, learn how to optimize your content for voice search queries.',
-    image: 'https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&q=80&w=1000',
-    createdAt: 'Jul 14, 2025',
-    author: 'Sarah Johnson',
-    readTime: '5 min read',
-  },
-  {
-    title: 'The Power of Personalization',
-    slug: '#',
-    category: 'Strategy',
-    description: 'Why generic marketing is dying and how hyper-personalization drives conversion rates.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000',
-    createdAt: 'Jun 30, 2025',
-    author: 'David Chen',
-    readTime: '6 min read',
-  },
-  {
-    title: 'Video Marketing Trends to Watch',
-    slug: '#',
-    category: 'Content',
-    description: 'Short-form video is king. Discover how to leverage TikTok and Reels for your brand.',
-    image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=1000',
-    createdAt: 'Jun 18, 2025',
-    author: 'Emma Wilson',
-    readTime: '8 min read',
-  },
-  {
-    title: 'Building a Sustainable Brand',
-    slug: '#',
-    category: 'Branding',
-    description: 'Consumers care about ethics. How to build a brand that stands for more than just profit.',
-    image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb7d5fa5?auto=format&fit=crop&q=80&w=1000',
-    createdAt: 'May 20, 2025',
-    author: 'Michael Brown',
-    readTime: '4 min read',
-  },
-  {
-    title: 'Data Privacy in the Digital Age',
-    slug: '#',
-    category: 'Privacy',
-    description: 'Navigating the complex world of data privacy regulations while still delivering personalized experiences.',
-    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000',
-    createdAt: 'May 02, 2025',
-    author: 'Lisa Wang',
-    readTime: '9 min read',
-  }
-];
+import { Link } from "wouter";
+import { blogs } from "@/lib/mockData";
 
 export default function Blogs() {
   const featuredPost = blogs.find(b => b.featured) || blogs[0];
@@ -101,11 +39,12 @@ export default function Blogs() {
       {/* Featured Post */}
       <section className="px-4 md:px-8 pb-20">
         <div className="container mx-auto max-w-7xl">
+          <Link href={`/resources/blogs/${featuredPost.slug}`}>
           <motion.div 
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="group relative grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-white/5 border border-white/10 rounded-3xl p-6 md:p-10 hover:border-white/20 transition-all duration-500 overflow-hidden"
+            className="group relative grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-white/5 border border-white/10 rounded-3xl p-6 md:p-10 hover:border-white/20 transition-all duration-500 overflow-hidden cursor-pointer"
           >
             {/* Background Glow */}
             <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -154,6 +93,7 @@ export default function Blogs() {
               </div>
             </div>
           </motion.div>
+          </Link>
         </div>
       </section>
 
@@ -182,13 +122,13 @@ export default function Blogs() {
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {otherPosts.map((post, i) => (
+              <Link href={`/resources/blogs/${post.slug}`} key={i}>
               <motion.div
-                key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="group flex flex-col bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 h-full"
+                className="group flex flex-col bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 h-full cursor-pointer"
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                    <div className="absolute top-4 left-4 z-10">
@@ -225,6 +165,7 @@ export default function Blogs() {
                   </div>
                 </div>
               </motion.div>
+              </Link>
             ))}
           </div>
           
