@@ -31,13 +31,32 @@ const serviceImages: Record<string, string> = {
   "video-production": videoImg,
 };
 
+// Define types for the service benefits and process
+interface Benefit {
+  title: string;
+  desc: string;
+}
+
+interface ProcessStep {
+  title: string;
+  desc: string;
+}
+
+interface Service {
+  title: string;
+  href: string;
+  description: string;
+  benefits?: Benefit[];
+  process?: ProcessStep[];
+}
+
 export default function ServiceTemplate() {
   const [location] = useLocation();
   const slug = location.split("/services/")[1];
-  const service = servicesList.find(s => s.href === location) || { 
+  const service = (servicesList.find(s => s.href === location) || { 
     title: "Service Not Found", 
     description: "The requested service could not be found." 
-  };
+  }) as Service;
   
   const heroImage = serviceImages[slug] || automationImg; // Fallback image
 
@@ -122,33 +141,48 @@ export default function ServiceTemplate() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-8 rounded-2xl bg-background border border-white/10 hover:border-blue-500/50 transition-colors group">
-              <div className="h-12 w-12 rounded-lg bg-blue-500/10 flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
-                <BarChart className="h-6 w-6 text-blue-500" />
+            {service.benefits?.map((benefit, index) => (
+              <div key={index} className="p-8 rounded-2xl bg-background border border-white/10 hover:border-blue-500/50 transition-colors group">
+                <div className="h-12 w-12 rounded-lg bg-blue-500/10 flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
+                  <BarChart className="h-6 w-6 text-blue-500" />
+                </div>
+                <h3 className="text-xl font-bold font-heading mb-3">{benefit.title}</h3>
+                <p className="text-muted-foreground">
+                  {benefit.desc}
+                </p>
               </div>
-              <h3 className="text-xl font-bold font-heading mb-3">Data-Driven Strategy</h3>
-              <p className="text-muted-foreground">
-                Every campaign is built on solid analytics and real-time performance data to ensure maximum ROI.
-              </p>
-            </div>
-            <div className="p-8 rounded-2xl bg-background border border-white/10 hover:border-purple-500/50 transition-colors group">
-              <div className="h-12 w-12 rounded-lg bg-purple-500/10 flex items-center justify-center mb-6 group-hover:bg-purple-500/20 transition-colors">
-                <Users className="h-6 w-6 text-purple-500" />
-              </div>
-              <h3 className="text-xl font-bold font-heading mb-3">Audience Centric</h3>
-              <p className="text-muted-foreground">
-                We create personalized experiences that resonate deeply with your specific target audience segments.
-              </p>
-            </div>
-            <div className="p-8 rounded-2xl bg-background border border-white/10 hover:border-pink-500/50 transition-colors group">
-              <div className="h-12 w-12 rounded-lg bg-pink-500/10 flex items-center justify-center mb-6 group-hover:bg-pink-500/20 transition-colors">
-                <Globe className="h-6 w-6 text-pink-500" />
-              </div>
-              <h3 className="text-xl font-bold font-heading mb-3">Global Scalability</h3>
-              <p className="text-muted-foreground">
-                Whether you're local or global, our solutions are architected to scale effortlessly with your business.
-              </p>
-            </div>
+            )) || (
+              // Fallback if no specific benefits found
+              <>
+                 <div className="p-8 rounded-2xl bg-background border border-white/10 hover:border-blue-500/50 transition-colors group">
+                  <div className="h-12 w-12 rounded-lg bg-blue-500/10 flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
+                    <BarChart className="h-6 w-6 text-blue-500" />
+                  </div>
+                  <h3 className="text-xl font-bold font-heading mb-3">Data-Driven Strategy</h3>
+                  <p className="text-muted-foreground">
+                    Every campaign is built on solid analytics and real-time performance data to ensure maximum ROI.
+                  </p>
+                </div>
+                <div className="p-8 rounded-2xl bg-background border border-white/10 hover:border-purple-500/50 transition-colors group">
+                  <div className="h-12 w-12 rounded-lg bg-purple-500/10 flex items-center justify-center mb-6 group-hover:bg-purple-500/20 transition-colors">
+                    <Users className="h-6 w-6 text-purple-500" />
+                  </div>
+                  <h3 className="text-xl font-bold font-heading mb-3">Audience Centric</h3>
+                  <p className="text-muted-foreground">
+                    We create personalized experiences that resonate deeply with your specific target audience segments.
+                  </p>
+                </div>
+                <div className="p-8 rounded-2xl bg-background border border-white/10 hover:border-pink-500/50 transition-colors group">
+                  <div className="h-12 w-12 rounded-lg bg-pink-500/10 flex items-center justify-center mb-6 group-hover:bg-pink-500/20 transition-colors">
+                    <Globe className="h-6 w-6 text-pink-500" />
+                  </div>
+                  <h3 className="text-xl font-bold font-heading mb-3">Global Scalability</h3>
+                  <p className="text-muted-foreground">
+                    Whether you're local or global, our solutions are architected to scale effortlessly with your business.
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -162,12 +196,12 @@ export default function ServiceTemplate() {
                  Our Execution Framework
                </h2>
                <div className="space-y-8">
-                 {[
+                 {(service.process || [
                    { title: "Discovery & Audit", desc: "We analyze your current state and identify opportunities." },
                    { title: "Strategy Formulation", desc: "We craft a bespoke roadmap tailored to your KPIs." },
                    { title: "Implementation", desc: "Our experts execute the plan with precision and agility." },
                    { title: "Optimization", desc: "Continuous monitoring and refinement for peak performance." }
-                 ].map((step, i) => (
+                 ]).map((step, i) => (
                    <div key={i} className="flex gap-4">
                      <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm border border-primary/20">
                        {i + 1}
