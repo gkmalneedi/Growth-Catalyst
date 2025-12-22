@@ -12,12 +12,18 @@ import ServiceTemplate from "@/pages/ServiceTemplate";
 import IndustryTemplate from "@/pages/IndustryTemplate";
 import Portfolio from "@/pages/Portfolio";
 import AdminDashboard from "@/pages/Admin";
+import SocialMediaOptimization from "@/pages/services/SocialMediaOptimization";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/services" component={ServicesPage} />
+      
+      {/* Specific Service Pages */}
+      <Route path="/services/social-media-marketing" component={SocialMediaOptimization} />
+      
+      {/* Generic Service Template for others */}
       <Route path="/services/:slug" component={ServiceTemplate} />
       <Route path="/industries/:slug" component={IndustryTemplate} />
       
