@@ -10,6 +10,7 @@ import ProposalPage from "@/pages/Proposal";
 import PlaceholderPage from "@/pages/Placeholder";
 import ServiceTemplate from "@/pages/ServiceTemplate";
 import IndustryTemplate from "@/pages/IndustryTemplate";
+import Portfolio from "@/pages/Portfolio";
 import AdminDashboard from "@/pages/Admin";
 
 function Router() {
@@ -23,8 +24,12 @@ function Router() {
       <Route path="/proposal" component={ProposalPage} />
       <Route path="/admin" component={AdminDashboard} />
       
+      <Route path="/portfolio" component={Portfolio} />
+      
+      {/* Resources Sub-routes routed to Placeholder for now */}
+      <Route path="/resources/:slug" component={PlaceholderPage} />
+
       {/* Placeholder Pages */}
-      <Route path="/portfolio" component={PlaceholderPage} />
       <Route path="/resources" component={PlaceholderPage} />
       <Route path="/about" component={PlaceholderPage} />
       <Route path="/contact" component={PlaceholderPage} />

@@ -12,7 +12,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { servicesList, industriesList } from "@/lib/data";
+import { servicesList, industriesList, resourcesList } from "@/lib/data";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -101,12 +101,27 @@ export function Navbar() {
                 </Link>
               </NavigationMenuItem>
               
+              {/* Resources Dropdown */}
               <NavigationMenuItem>
-                <Link href="/resources">
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-muted-foreground hover:text-primary hover:bg-transparent")}>
-                    Resources
-                  </NavigationMenuLink>
-                </Link>
+                <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:text-primary hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent">
+                  Resources
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 bg-popover/95 backdrop-blur-xl border border-white/10 rounded-xl">
+                    {resourcesList.map((resource) => (
+                      <li key={resource.title}>
+                        <Link href={resource.href}>
+                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                            <div className="text-sm font-medium leading-none">{resource.title}</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              {resource.description}
+                            </p>
+                          </a>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
@@ -180,14 +195,27 @@ export function Navbar() {
                 ))}
               </div>
             </div>
-
+            
             <div className="grid grid-cols-1 gap-1">
                <Link href="/portfolio">
                  <a className="block p-2 text-lg font-medium hover:bg-white/5 rounded-lg" onClick={() => setIsOpen(false)}>Portfolio</a>
                </Link>
-               <Link href="/resources">
-                 <a className="block p-2 text-lg font-medium hover:bg-white/5 rounded-lg" onClick={() => setIsOpen(false)}>Resources</a>
-               </Link>
+            </div>
+
+            <div>
+              <h4 className="text-sm font-bold text-muted-foreground uppercase mb-2 px-2">Resources</h4>
+              <div className="grid grid-cols-1 gap-1">
+                {resourcesList.map((item) => (
+                  <Link key={item.title} href={item.href}>
+                    <a className="block p-2 text-lg hover:bg-white/5 rounded-lg" onClick={() => setIsOpen(false)}>
+                      {item.title}
+                    </a>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-1">
                <Link href="/about">
                  <a className="block p-2 text-lg font-medium hover:bg-white/5 rounded-lg" onClick={() => setIsOpen(false)}>About Us</a>
                </Link>

@@ -58,3 +58,21 @@ export const industriesList = [
   { title: "Fintech", href: "/industries/fintech", icon: "banknote" },
   { title: "Agriculture", href: "/industries/agriculture", icon: "sprout" },
 ];
+
+export const resourcesList = [
+  { 
+    title: "Blogs", 
+    href: "/resources/blogs", 
+    description: "Insights and trends from the digital world." 
+  },
+  { 
+    title: "Case Studies", 
+    href: "/resources/case-studies", 
+    description: "Real success stories and proven results." 
+  },
+  { 
+    title: "Press Release", 
+    href: "/resources/press-release", 
+    description: "Latest news and announcements from Nexus." 
+  },
+];
