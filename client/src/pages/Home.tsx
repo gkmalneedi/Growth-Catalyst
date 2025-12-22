@@ -63,15 +63,55 @@ export default function Home() {
       </section>
 
       {/* 2. TRUSTED BY / PARTNERS */}
-      <section className="py-20 border-y border-white/10 bg-white/5 backdrop-blur-sm">
-        <div className="container mx-auto px-4 md:px-8">
-          <h2 className="text-center text-muted-foreground text-lg mb-10 font-medium tracking-wide uppercase">
+      <section className="py-20 border-y border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden">
+        <div className="container mx-auto px-4 md:px-8 mb-10">
+          <h2 className="text-center text-muted-foreground text-lg font-medium tracking-wide uppercase">
             A Trusted Digital Growth Companion For Startups, Scale-ups & Enterprises
           </h2>
-          <div className="flex flex-wrap justify-center gap-10 md:gap-20 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-             {/* Placeholder Logos - In a real app these would be SVGs */}
-             {["Govt of India", "IDBI Bank", "Philips", "EuroArt", "TechMahindra", "Accenture"].map((logo, i) => (
-               <div key={i} className="text-xl md:text-2xl font-bold font-heading text-white/80 hover:text-white transition-colors">{logo}</div>
+        </div>
+        
+        {/* Infinite Slider */}
+        <div className="relative flex overflow-x-hidden group">
+          <div className="flex animate-marquee whitespace-nowrap gap-20 items-center">
+             {[
+               "Govt of India", "IDBI Bank", "Philips", "EuroArt", "TechMahindra", "Accenture", 
+               "Google", "Amazon", "Microsoft", "Netflix", "Spotify", "Uber", "Airbnb", 
+               "Tesla", "Samsung", "Sony", "LG", "HP", "Dell", "Intel"
+             ].map((logo, i) => (
+               <div key={i} className="text-xl md:text-3xl font-bold font-heading text-white/50 hover:text-white transition-colors duration-300 mx-4 cursor-default select-none">
+                 {logo}
+               </div>
+             ))}
+             {/* Duplicated for seamless loop */}
+             {[
+               "Govt of India", "IDBI Bank", "Philips", "EuroArt", "TechMahindra", "Accenture", 
+               "Google", "Amazon", "Microsoft", "Netflix", "Spotify", "Uber", "Airbnb", 
+               "Tesla", "Samsung", "Sony", "LG", "HP", "Dell", "Intel"
+             ].map((logo, i) => (
+               <div key={`dup-${i}`} className="text-xl md:text-3xl font-bold font-heading text-white/50 hover:text-white transition-colors duration-300 mx-4 cursor-default select-none">
+                 {logo}
+               </div>
+             ))}
+          </div>
+          
+          <div className="absolute top-0 flex animate-marquee2 whitespace-nowrap gap-20 items-center">
+             {[
+               "Govt of India", "IDBI Bank", "Philips", "EuroArt", "TechMahindra", "Accenture", 
+               "Google", "Amazon", "Microsoft", "Netflix", "Spotify", "Uber", "Airbnb", 
+               "Tesla", "Samsung", "Sony", "LG", "HP", "Dell", "Intel"
+             ].map((logo, i) => (
+               <div key={`dup2-${i}`} className="text-xl md:text-3xl font-bold font-heading text-white/50 hover:text-white transition-colors duration-300 mx-4 cursor-default select-none">
+                 {logo}
+               </div>
+             ))}
+             {[
+               "Govt of India", "IDBI Bank", "Philips", "EuroArt", "TechMahindra", "Accenture", 
+               "Google", "Amazon", "Microsoft", "Netflix", "Spotify", "Uber", "Airbnb", 
+               "Tesla", "Samsung", "Sony", "LG", "HP", "Dell", "Intel"
+             ].map((logo, i) => (
+               <div key={`dup3-${i}`} className="text-xl md:text-3xl font-bold font-heading text-white/50 hover:text-white transition-colors duration-300 mx-4 cursor-default select-none">
+                 {logo}
+               </div>
              ))}
           </div>
         </div>
