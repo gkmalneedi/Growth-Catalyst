@@ -1,76 +1,195 @@
-import { BlogSection } from "@/components/ui/blog-section";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { LazyImage } from "@/components/ui/lazy-image";
+import { Button } from "@/components/ui/button";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, TrendingUp, Users, Target, BarChart2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { useRef } from "react";
 
 const caseStudies = [
   {
-    title: 'Fintech Revolution: scaling User Base by 300%',
-    slug: '#',
-    description: 'How we helped a fintech startup acquire 100k users in 6 months through targeted paid acquisition.',
+    title: 'Fintech Revolution: Scaling User Base by 300%',
+    client: 'FinTech Co',
+    category: 'Growth Marketing',
+    stats: [
+      { label: 'User Growth', value: '300%' },
+      { label: 'CAC Reduction', value: '45%' }
+    ],
+    description: 'How we helped a fintech startup acquire 100k users in 6 months through targeted paid acquisition and viral loop engineering.',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000',
-    createdAt: '2025-08-10',
-    author: 'Nexus Strategy',
-    readTime: 'Case Study',
+    color: 'from-blue-500 to-cyan-400'
   },
   {
-    title: 'E-commerce Redesign: Boosting Conversion by 45%',
-    slug: '#',
-    description: 'A complete UI/UX overhaul for a fashion retailer that resulted in record-breaking holiday sales.',
+    title: 'E-commerce Redesign: Boosting Conversion',
+    client: 'FashionNova',
+    category: 'UI/UX Design',
+    stats: [
+      { label: 'Conversion Rate', value: '+45%' },
+      { label: 'Cart Abandonment', value: '-20%' }
+    ],
+    description: 'A complete UI/UX overhaul for a fashion retailer that resulted in record-breaking holiday sales and improved mobile checkout flow.',
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1000',
-    createdAt: '2025-07-22',
-    author: 'Nexus Design',
-    readTime: 'Case Study',
+    color: 'from-purple-500 to-pink-500'
   },
   {
-    title: 'Healthcare SEO: dominating Local Search',
-    slug: '#',
-    description: 'Helping a network of clinics rank #1 for high-value keywords in competitive metropolitan areas.',
+    title: 'Healthcare SEO: Dominating Local Search',
+    client: 'MediCare Plus',
+    category: 'SEO',
+    stats: [
+      { label: 'Organic Traffic', value: '10x' },
+      { label: 'Keyword Rank', value: '#1' }
+    ],
+    description: 'Helping a network of clinics rank #1 for high-value keywords in competitive metropolitan areas through technical SEO and content clustering.',
     image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1000',
-    createdAt: '2025-06-15',
-    author: 'Nexus SEO',
-    readTime: 'Case Study',
+    color: 'from-emerald-500 to-teal-400'
   },
   {
     title: 'SaaS B2B Lead Gen: Automating the Funnel',
-    slug: '#',
-    description: 'Implementing HubSpot automation to nurture leads and shorten the sales cycle for an enterprise SaaS.',
+    client: 'CloudScale',
+    category: 'Automation',
+    stats: [
+      { label: 'Lead Quality', value: 'A+' },
+      { label: 'Sales Cycle', value: '-30%' }
+    ],
+    description: 'Implementing HubSpot automation to nurture leads and shorten the sales cycle for an enterprise SaaS provider.',
     image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80&w=1000',
-    createdAt: '2025-05-28',
-    author: 'Nexus Automation',
-    readTime: 'Case Study',
-  },
-  {
-    title: 'Educational EdTech: Viral Social Campaign',
-    slug: '#',
-    description: 'Creating a student-centric social media campaign that generated 5M+ impressions organically.',
-    image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=1000',
-    createdAt: '2025-04-10',
-    author: 'Nexus Social',
-    readTime: 'Case Study',
-  },
-  {
-    title: 'Real Estate Branding: Launching a Luxury Development',
-    slug: '#',
-    description: 'End-to-end brand identity and digital launch for a premium residential tower in Dubai.',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1000',
-    createdAt: '2025-03-05',
-    author: 'Nexus Branding',
-    readTime: 'Case Study',
+    color: 'from-orange-500 to-amber-400'
   }
 ];
 
 export default function CaseStudies() {
+  const containerRef = useRef(null);
+  
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div ref={containerRef} className="min-h-screen bg-zinc-950 text-white selection:bg-primary/30">
       <Navbar />
-      <main className="flex-grow pt-24 pb-12">
-        <BlogSection 
-          title="Case Studies" 
-          description="Real results, real growth. See how we've transformed businesses across industries."
-          posts={caseStudies}
-        />
-      </main>
+      
+      {/* Hero Section */}
+      <section className="relative pt-40 pb-32 px-4 md:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-zinc-950/50 to-zinc-950 pointer-events-none" />
+        
+        <div className="container mx-auto max-w-7xl relative z-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+             <Badge variant="outline" className="mb-6 px-4 py-2 border-white/10 text-zinc-300 text-sm font-normal tracking-widest uppercase">
+               Proven Results
+             </Badge>
+             <h1 className="text-6xl md:text-9xl font-heading font-bold mb-8 tracking-tighter">
+               Our <span className="text-transparent bg-clip-text bg-gradient-to-br from-white to-zinc-600">Impact</span>
+             </h1>
+             <p className="text-xl md:text-2xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
+               We don't just promise growth. We engineer it. Explore how we've transformed businesses through data-driven strategies and creative excellence.
+             </p>
+          </motion.div>
+          
+          <div className="mt-16 flex justify-center gap-12 text-center">
+            {[
+              { label: 'Revenue Generated', value: '$50M+' },
+              { label: 'Users Acquired', value: '2M+' },
+              { label: 'Awards Won', value: '15+' }
+            ].map((stat, i) => (
+              <div key={i} className="flex flex-col">
+                <span className="text-3xl md:text-5xl font-bold font-heading text-white">{stat.value}</span>
+                <span className="text-sm text-zinc-500 uppercase tracking-wider mt-2">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Case Studies List */}
+      <section className="px-4 md:px-8 pb-32">
+        <div className="container mx-auto max-w-7xl space-y-32">
+          {caseStudies.map((study, i) => (
+            <CaseStudyItem key={i} study={study} index={i} />
+          ))}
+        </div>
+        
+        <div className="mt-32 text-center">
+          <h2 className="text-3xl md:text-5xl font-heading font-bold mb-8">Ready to write your success story?</h2>
+          <Button size="lg" className="rounded-full h-16 px-12 text-lg bg-white text-black hover:bg-white/90">
+            Start a Project <ArrowRight className="ml-2" />
+          </Button>
+        </div>
+      </section>
+
       <Footer />
     </div>
+  );
+}
+
+function CaseStudyItem({ study, index }: { study: any, index: number }) {
+  const isEven = index % 2 === 0;
+  
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.8 }}
+      className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-20 items-center group`}
+    >
+      {/* Image Side */}
+      <div className="w-full lg:w-3/5">
+        <div className="relative rounded-3xl overflow-hidden aspect-[4/3] group-hover:shadow-2xl group-hover:shadow-primary/10 transition-all duration-500">
+           <div className={`absolute inset-0 bg-gradient-to-br ${study.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500 mix-blend-overlay z-10`} />
+           <LazyImage 
+             src={study.image} 
+             alt={study.title} 
+             ratio={4/3}
+             className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105"
+           />
+           
+           {/* Floating Stats Card */}
+           <div className={`absolute bottom-6 ${isEven ? 'right-6' : 'left-6'} bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl z-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100`}>
+             <div className="flex gap-8">
+               {study.stats.map((stat: any, i: number) => (
+                 <div key={i}>
+                   <div className="text-2xl font-bold text-white">{stat.value}</div>
+                   <div className="text-xs text-zinc-300 uppercase tracking-wider">{stat.label}</div>
+                 </div>
+               ))}
+             </div>
+           </div>
+        </div>
+      </div>
+      
+      {/* Content Side */}
+      <div className="w-full lg:w-2/5 space-y-8">
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+             <span className="text-primary font-bold tracking-widest uppercase text-sm">{study.client}</span>
+             <span className="w-1 h-1 rounded-full bg-zinc-600" />
+             <span className="text-zinc-400 text-sm">{study.category}</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-heading font-bold leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-zinc-400 transition-all">
+            {study.title}
+          </h2>
+        </div>
+        
+        <p className="text-xl text-zinc-400 leading-relaxed">
+          {study.description}
+        </p>
+        
+        <ul className="space-y-4 pt-4">
+           {['Strategy', 'Execution', 'Optimization'].map((item, i) => (
+             <li key={i} className="flex items-center gap-3 text-zinc-300">
+               <div className="w-6 h-6 rounded-full border border-white/20 flex items-center justify-center text-[10px] text-zinc-500 group-hover:border-primary group-hover:text-primary transition-colors">
+                 {i + 1}
+               </div>
+               {item} Phase
+             </li>
+           ))}
+        </ul>
+        
+        <Button variant="link" className="p-0 h-auto text-lg text-white hover:text-primary transition-colors group/btn">
+          View Case Study <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover/btn:translate-x-2" />
+        </Button>
+      </div>
+    </motion.div>
   );
 }
