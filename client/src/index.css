@@ -82,13 +82,31 @@
   /* Force light mode styles on everything essentially */
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    /* Clean white background, no gradients for the main body */
-    background: white; 
+    /* Balanced white background with very subtle gradient for depth */
+    background: linear-gradient(to bottom, #ffffff, #fcfcfc); 
   }
   
-  /* Sections styling - Black background utility class */
+  /* Sections styling - Replaced flat black with Miraki-style deep rich gradient */
   .section-black {
-    @apply bg-zinc-950 text-white border-y border-white/10;
+    @apply text-white border-y border-white/10;
+    /* Deep violet to black gradient for a premium, balanced look */
+    background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 60%, #000000 100%);
+    position: relative;
+  }
+
+  /* Add a subtle noise texture to dark sections for "balance" */
+  .section-black::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  .section-black > * {
+    position: relative;
+    z-index: 1;
   }
   
   h1, h2, h3, h4, h5, h6 {
