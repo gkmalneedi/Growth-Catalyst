@@ -53,8 +53,8 @@ export default function Home() {
             
             <div className="flex justify-center mt-10">
               <Link href="/contact">
-                <Button size="lg" className="rounded-full h-16 px-10 text-xl bg-white text-black hover:bg-white/90 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:scale-105 transition-all duration-300">
-                  Let's Connect <ArrowRight className="ml-2 h-6 w-6" />
+                <Button size="lg" className="rounded-full h-16 px-10 text-xl bg-solid-white hover:bg-white/90 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:scale-105 transition-all duration-300 group">
+                  Let's Connect <ArrowRight className="ml-2 h-6 w-6 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
             </div>
