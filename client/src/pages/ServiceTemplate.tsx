@@ -197,8 +197,8 @@ export default function ServiceTemplate() {
       </section>
 
       {/* 3. SERVICES GRID */}
-      <section className="py-24 container mx-auto px-4 md:px-8 bg-zinc-50/50">
-        <h2 className="text-4xl md:text-5xl font-heading font-bold mb-16 max-w-3xl text-zinc-900">
+      <section className="py-24 container mx-auto px-4 md:px-8 bg-white/5 backdrop-blur-sm border-y border-white/10">
+        <h2 className="text-4xl md:text-5xl font-heading font-bold mb-16 max-w-3xl text-white">
           The {service.title} Magic Happens with Our Tailored Services
         </h2>
         
@@ -331,10 +331,10 @@ export default function ServiceTemplate() {
 function ServiceItem({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) {
   return (
     <div className="group">
-      <div className="mb-4 text-foreground/80 group-hover:text-primary transition-colors">
+      <div className="mb-4 text-white/80 group-hover:text-primary transition-colors">
         {icon}
       </div>
-      <h3 className="text-xl font-bold font-heading mb-3">{title}</h3>
+      <h3 className="text-xl font-bold font-heading mb-3 text-white">{title}</h3>
       <p className="text-muted-foreground text-sm leading-relaxed border-t border-white/10 pt-4 mt-4">
         {desc}
       </p>
