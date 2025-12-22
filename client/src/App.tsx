@@ -13,6 +13,9 @@ import IndustryTemplate from "@/pages/IndustryTemplate";
 import Portfolio from "@/pages/Portfolio";
 import AdminDashboard from "@/pages/Admin";
 import SocialMediaOptimization from "@/pages/services/SocialMediaOptimization";
+import Blogs from "@/pages/resources/Blogs";
+import CaseStudies from "@/pages/resources/CaseStudies";
+import PressRelease from "@/pages/resources/PressRelease";
 
 function Router() {
   return (
@@ -32,7 +35,12 @@ function Router() {
       
       <Route path="/portfolio" component={Portfolio} />
       
-      {/* Resources Sub-routes routed to Placeholder for now */}
+      {/* Resources Pages */}
+      <Route path="/resources/blogs" component={Blogs} />
+      <Route path="/resources/case-studies" component={CaseStudies} />
+      <Route path="/resources/press-release" component={PressRelease} />
+      
+      {/* Resources Sub-routes fallback */}
       <Route path="/resources/:slug" component={PlaceholderPage} />
 
       {/* Placeholder Pages */}
