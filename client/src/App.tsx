@@ -8,6 +8,8 @@ import Home from "@/pages/Home";
 import ServicesPage from "@/pages/Services";
 import ProposalPage from "@/pages/Proposal";
 import PlaceholderPage from "@/pages/Placeholder";
+import ServiceTemplate from "@/pages/ServiceTemplate";
+import IndustryTemplate from "@/pages/IndustryTemplate";
 import AdminDashboard from "@/pages/Admin";
 
 function Router() {
@@ -15,11 +17,13 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/services" component={ServicesPage} />
+      <Route path="/services/:slug" component={ServiceTemplate} />
+      <Route path="/industries/:slug" component={IndustryTemplate} />
+      
       <Route path="/proposal" component={ProposalPage} />
       <Route path="/admin" component={AdminDashboard} />
       
       {/* Placeholder Pages */}
-      <Route path="/industries" component={PlaceholderPage} />
       <Route path="/portfolio" component={PlaceholderPage} />
       <Route path="/resources" component={PlaceholderPage} />
       <Route path="/about" component={PlaceholderPage} />
