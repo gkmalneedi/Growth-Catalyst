@@ -5,6 +5,7 @@ import { ArrowRight, CheckCircle2, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
+import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
@@ -18,6 +19,34 @@ import creativeForceImg from "@assets/generated_images/abstract_creative_force_g
 import growthImg from "@assets/generated_images/digital_growth_rocket_graph.png";
 
 import { servicesList } from "@/lib/data";
+
+const heroSlides = [
+  {
+    title: "We're the Crusaders of",
+    highlight: "Agent Marketing",
+    subtitle: "Redefining Engagement"
+  },
+  {
+    title: "We're the Crusaders of",
+    highlight: "AI Marketing",
+    subtitle: "Redefining Engagement"
+  },
+  {
+    title: "We're the Crusaders of",
+    highlight: "Automation",
+    subtitle: "Redefining Engagement"
+  },
+  {
+    title: "We're the Crusaders of",
+    highlight: "Less Manpower",
+    subtitle: "Redefining Engagement"
+  },
+  {
+    title: "We're the Crusaders of",
+    highlight: "More ROI",
+    subtitle: "Redefining Engagement"
+  }
+];
 
 export default function Home() {
   return (
@@ -43,13 +72,28 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="max-w-5xl mx-auto"
           >
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold leading-tight mb-12">
-              We're the Crusaders of <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400">
-                AI-Powered Digital Marketing,
-              </span> <br />
-              Redefining Engagement
-            </h1>
+            <Carousel
+              plugins={[
+                Autoplay({
+                  delay: 2000,
+                }),
+              ]}
+              className="w-full"
+            >
+              <CarouselContent>
+                {heroSlides.map((slide, index) => (
+                  <CarouselItem key={index}>
+                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold leading-tight mb-12">
+                      {slide.title} <br />
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400">
+                        {slide.highlight},
+                      </span> <br />
+                      {slide.subtitle}
+                    </h1>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
             
             <div className="flex justify-center mt-12 mb-12">
               <Link href="/contact">
