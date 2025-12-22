@@ -1,18 +1,18 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, BarChart, Users, Globe, ChevronRight, Star } from "lucide-react";
+import { ArrowRight, CheckCircle2, BarChart, Users, Globe, ChevronRight, Star, Plus, Minus, MessageCircle, Megaphone, Share2, Target, Search, Smartphone } from "lucide-react";
 import { useLocation } from "wouter";
 import { servicesList } from "@/lib/data";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Card, CardContent } from "@/components/ui/card";
 
 // Import generated images
 import automationImg from "@assets/generated_images/marketing_automation_workflow_3d.png";
@@ -24,6 +24,14 @@ import whatsappImg from "@assets/generated_images/whatsapp_chat_bubble_3d.png";
 import emailImg from "@assets/generated_images/email_envelope_future_3d.png";
 import uiuxImg from "@assets/generated_images/ui_ux_interface_layers_3d.png";
 import videoImg from "@assets/generated_images/video_play_button_3d.png";
+
+// Import industry & success images
+import healthcareImg from "@assets/generated_images/doctor_holding_stethoscope_for_healthcare_industry.png";
+import educationImg from "@assets/generated_images/stack_of_books_for_education_industry.png";
+import realEstateImg from "@assets/generated_images/modern_architectural_house_for_real_estate.png";
+import fabpikImg from "@assets/generated_images/happy_child_shopping_for_ecommerce_success.png";
+import monarchImg from "@assets/generated_images/modern_office_space_for_furniture_brand.png";
+import centroImg from "@assets/generated_images/futuristic_athletic_shoe_for_footwear_brand.png";
 
 // Map slugs to images
 const serviceImages: Record<string, string> = {
@@ -49,12 +57,24 @@ interface ProcessStep {
   desc: string;
 }
 
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Redefined {
+  title: string;
+  desc: string;
+}
+
 interface Service {
   title: string;
   href: string;
   description: string;
   benefits?: Benefit[];
   process?: ProcessStep[];
+  stats?: Stat[];
+  redefined?: Redefined;
 }
 
 export default function ServiceTemplate() {
@@ -67,16 +87,41 @@ export default function ServiceTemplate() {
   
   const heroImage = serviceImages[slug] || automationImg; // Fallback image
 
+  // Default stats if none provided
+  const stats = service.stats || [
+    { value: "100%", label: "Commitment to Quality" },
+    { value: "24/7", label: "Support & Monitoring" },
+    { value: "10x", label: "ROI Improvement" },
+    { value: "50+", label: "Happy Clients" }
+  ];
+
+  const redefined = service.redefined || {
+    title: "Service Redefined",
+    desc: `Experience ${service.title} like never before. We combine cutting-edge technology with human creativity to deliver results that matter.`
+  };
+
+  // Combine benefits and process for the grid, or generic ones
+  const gridItems = [
+    ...(service.benefits || []).map(b => ({ ...b, icon: <Star className="h-8 w-8" /> })),
+    ...(service.process || []).map(p => ({ ...p, icon: <Target className="h-8 w-8" /> }))
+  ];
+
+  // Fill up grid if less than 6
+  if (gridItems.length < 6) {
+     gridItems.push({ title: "Custom Strategy", desc: "Tailored specifically to your business goals.", icon: <Users className="h-8 w-8" /> });
+     gridItems.push({ title: "Data-Driven", desc: "Decisions backed by real-time analytics.", icon: <BarChart className="h-8 w-8" /> });
+  }
+
   return (
-    <div className="min-h-screen bg-background pt-20 overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navbar />
-      
+
       {/* 1. HERO SECTION */}
-      <section className="relative py-24 md:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-primary/5 -z-10" />
+      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.15),transparent_50%)] -z-10" />
         <div className="container mx-auto px-4 md:px-8">
-          <div className="flex flex-col md:flex-row items-center gap-16">
-            <div className="md:w-1/2">
+          <div className="flex flex-col lg:flex-row items-center gap-16">
+            <div className="lg:w-1/2">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -91,7 +136,8 @@ export default function ServiceTemplate() {
                 className="text-5xl md:text-7xl font-heading font-bold mb-6 text-glow leading-tight"
               >
                 Supercharge Your Growth with <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">{service.title}</span>
+                <span className="text-primary">{service.title}</span> <br/>
+                Excellence!
               </motion.h1>
               <motion.p 
                 initial={{ opacity: 0, y: 30 }}
@@ -101,21 +147,8 @@ export default function ServiceTemplate() {
               >
                 {service.description} We combine AI-driven insights with creative excellence to deliver measurable results.
               </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="flex flex-col sm:flex-row gap-4"
-              >
-                <Button size="lg" className="rounded-full h-14 px-8 text-lg bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20">
-                  Get Started <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-                <Button variant="outline" size="lg" className="rounded-full h-14 px-8 text-lg border-white/10 hover:bg-white/5">
-                  View Case Studies
-                </Button>
-              </motion.div>
             </div>
-            <div className="md:w-1/2 relative">
+            <div className="lg:w-1/2 relative">
                <motion.div
                  initial={{ opacity: 0, scale: 0.9 }}
                  animate={{ opacity: 1, scale: 1 }}
@@ -127,180 +160,212 @@ export default function ServiceTemplate() {
                    alt={service.title} 
                    className="w-full h-auto rounded-3xl shadow-2xl shadow-primary/20 border border-white/10"
                  />
+                 
+                 {/* Floating Elements */}
+                 <div className="absolute -top-10 -right-10 p-4 bg-background border border-white/10 rounded-2xl shadow-xl animate-bounce duration-[3000ms]">
+                   <Users className="h-8 w-8 text-pink-500" />
+                 </div>
+                 <div className="absolute -bottom-5 -left-5 p-4 bg-background border border-white/10 rounded-2xl shadow-xl animate-bounce duration-[4000ms]">
+                   <BarChart className="h-8 w-8 text-purple-500" />
+                 </div>
                </motion.div>
-               {/* Decorative background blur */}
-               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary/20 blur-[100px] -z-10 rounded-full" />
             </div>
+          </div>
+
+          {/* Stats Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 border-t border-white/10 pt-12">
+            {stats.map((stat, i) => (
+              <div key={i}>
+                <div className="text-5xl font-bold font-heading mb-2">{stat.value}</div>
+                <div className="text-muted-foreground">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* 2. KEY BENEFITS */}
+      {/* 2. REDEFINED SECTION */}
       <section className="py-24 bg-card/30 border-y border-white/5">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6">
-              Why Our {service.title} Works
+           <div className="max-w-4xl">
+             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">{redefined.title}</h2>
+             <p className="text-xl text-muted-foreground leading-relaxed">
+               {redefined.desc}
+             </p>
+           </div>
+        </div>
+      </section>
+
+      {/* 3. SERVICES GRID */}
+      <section className="py-24 container mx-auto px-4 md:px-8">
+        <h2 className="text-4xl md:text-5xl font-heading font-bold mb-16 max-w-3xl">
+          The {service.title} Magic Happens with Our Tailored Services
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+          {gridItems.map((item, i) => (
+            <ServiceItem 
+              key={i}
+              icon={item.icon}
+              title={item.title}
+              desc={item.desc}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* 4. INDUSTRIES */}
+      <section className="py-24 bg-card/30 border-y border-white/5">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex justify-between items-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-heading font-bold max-w-2xl">
+              No Matter Which Industry You Belong to, We've Got You Covered
             </h2>
-            <p className="text-muted-foreground text-lg">
-              We go beyond the basics. Our approach is holistic, data-backed, and designed for scalability.
-            </p>
+            <div className="hidden md:flex gap-4">
+              <Button variant="outline" size="icon" className="rounded-full border-white/10">
+                <ArrowRight className="h-5 w-5 rotate-180" />
+              </Button>
+              <Button variant="outline" size="icon" className="rounded-full border-white/10">
+                <ArrowRight className="h-5 w-5" />
+              </Button>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {service.benefits?.map((benefit, index) => (
-              <div key={index} className="p-8 rounded-2xl bg-background border border-white/10 hover:border-blue-500/50 transition-colors group">
-                <div className="h-12 w-12 rounded-lg bg-blue-500/10 flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
-                  <BarChart className="h-6 w-6 text-blue-500" />
-                </div>
-                <h3 className="text-xl font-bold font-heading mb-3">{benefit.title}</h3>
-                <p className="text-muted-foreground">
-                  {benefit.desc}
-                </p>
-              </div>
-            )) || (
-              // Fallback if no specific benefits found
-              <>
-                 <div className="p-8 rounded-2xl bg-background border border-white/10 hover:border-blue-500/50 transition-colors group">
-                  <div className="h-12 w-12 rounded-lg bg-blue-500/10 flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
-                    <BarChart className="h-6 w-6 text-blue-500" />
-                  </div>
-                  <h3 className="text-xl font-bold font-heading mb-3">Data-Driven Strategy</h3>
-                  <p className="text-muted-foreground">
-                    Every campaign is built on solid analytics and real-time performance data to ensure maximum ROI.
-                  </p>
-                </div>
-                <div className="p-8 rounded-2xl bg-background border border-white/10 hover:border-purple-500/50 transition-colors group">
-                  <div className="h-12 w-12 rounded-lg bg-purple-500/10 flex items-center justify-center mb-6 group-hover:bg-purple-500/20 transition-colors">
-                    <Users className="h-6 w-6 text-purple-500" />
-                  </div>
-                  <h3 className="text-xl font-bold font-heading mb-3">Audience Centric</h3>
-                  <p className="text-muted-foreground">
-                    We create personalized experiences that resonate deeply with your specific target audience segments.
-                  </p>
-                </div>
-                <div className="p-8 rounded-2xl bg-background border border-white/10 hover:border-pink-500/50 transition-colors group">
-                  <div className="h-12 w-12 rounded-lg bg-pink-500/10 flex items-center justify-center mb-6 group-hover:bg-pink-500/20 transition-colors">
-                    <Globe className="h-6 w-6 text-pink-500" />
-                  </div>
-                  <h3 className="text-xl font-bold font-heading mb-3">Global Scalability</h3>
-                  <p className="text-muted-foreground">
-                    Whether you're local or global, our solutions are architected to scale effortlessly with your business.
-                  </p>
-                </div>
-              </>
-            )}
+            <IndustryCard 
+              img={healthcareImg}
+              title="Healthcare"
+              desc="Bridging the gap between healthcare with patients through digital excellence"
+            />
+            <IndustryCard 
+              img={educationImg}
+              title="Education"
+              desc="Strategically boosting educational engagement with digital innovations"
+            />
+            <IndustryCard 
+              img={realEstateImg}
+              title="Real Estate"
+              desc="Leading the digital frontier in real estate marketing"
+            />
           </div>
         </div>
       </section>
 
-      {/* 3. PROCESS / HOW WE DO IT */}
-      <section className="py-24">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="flex flex-col lg:flex-row gap-16 items-center">
-            <div className="lg:w-1/2">
-               <h2 className="text-3xl md:text-5xl font-heading font-bold mb-8">
-                 Our Execution Framework
-               </h2>
-               <div className="space-y-8">
-                 {(service.process || [
-                   { title: "Discovery & Audit", desc: "We analyze your current state and identify opportunities." },
-                   { title: "Strategy Formulation", desc: "We craft a bespoke roadmap tailored to your KPIs." },
-                   { title: "Implementation", desc: "Our experts execute the plan with precision and agility." },
-                   { title: "Optimization", desc: "Continuous monitoring and refinement for peak performance." }
-                 ]).map((step, i) => (
-                   <div key={i} className="flex gap-4">
-                     <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm border border-primary/20">
-                       {i + 1}
-                     </div>
-                     <div>
-                       <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                       <p className="text-muted-foreground">{step.desc}</p>
-                     </div>
-                   </div>
-                 ))}
-               </div>
-            </div>
-            <div className="lg:w-1/2 relative">
-               <div className="aspect-square rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-blue-900/20 to-purple-900/20 flex items-center justify-center p-8">
-                  <div className="text-center">
-                    <div className="text-6xl font-bold font-heading mb-2 text-glow">10X</div>
-                    <div className="text-xl text-muted-foreground uppercase tracking-widest">Growth Potential</div>
-                  </div>
-               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. TESTIMONIALS */}
+      {/* 5. SUCCESS STORIES */}
       <section className="py-24 container mx-auto px-4 md:px-8">
-        <h2 className="text-3xl md:text-5xl font-heading font-bold text-center mb-16">
-          Some of the Golden Lines that <br/> <span className="text-primary">Keep Us Motivated</span>
-        </h2>
-        
-        <Carousel className="w-full max-w-4xl mx-auto">
-          <CarouselContent>
-            {[
-              {
-                quote: "Miraki Digital's Email Marketing services have truly transformed our outreach strategy. Their personalized approach, AI-driven techniques, and expertly tailored campaigns have significantly increased our engagement rates.",
-                name: "Pradeep Reddy",
-                role: "Senior Manager, Accenture"
-              },
-              {
-                quote: "The SEO squad is terrific at achieving organic traffic! Their genuine care for our growth and attention to detail have truly impressed me. We've seen a remarkable increase in our online visibility.",
-                name: "Ramesh Rathi",
-                role: "GM, CipherCloud"
-              },
-              {
-                quote: "Kudos to your outstanding content marketing services! Your strategic approach, creativity, and profound understanding of our business have truly elevated our brand's voice.",
-                name: "Ashok Boddeda",
-                role: "Director, Sysgain INC"
-              }
-            ].map((testimonial, i) => (
-              <CarouselItem key={i}>
-                <div className="p-8 md:p-12 rounded-3xl bg-white/5 border border-white/10 text-center">
-                  <div className="flex justify-center mb-6">
-                    <div className="flex gap-1">
-                      {[1,2,3,4,5].map(s => <Star key={s} className="h-5 w-5 fill-yellow-500 text-yellow-500" />)}
-                    </div>
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-medium leading-relaxed mb-8">"{testimonial.quote}"</h3>
-                  <div>
-                    <div className="font-bold text-lg">{testimonial.name}</div>
-                    <div className="text-primary">{testimonial.role}</div>
-                  </div>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <div className="flex justify-center gap-4 mt-8">
-            <CarouselPrevious className="static translate-y-0" />
-            <CarouselNext className="static translate-y-0" />
-          </div>
-        </Carousel>
+        <div className="flex justify-between items-center mb-12">
+          <h2 className="text-3xl md:text-5xl font-heading font-bold">
+            Some Success Stories <br/> To Inspire You
+          </h2>
+          <Button variant="link" className="text-lg text-white group">
+            See all <div className="ml-2 w-8 h-8 rounded-full border border-white flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors"><ArrowRight className="h-4 w-4" /></div>
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <SuccessCard 
+            img={fabpikImg}
+            badge="Fabpik"
+            title="50% Jump in Brand Visibility: FabPik's in Kids' e-commerce"
+          />
+          <SuccessCard 
+            img={monarchImg}
+            badge="Monarch"
+            title="From Hidden to Highlighted: Global Office Furniture Brand's Digital Leap with Us"
+          />
+          <SuccessCard 
+            img={centroImg}
+            badge="Centro"
+            title="Leading Footwear Brand CENTRO Achieves Sales Growth with Our Social Media Magic!"
+          />
+        </div>
       </section>
 
-      {/* 5. PARTNERS ECOSYSTEM */}
-      <section className="py-20 bg-background border-t border-white/5">
-        <div className="container mx-auto px-4 md:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-            Together, We Propel Your Growth: Our Partners
-          </h2>
-          <p className="text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Fast-track your growth with our strategic partners' ecosystem and unmatched experience in crafting digital dominance.
-          </p>
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-8 md:gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-             {["Meta", "Google Ads", "Bing", "Amazon", "HubSpot", "CleverTap"].map((partner, i) => (
-               <div key={i} className="flex items-center justify-center font-bold text-xl border border-white/10 rounded-xl h-20 bg-white/5">
-                 {partner}
-               </div>
-             ))}
+      {/* 6. FAQ */}
+      <section className="py-24 bg-card/30 border-t border-white/5">
+        <div className="container mx-auto px-4 md:px-8 flex flex-col lg:flex-row gap-16">
+          <div className="lg:w-1/3">
+            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">
+              Frequently Asked Questions (FAQs)
+            </h2>
+            <p className="text-muted-foreground">
+              As a leading digital marketing agency, we are dedicated to providing comprehensive educational resources and answering frequently asked questions to help our clients.
+            </p>
+          </div>
+          <div className="lg:w-2/3">
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="item-1" className="border-b border-white/10">
+                <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-primary py-6">
+                  How can {service.title} help our business grow?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
+                  Our strategic approach to {service.title} ensures that every action is aligned with your business goals, driving measurable growth, increased efficiency, and higher ROI through data-driven execution.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-2" className="border-b border-white/10">
+                <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-primary py-6">
+                  What makes your {service.title} services unique?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
+                  We blend creative storytelling with AI-powered analytics. We don't just execute tasks; we engineer strategies that adapt to market trends and user behavior in real-time.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-3" className="border-b border-white/10">
+                <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-primary py-6">
+                  How do you measure success in {service.title}?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
+                  We use a comprehensive suite of KPIs tailored to your specific objectives, ranging from engagement metrics and conversion rates to long-term customer lifetime value and brand sentiment analysis.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </section>
 
       <Footer />
+    </div>
+  );
+}
+
+function ServiceItem({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) {
+  return (
+    <div className="group">
+      <div className="mb-4 text-foreground/80 group-hover:text-primary transition-colors">
+        {icon}
+      </div>
+      <h3 className="text-xl font-bold font-heading mb-3">{title}</h3>
+      <p className="text-muted-foreground text-sm leading-relaxed border-t border-white/10 pt-4 mt-4">
+        {desc}
+      </p>
+    </div>
+  );
+}
+
+function IndustryCard({ img, title, desc }: { img: string, title: string, desc: string }) {
+  return (
+    <div>
+      <div className="rounded-xl overflow-hidden mb-6 aspect-[4/3]">
+        <img src={img} alt={title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+      </div>
+      <h3 className="text-xl font-bold font-heading mb-2">{title}</h3>
+      <p className="text-muted-foreground text-sm">{desc}</p>
+    </div>
+  );
+}
+
+function SuccessCard({ img, badge, title }: { img: string, badge: string, title: string }) {
+  return (
+    <div className="group cursor-pointer">
+      <div className="rounded-xl overflow-hidden mb-6 aspect-[4/3] relative">
+        <div className="absolute top-4 left-4 bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded-md z-10">
+          {badge}
+        </div>
+        <img src={img} alt={badge} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+      </div>
+      <h3 className="text-lg font-bold font-heading leading-tight group-hover:text-primary transition-colors">
+        {title}
+      </h3>
     </div>
   );
 }

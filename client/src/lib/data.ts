@@ -6,6 +6,16 @@ export const servicesList = [
     href: "/services/marketing-automation", 
     description: "Streamline your workflows and nurture leads 24/7 with intelligent automation.",
     icon: Zap,
+    stats: [
+      { value: "40%", label: "Increase in productivity" },
+      { value: "3x", label: "Lead qualification speed" },
+      { value: "25%", label: "Reduction in overhead costs" },
+      { value: "50%", label: "Boost in conversion rates" }
+    ],
+    redefined: {
+      title: "Automation Redefined",
+      desc: "Stop trading time for money. We build intelligent systems that work while you sleep, ensuring no lead is left behind and every customer feels personally attended to."
+    },
     benefits: [
       { title: "Workflow Efficiency", desc: "Automate repetitive tasks to save time and reduce errors." },
       { title: "Lead Nurturing", desc: "Keep prospects engaged with personalized drip campaigns." },
@@ -40,6 +50,16 @@ export const servicesList = [
     href: "/services/seo-sem", 
     description: "Dominate search results and capture high-intent traffic.",
     icon: Search,
+    stats: [
+      { value: "#1", label: "Ranking for key terms" },
+      { value: "200%", label: "Increase in organic traffic" },
+      { value: "65%", label: "Lower acquisition cost" },
+      { value: "4x", label: "ROI on SEO spend" }
+    ],
+    redefined: {
+      title: "Search Visibility Redefined",
+      desc: "It's not just about traffic; it's about the *right* traffic. We align your content with user intent, ensuring that when your customers search, they find you first."
+    },
     benefits: [
       { title: "Organic Traffic", desc: "Sustainable long-term growth without ad spend dependency." },
       { title: "High Intent Leads", desc: "Capture users exactly when they are searching for solutions." },
