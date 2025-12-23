@@ -198,7 +198,7 @@ export default function Home() {
              We're the architects of your digital success, fueled by AI innovations. From ultra-tailored messages to hyper-targeted campaigns, we harness cutting-edge AI solutions and proven techniques to propel your brand to the forefront of the digital landscape.
            </p>
            <Link href="/about">
-             <Button variant="outline" size="lg" className="rounded-full h-14 px-8 border-white/20 hover:bg-white/10 text-white text-lg transition-all hover:scale-105">
+             <Button size="lg" className="rounded-full h-14 px-8 bg-white text-black hover:bg-white/90 shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] text-lg transition-all hover:scale-105">
                Know More About Us
              </Button>
            </Link>
