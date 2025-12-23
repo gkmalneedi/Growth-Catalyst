@@ -115,7 +115,7 @@ function CaseStudyItem({ study, index }: { study: any, index: number }) {
       <div className="w-full lg:w-2/5 space-y-8">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
-             <span className="text-primary font-bold tracking-widest uppercase text-sm">{study.client}</span>
+             <span className="font-bold tracking-widest uppercase text-sm text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">{study.client}</span>
              <span className="w-1 h-1 rounded-full bg-zinc-600" />
              <span className="text-zinc-400 text-sm">{study.category}</span>
           </div>
@@ -135,8 +135,12 @@ function CaseStudyItem({ study, index }: { study: any, index: number }) {
         <ul className="space-y-4 pt-4">
            {['Strategy', 'Execution', 'Optimization'].map((item, i) => (
              <li key={i} className="flex items-center gap-3 text-zinc-300">
-               <div className="w-6 h-6 rounded-full border border-white/20 flex items-center justify-center text-[10px] text-zinc-500 group-hover:border-primary group-hover:text-primary transition-colors">
-                 {i + 1}
+               <div className="w-6 h-6 rounded-full flex items-center justify-center p-[1px] bg-gradient-to-r from-purple-400 to-pink-400">
+                 <div className="w-full h-full rounded-full bg-zinc-950 flex items-center justify-center">
+                    <span className="text-[10px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                      {i + 1}
+                    </span>
+                 </div>
                </div>
                {item} Phase
              </li>
@@ -144,8 +148,11 @@ function CaseStudyItem({ study, index }: { study: any, index: number }) {
         </ul>
         
         <Link href={`/resources/case-studies/${study.slug}`}>
-          <Button variant="link" className="p-0 h-auto text-lg text-white hover:text-primary transition-colors group/btn">
-            View Case Study <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover/btn:translate-x-2" />
+          <Button variant="link" className="p-0 h-auto text-lg group/btn hover:no-underline">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 font-bold">
+              View Case Study 
+            </span>
+            <ArrowRight className="ml-2 w-5 h-5 text-pink-400 transition-transform group-hover/btn:translate-x-2" />
           </Button>
         </Link>
       </div>
