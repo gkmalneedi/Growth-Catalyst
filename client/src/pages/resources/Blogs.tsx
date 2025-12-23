@@ -104,11 +104,7 @@ export default function Blogs() {
             {['All', 'Strategy', 'Design', 'Development', 'AI & Tech', 'Marketing', 'Branding'].map((cat, i) => (
               <button 
                 key={i}
-                className={`px-6 py-2 rounded-full border text-sm font-medium transition-all ${
-                  i === 0 
-                    ? 'bg-white text-black border-white' 
-                    : 'bg-transparent text-zinc-400 border-white/10 hover:border-white/30 hover:text-white'
-                }`}
+                className="px-6 py-2 rounded-full text-sm font-medium transition-all bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:opacity-90 border-0"
               >
                 {cat}
               </button>
