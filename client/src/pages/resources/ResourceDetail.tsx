@@ -98,10 +98,12 @@ export default function ResourceDetail() {
                    <span className="text-white font-medium">Client: {data.client}</span>
                  </div>
                )}
-               <div className="flex items-center gap-2">
-                 <Calendar className="w-4 h-4" />
-                 <span>{data.createdAt || data.date}</span>
-               </div>
+               {(data.createdAt || data.date) && (
+                 <div className="flex items-center gap-2">
+                   <Calendar className="w-4 h-4" />
+                   <span>{data.createdAt || data.date}</span>
+                 </div>
+               )}
                {data.source && (
                  <div className="flex items-center gap-2">
                    <span>Source: {data.source}</span>

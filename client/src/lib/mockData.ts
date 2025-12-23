@@ -100,6 +100,7 @@ export const caseStudies = [
     slug: 'fintech-revolution-scaling-user-base',
     client: 'FinTech Co',
     category: 'Growth Marketing',
+    date: 'Sep 15, 2025',
     stats: [
       { label: 'User Growth', value: '300%' },
       { label: 'CAC Reduction', value: '45%' }
@@ -128,6 +129,7 @@ export const caseStudies = [
     slug: 'ecommerce-redesign-boosting-conversion',
     client: 'FashionNova',
     category: 'UI/UX Design',
+    date: 'Aug 22, 2025',
     stats: [
       { label: 'Conversion Rate', value: '+45%' },
       { label: 'Cart Abandonment', value: '-20%' }
@@ -147,6 +149,7 @@ export const caseStudies = [
     slug: 'healthcare-seo-dominating-local-search',
     client: 'MediCare Plus',
     category: 'SEO',
+    date: 'Jul 10, 2025',
     stats: [
       { label: 'Organic Traffic', value: '10x' },
       { label: 'Keyword Rank', value: '#1' }
@@ -166,6 +169,7 @@ export const caseStudies = [
     slug: 'saas-b2b-lead-gen-automating-funnel',
     client: 'CloudScale',
     category: 'Automation',
+    date: 'Jun 05, 2025',
     stats: [
       { label: 'Lead Quality', value: 'A+' },
       { label: 'Sales Cycle', value: '-30%' }
