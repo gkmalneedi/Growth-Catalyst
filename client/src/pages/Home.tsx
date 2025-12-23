@@ -235,7 +235,9 @@ export default function Home() {
               Cruise Towards Intelligent Digital Marketing With Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Tailored Services</span>
             </h2>
             <Link href="/services">
-              <Button variant="link" className="text-primary text-lg hover:text-primary/80">Explore More Services &rarr;</Button>
+              <Button size="lg" className="rounded-full h-14 px-8 bg-[#ffffff] text-black hover:bg-white/90 shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] text-lg transition-all hover:scale-105 group">
+                Explore More Services <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
             </Link>
           </div>
 
