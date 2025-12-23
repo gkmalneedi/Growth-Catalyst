@@ -6,57 +6,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, TrendingUp, Users, Target, BarChart2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useRef } from "react";
-
-const caseStudies = [
-  {
-    title: 'Fintech Revolution: Scaling User Base by 300%',
-    client: 'FinTech Co',
-    category: 'Growth Marketing',
-    stats: [
-      { label: 'User Growth', value: '300%' },
-      { label: 'CAC Reduction', value: '45%' }
-    ],
-    description: 'How we helped a fintech startup acquire 100k users in 6 months through targeted paid acquisition and viral loop engineering.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000',
-    color: 'from-blue-500 to-cyan-400'
-  },
-  {
-    title: 'E-commerce Redesign: Boosting Conversion',
-    client: 'FashionNova',
-    category: 'UI/UX Design',
-    stats: [
-      { label: 'Conversion Rate', value: '+45%' },
-      { label: 'Cart Abandonment', value: '-20%' }
-    ],
-    description: 'A complete UI/UX overhaul for a fashion retailer that resulted in record-breaking holiday sales and improved mobile checkout flow.',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1000',
-    color: 'from-purple-500 to-pink-500'
-  },
-  {
-    title: 'Healthcare SEO: Dominating Local Search',
-    client: 'MediCare Plus',
-    category: 'SEO',
-    stats: [
-      { label: 'Organic Traffic', value: '10x' },
-      { label: 'Keyword Rank', value: '#1' }
-    ],
-    description: 'Helping a network of clinics rank #1 for high-value keywords in competitive metropolitan areas through technical SEO and content clustering.',
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1000',
-    color: 'from-emerald-500 to-teal-400'
-  },
-  {
-    title: 'SaaS B2B Lead Gen: Automating the Funnel',
-    client: 'CloudScale',
-    category: 'Automation',
-    stats: [
-      { label: 'Lead Quality', value: 'A+' },
-      { label: 'Sales Cycle', value: '-30%' }
-    ],
-    description: 'Implementing HubSpot automation to nurture leads and shorten the sales cycle for an enterprise SaaS provider.',
-    image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80&w=1000',
-    color: 'from-orange-500 to-amber-400'
-  }
-];
+import { Link } from "wouter";
+import { caseStudies } from "@/lib/mockData";
 
 export default function CaseStudies() {
   const containerRef = useRef(null);
@@ -135,27 +86,29 @@ function CaseStudyItem({ study, index }: { study: any, index: number }) {
     >
       {/* Image Side */}
       <div className="w-full lg:w-3/5">
-        <div className="relative rounded-3xl overflow-hidden aspect-[4/3] group-hover:shadow-2xl group-hover:shadow-primary/10 transition-all duration-500">
-           <div className={`absolute inset-0 bg-gradient-to-br ${study.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500 mix-blend-overlay z-10`} />
-           <LazyImage 
-             src={study.image} 
-             alt={study.title} 
-             ratio={4/3}
-             className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105"
-           />
-           
-           {/* Floating Stats Card */}
-           <div className={`absolute bottom-6 ${isEven ? 'right-6' : 'left-6'} bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl z-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100`}>
-             <div className="flex gap-8">
-               {study.stats.map((stat: any, i: number) => (
-                 <div key={i}>
-                   <div className="text-2xl font-bold text-white">{stat.value}</div>
-                   <div className="text-xs text-zinc-300 uppercase tracking-wider">{stat.label}</div>
-                 </div>
-               ))}
+        <Link href={`/resources/case-studies/${study.slug}`}>
+          <a className="block relative rounded-3xl overflow-hidden aspect-[4/3] group-hover:shadow-2xl group-hover:shadow-primary/10 transition-all duration-500 cursor-pointer">
+             <div className={`absolute inset-0 bg-gradient-to-br ${study.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500 mix-blend-overlay z-10`} />
+             <LazyImage 
+               src={study.image} 
+               alt={study.title} 
+               ratio={4/3}
+               className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105"
+             />
+             
+             {/* Floating Stats Card */}
+             <div className={`absolute bottom-6 ${isEven ? 'right-6' : 'left-6'} bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl z-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100`}>
+               <div className="flex gap-8">
+                 {study.stats.map((stat: any, i: number) => (
+                   <div key={i}>
+                     <div className="text-2xl font-bold text-white">{stat.value}</div>
+                     <div className="text-xs text-zinc-300 uppercase tracking-wider">{stat.label}</div>
+                   </div>
+                 ))}
+               </div>
              </div>
-           </div>
-        </div>
+          </a>
+        </Link>
       </div>
       
       {/* Content Side */}
@@ -166,9 +119,13 @@ function CaseStudyItem({ study, index }: { study: any, index: number }) {
              <span className="w-1 h-1 rounded-full bg-zinc-600" />
              <span className="text-zinc-400 text-sm">{study.category}</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-heading font-bold leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-zinc-400 transition-all">
-            {study.title}
-          </h2>
+          <Link href={`/resources/case-studies/${study.slug}`}>
+            <a className="block group-hover:text-primary transition-colors">
+              <h2 className="text-4xl md:text-5xl font-heading font-bold leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-zinc-400 transition-all">
+                {study.title}
+              </h2>
+            </a>
+          </Link>
         </div>
         
         <p className="text-xl text-zinc-400 leading-relaxed">
@@ -186,9 +143,11 @@ function CaseStudyItem({ study, index }: { study: any, index: number }) {
            ))}
         </ul>
         
-        <Button variant="link" className="p-0 h-auto text-lg text-white hover:text-primary transition-colors group/btn">
-          View Case Study <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover/btn:translate-x-2" />
-        </Button>
+        <Link href={`/resources/case-studies/${study.slug}`}>
+          <Button variant="link" className="p-0 h-auto text-lg text-white hover:text-primary transition-colors group/btn">
+            View Case Study <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover/btn:translate-x-2" />
+          </Button>
+        </Link>
       </div>
     </motion.div>
   );
