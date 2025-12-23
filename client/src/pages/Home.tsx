@@ -198,8 +198,8 @@ export default function Home() {
              We're the architects of your digital success, fueled by AI innovations. From ultra-tailored messages to hyper-targeted campaigns, we harness cutting-edge AI solutions and proven techniques to propel your brand to the forefront of the digital landscape.
            </p>
            <Link href="/about">
-             <Button size="lg" className="rounded-full h-14 px-8 bg-white text-black hover:bg-white/90 shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] text-lg transition-all hover:scale-105">
-               Know More About Us
+             <Button size="lg" className="rounded-full h-14 px-8 bg-white text-black hover:bg-white/90 shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] text-lg transition-all hover:scale-105 group">
+               Know More About Us <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
              </Button>
            </Link>
         </div>
