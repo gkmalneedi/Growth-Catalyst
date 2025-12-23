@@ -8,6 +8,7 @@ import Home from "@/pages/Home";
 import ServicesPage from "@/pages/Services";
 import ProposalPage from "@/pages/Proposal";
 import PlaceholderPage from "@/pages/Placeholder";
+import About from "@/pages/About";
 import ServiceTemplate from "@/pages/ServiceTemplate";
 import IndustryTemplate from "@/pages/IndustryTemplate";
 import Portfolio from "@/pages/Portfolio";
@@ -51,7 +52,7 @@ function Router() {
 
       {/* Placeholder Pages */}
       <Route path="/resources" component={PlaceholderPage} />
-      <Route path="/about" component={PlaceholderPage} />
+      <Route path="/about" component={About} />
       <Route path="/contact" component={PlaceholderPage} />
       
       <Route component={NotFound} />
