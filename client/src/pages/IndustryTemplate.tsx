@@ -122,7 +122,7 @@ export default function IndustryTemplate() {
       </section>
 
       {/* Strong CTA */}
-      <section className="py-24 border-t border-white/10">
+      <section className="py-24">
         <div className="container mx-auto px-4 md:px-8">
            <div className="bg-gradient-to-r from-blue-900/40 to-purple-900/40 border border-white/10 rounded-3xl p-12 md:p-20 text-center relative overflow-hidden">
              <div className="relative z-10">
