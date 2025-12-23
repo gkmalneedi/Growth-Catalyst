@@ -80,9 +80,9 @@ export function Navbar() {
                     {industriesList.map((industry) => (
                       <li key={industry.title}>
                         <Link href={industry.href}>
-                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="text-sm font-medium leading-none">{industry.title}</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-purple-500 to-pink-500 text-white h-full">
+                            <div className="text-sm font-medium leading-none text-white mb-1">{industry.title}</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-white/90">
                               specialized solutions for {industry.title} sector.
                             </p>
                           </a>
@@ -111,9 +111,9 @@ export function Navbar() {
                     {resourcesList.map((resource) => (
                       <li key={resource.title}>
                         <Link href={resource.href}>
-                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="text-sm font-medium leading-none">{resource.title}</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-purple-500 to-pink-500 text-white h-full">
+                            <div className="text-sm font-medium leading-none text-white mb-1">{resource.title}</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-white/90">
                               {resource.description}
                             </p>
                           </a>
