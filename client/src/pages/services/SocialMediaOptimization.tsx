@@ -83,7 +83,7 @@ export default function SocialMediaOptimization() {
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 border-t border-white/10 pt-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-12">
             <div>
               <div className="text-5xl font-bold font-heading mb-2">80%</div>
               <div className="text-zinc-400">Increase in brand visibility</div>
@@ -105,7 +105,7 @@ export default function SocialMediaOptimization() {
       </section>
 
       {/* 2. REDEFINED SECTION */}
-      <section className="py-24 bg-white border-y border-zinc-200">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8">
            <div className="max-w-4xl">
              <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-zinc-900">Social Engagement Redefined</h2>
@@ -117,7 +117,7 @@ export default function SocialMediaOptimization() {
       </section>
 
       {/* 3. SERVICES GRID */}
-      <section className="py-24 container mx-auto px-4 md:px-8 bg-white/5 backdrop-blur-sm border-y border-white/10">
+      <section className="py-24 container mx-auto px-4 md:px-8 bg-white/5 backdrop-blur-sm">
         <h2 className="text-4xl md:text-5xl font-heading font-bold mb-16 max-w-3xl text-white">
           The Social Media Magic Happens with Our Tailored Services
         </h2>
@@ -172,7 +172,7 @@ export default function SocialMediaOptimization() {
       </section>
 
       {/* 4. INDUSTRIES */}
-      <section className="py-24 bg-zinc-950 text-white section-black border-y border-white/10">
+      <section className="py-24 bg-zinc-950 text-white section-black">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex justify-between items-center mb-12">
             <h2 className="text-3xl md:text-5xl font-heading font-bold max-w-2xl">
@@ -239,7 +239,7 @@ export default function SocialMediaOptimization() {
       </section>
 
       {/* 6. FAQ */}
-      <section className="py-24 bg-zinc-950 text-white section-black border-t border-white/10">
+      <section className="py-24 bg-zinc-950 text-white section-black">
         <div className="container mx-auto px-4 md:px-8 flex flex-col lg:flex-row gap-16">
           <div className="lg:w-1/3">
             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">

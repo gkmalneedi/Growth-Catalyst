@@ -90,14 +90,13 @@
   
   /* Sections styling - Transparent to let body gradient show, or subtle variations */
   .section-black {
-    @apply text-white border-y border-white/5;
+    @apply text-white;
     background: transparent; /* Let the global gradient shine through */
   }
   
   /* Light sections now become glass/dark sections to match the theme */
   section.bg-white, section.bg-zinc-50, section.bg-zinc-950 {
     background: transparent !important;
-    @apply border-y border-white/5;
   }
   
   /* Override text colors for dark mode consistency */

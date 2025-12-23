@@ -110,7 +110,7 @@ export default function Home() {
       </section>
 
       {/* 2. TRUSTED BY / PARTNERS */}
-      <section className="py-20 border-y border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden">
+      <section className="py-20 bg-white/5 backdrop-blur-sm overflow-hidden">
         <div className="container mx-auto px-4 md:px-8 mb-10">
           <h2 className="text-center text-muted-foreground text-lg font-medium tracking-wide uppercase">
             A Trusted Digital Growth Companion For Startups, Scale-ups & Enterprises
@@ -165,7 +165,7 @@ export default function Home() {
       </section>
 
       {/* 3. APPROACH SECTION */}
-      <section className="py-32 container mx-auto px-4 md:px-8 border-b border-white/5">
+      <section className="py-32 container mx-auto px-4 md:px-8">
         <div className="flex flex-col md:flex-row items-center gap-20">
           <div className="md:w-1/2">
             <motion.h2 
@@ -188,7 +188,7 @@ export default function Home() {
       </section>
 
       {/* 4. AI SECTION */}
-      <section className="py-32 bg-white/5 backdrop-blur-sm border-y border-white/10 relative overflow-hidden section-black">
+      <section className="py-32 bg-white/5 backdrop-blur-sm relative overflow-hidden section-black">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10" />
         <div className="container mx-auto px-4 md:px-8 relative z-10 text-center max-w-5xl">
            <h2 className="text-4xl md:text-6xl font-heading font-bold mb-10 leading-tight">
@@ -206,7 +206,7 @@ export default function Home() {
       </section>
 
       {/* 5. GROWTH SECTION */}
-      <section className="py-32 container mx-auto px-4 md:px-8 border-b border-white/5">
+      <section className="py-32 container mx-auto px-4 md:px-8">
         <div className="flex flex-col md:flex-row-reverse items-center gap-20">
           <div className="md:w-1/2">
             <h2 className="text-4xl md:text-6xl font-heading font-bold mb-8 leading-tight text-white">
@@ -228,7 +228,7 @@ export default function Home() {
       </section>
 
       {/* 6. SERVICES SECTION */}
-      <section className="py-32 bg-white/5 backdrop-blur-sm border-y border-white/10">
+      <section className="py-32 bg-white/5 backdrop-blur-sm">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <h2 className="text-4xl md:text-6xl font-heading font-bold mb-8 text-white">
@@ -266,7 +266,7 @@ export default function Home() {
       </section>
 
       {/* 7. TESTIMONIALS */}
-      <section className="py-32 section-black border-b border-white/5">
+      <section className="py-32 section-black">
         <div className="container mx-auto px-4 md:px-8">
           <h2 className="text-3xl md:text-5xl font-heading font-bold text-center mb-20">
             Some of the Golden Lines that <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Keep Us Motivated</span>
@@ -317,7 +317,7 @@ export default function Home() {
       </section>
 
       {/* 8. PARTNERS ECOSYSTEM */}
-      <section className="py-24 bg-white/5 backdrop-blur-sm border-y border-white/10">
+      <section className="py-24 bg-white/5 backdrop-blur-sm">
         <div className="container mx-auto px-4 md:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6 text-white">
             Together, We Propel Your Growth: Our Partners

@@ -141,7 +141,7 @@ export default function Contact() {
       </section>
 
       {/* 2. LOCATIONS SECTION */}
-      <section className="py-24 bg-zinc-900 border-y border-white/5">
+      <section className="py-24 bg-zinc-900">
         <div className="container mx-auto px-4 md:px-8">
            <div className="text-center mb-16">
              <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-white">We're Here for You - <span className="text-primary">Reach Out Anytime!</span></h2>
@@ -201,7 +201,7 @@ export default function Contact() {
       </section>
 
       {/* 3. AWARDS SECTION */}
-      <section className="py-24 bg-white/5 backdrop-blur-sm border-b border-white/10">
+      <section className="py-24 bg-white/5 backdrop-blur-sm">
         <div className="container mx-auto px-4 md:px-8 text-center">
           <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6 text-white leading-tight">
              It Takes a Lot to Achieve an Award, <br/>

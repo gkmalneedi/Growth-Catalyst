@@ -60,7 +60,7 @@ export default function About() {
       </section>
 
       {/* 2. STATS SECTION */}
-      <section className="py-20 border-y border-white/10 bg-white/5 backdrop-blur-sm">
+      <section className="py-20 bg-white/5 backdrop-blur-sm">
         <div className="container mx-auto px-4 md:px-8">
            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {[
@@ -86,7 +86,7 @@ export default function About() {
       </section>
 
       {/* 3. MISSION & VISION */}
-      <section className="py-32 container mx-auto px-4 md:px-8 border-b border-white/5">
+      <section className="py-32 container mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20">
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
@@ -121,7 +121,7 @@ export default function About() {
       </section>
 
       {/* 4. STRATEGIC APPROACH */}
-      <section className="py-32 bg-zinc-950 section-black border-b border-white/5">
+      <section className="py-32 bg-zinc-950 section-black">
         <div className="container mx-auto px-4 md:px-8 text-center max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-6xl font-heading font-bold mb-6 text-white">
             Our Strategic Approach To <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Your Success</span>
@@ -151,7 +151,7 @@ export default function About() {
       </section>
 
       {/* 5. WHY US */}
-      <section className="py-32 bg-white/5 backdrop-blur-sm border-y border-white/10">
+      <section className="py-32 bg-white/5 backdrop-blur-sm">
         <div className="container mx-auto px-4 md:px-8">
            <div className="text-center mb-20">
              <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-white">What Makes Us Your Perfect <br/> <span className="text-primary">Growth Partner?</span></h2>
@@ -180,7 +180,7 @@ export default function About() {
       </section>
 
       {/* 6. CLIENTS MARQUEE (Reused) */}
-      <section className="py-20 border-b border-white/10 bg-zinc-950 overflow-hidden">
+      <section className="py-20 bg-zinc-950 overflow-hidden">
         <div className="container mx-auto px-4 md:px-8 mb-10">
           <h2 className="text-center text-muted-foreground text-lg font-medium tracking-wide uppercase">
             Our Thriving Client Community
@@ -255,7 +255,7 @@ export default function About() {
       </section>
 
       {/* 8. PRE-FOOTER */}
-      <section className="py-32 container mx-auto px-4 md:px-8 border-t border-white/10 text-center">
+      <section className="py-32 container mx-auto px-4 md:px-8 text-center">
          <h2 className="text-4xl md:text-6xl font-heading font-bold mb-10 text-white">
            Ready to Embark on a Strategic <br/>
            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Digital Marketing Voyage?</span>
