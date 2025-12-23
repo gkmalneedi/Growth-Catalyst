@@ -57,9 +57,9 @@ export function Navbar() {
                     {servicesList.map((service) => (
                       <li key={service.title}>
                         <Link href={service.href}>
-                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="text-sm font-medium leading-none">{service.title}</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-purple-500 to-pink-500 text-white h-full">
+                            <div className="text-sm font-medium leading-none text-white mb-1">{service.title}</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-white/90">
                               {service.description}
                             </p>
                           </a>
