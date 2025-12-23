@@ -35,7 +35,7 @@ export default function SocialMediaOptimization() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="inline-block mb-6 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-sm font-medium tracking-wide uppercase"
+                className="inline-flex mb-10 h-16 px-10 items-center justify-center rounded-full bg-solid-white hover:bg-white/90 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] text-black text-xl font-medium tracking-wide uppercase transition-all duration-300 hover:scale-105"
               >
                 Social Media Optimization
               </motion.div>
