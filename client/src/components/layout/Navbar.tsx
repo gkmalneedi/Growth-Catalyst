@@ -150,9 +150,11 @@ export function Navbar() {
               </Button>
             </Link>
             <Link href="/contact">
-              <Button variant="outline" className="border-white/10 hover:bg-white/5 text-foreground rounded-full px-6">
-                Let's Talk
-              </Button>
+              <div className="rounded-full p-[1px] bg-gradient-to-r from-purple-500 to-pink-500">
+                <Button className="rounded-full bg-zinc-950 hover:bg-zinc-900 text-white px-6 border-0 h-9 md:h-10">
+                  Let's Talk
+                </Button>
+              </div>
             </Link>
           </div>
         </div>
@@ -231,9 +233,11 @@ export function Navbar() {
                 </Button>
               </Link>
               <Link href="/contact">
-                <Button variant="outline" className="w-full border-white/10 hover:bg-white/5 text-foreground rounded-full">
-                  Let's Talk
-                </Button>
+                <div className="w-full rounded-full p-[1px] bg-gradient-to-r from-purple-500 to-pink-500">
+                  <Button className="w-full rounded-full bg-zinc-950 hover:bg-zinc-900 text-white border-0">
+                    Let's Talk
+                  </Button>
+                </div>
               </Link>
             </div>
           </div>
