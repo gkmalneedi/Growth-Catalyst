@@ -216,8 +216,8 @@ export default function Home() {
               Your ‘growth’ forms the foundation of everything we do. We constantly innovate and push the boundaries to propel you forward, elevating your online presence with unprecedented growth opportunities.
             </p>
             <Link href="/portfolio">
-              <Button size="lg" className="rounded-full h-14 px-8 bg-primary text-white hover:bg-primary/90 text-lg shadow-lg shadow-primary/25 transition-all hover:scale-105">
-                See Our Works
+              <Button size="lg" className="rounded-full h-14 px-8 bg-[#ffffff] text-black hover:bg-white/90 shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] text-lg transition-all hover:scale-105 group">
+                See Our Works <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
           </div>
