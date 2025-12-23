@@ -20,6 +20,9 @@ import growthImg from "@assets/generated_images/digital_growth_rocket_graph.png"
 
 import { servicesList } from "@/lib/data";
 
+import isoBadge1 from "@assets/stock_images/gold_iso_certificati_34a75bf8.jpg";
+import isoBadge2 from "@assets/stock_images/gold_iso_certificati_91c79c8d.jpg";
+
 const heroSlides = [
   {
     title: "We're the Crusaders of",
@@ -318,40 +321,73 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 8. PARTNERS ECOSYSTEM */}
-      <section className="py-24 bg-white/5 backdrop-blur-sm">
-        <div className="container mx-auto px-4 md:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6 text-white">
-            Together, We Propel Your Growth: Our Partners
-          </h2>
-          <p className="text-muted-foreground mb-16 max-w-2xl mx-auto text-lg">
-            Fast-track your growth with our strategic partners' ecosystem and unmatched experience in crafting digital dominance.
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-10">
-             {["Meta", "Google Ads", "Bing", "Amazon", "HubSpot", "CleverTap"].map((partner, i) => (
-               <div key={i} className="flex items-center justify-center font-bold text-lg border border-white/10 rounded-2xl h-24 bg-white/5 text-white/80 hover:bg-white/10 hover:text-white hover:scale-105 transition-all duration-300">
-                 {partner}
+      {/* 8. PARTNERS & AWARDS RESTRUCTURED */}
+      <section className="py-24 bg-black text-white">
+        <div className="container mx-auto px-4 md:px-8">
+          
+          {/* Top Row: Partners */}
+          <div className="flex flex-col md:flex-row gap-16 mb-32">
+            {/* Left: Partner Logos */}
+            <div className="md:w-1/2 grid grid-cols-3 gap-8 items-center">
+               <div className="flex items-center justify-center">
+                 <span className="text-2xl font-bold flex gap-2 items-center"><span className="text-blue-500">∞</span> Meta</span>
                </div>
-             ))}
-          </div>
-        </div>
-      </section>
+               <div className="flex items-center justify-center">
+                 <span className="text-2xl font-bold flex gap-2 items-center"><span className="text-yellow-500">A</span> Google Ads</span>
+               </div>
+               <div className="flex items-center justify-center">
+                 <span className="text-2xl font-bold flex gap-2 items-center"><span className="text-teal-500">b</span> Bing ads</span>
+               </div>
+               <div className="flex items-center justify-center">
+                 <span className="text-xl font-bold">amazon ads</span>
+               </div>
+               <div className="flex items-center justify-center">
+                 <span className="text-xl font-bold text-red-500">CleverTap</span>
+               </div>
+               <div className="flex items-center justify-center">
+                 <span className="text-xl font-bold text-orange-500">HubSpot</span>
+               </div>
+            </div>
 
-      {/* 9. AWARDS */}
-      <section className="py-24 container mx-auto px-4 md:px-8 text-center">
-         <h2 className="text-3xl md:text-5xl font-heading font-bold mb-16 text-white leading-tight">
-            It Takes a Lot to Achieve an Award, <br/> But We’re Always Ready for it
-         </h2>
-         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {["T-Hub", "Good Firms", "ISO 27001", "Silicon India"].map((award, i) => (
-              <div key={i} className="flex flex-col items-center gap-6 p-8 border border-white/10 rounded-3xl bg-white/5 hover:border-primary/50 transition-colors shadow-lg hover:shadow-primary/10">
-                <div className="h-20 w-20 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 border border-yellow-500/20">
-                  <Star className="h-10 w-10" />
-                </div>
-                <span className="font-bold text-xl text-white">{award}</span>
-              </div>
-            ))}
-         </div>
+            {/* Right: Partners Text */}
+            <div className="md:w-1/2 flex flex-col justify-center">
+              <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 leading-tight">
+                Together, We Propel Your <br/> Growth: Our Partners
+              </h2>
+              <p className="text-zinc-400 text-lg leading-relaxed">
+                Fast-track your growth with our strategic partners' ecosystem and unmatched experience in crafting digital dominance for businesses across industries.
+              </p>
+            </div>
+          </div>
+
+          {/* Bottom Row: Awards */}
+          <div className="flex flex-col md:flex-row gap-16">
+            {/* Left: Awards Text */}
+            <div className="md:w-1/2 flex flex-col justify-center">
+               <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 leading-tight">
+                  It Takes a Lot to Achieve an Award, But We’re Always Ready for it
+               </h2>
+               <p className="text-zinc-400 text-lg leading-relaxed">
+                  Awards Demand Dedication, and We’re Always Ready to Rise to the Occasion
+               </p>
+            </div>
+
+            {/* Right: Awards Badges */}
+            <div className="md:w-1/2 flex flex-col items-center justify-center">
+               <div className="flex gap-8 justify-center items-center mb-8">
+                  <img src={isoBadge1} alt="ISO 27001" className="h-32 w-32 md:h-40 md:w-40 object-contain drop-shadow-[0_0_15px_rgba(234,179,8,0.3)]" />
+                  <img src={isoBadge2} alt="ISO 9001" className="h-32 w-32 md:h-40 md:w-40 object-contain drop-shadow-[0_0_15px_rgba(234,179,8,0.3)]" />
+               </div>
+               {/* Carousel Dots */}
+               <div className="flex gap-3">
+                  <div className="h-2 w-2 rounded-full bg-white/20"></div>
+                  <div className="h-2 w-2 rounded-full bg-white"></div>
+                  <div className="h-2 w-2 rounded-full bg-white/20"></div>
+               </div>
+            </div>
+          </div>
+
+        </div>
       </section>
 
       <Footer />
