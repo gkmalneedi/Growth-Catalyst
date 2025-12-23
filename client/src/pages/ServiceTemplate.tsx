@@ -125,7 +125,7 @@ export default function ServiceTemplate() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="inline-block mb-10 h-16 px-10 flex items-center justify-center rounded-full bg-solid-white hover:bg-white/90 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] text-black text-xl font-medium tracking-wide uppercase transition-all duration-300 hover:scale-105"
+                className="inline-flex mb-10 h-16 px-10 items-center justify-center rounded-full bg-solid-white hover:bg-white/90 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] text-black text-xl font-medium tracking-wide uppercase transition-all duration-300 hover:scale-105"
               >
                 {service.title} Services
               </motion.div>
