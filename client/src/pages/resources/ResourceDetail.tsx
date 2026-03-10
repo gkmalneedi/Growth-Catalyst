@@ -1,40 +1,57 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { LazyImage } from "@/components/ui/lazy-image";
-import { blogs, caseStudies, pressReleases } from "@/lib/mockData";
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, User, ArrowLeft, Share2, Linkedin, Twitter, Facebook } from "lucide-react";
+import { Calendar, Clock, User, ArrowLeft, Share2, Linkedin, Twitter, Facebook, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
+import type { Blog, CaseStudy, PressRelease } from "@shared/schema";
 
 export default function ResourceDetail() {
   const [location] = useLocation();
-  // location is like /resources/blogs/slug-name
   const parts = location.split('/');
-  const type = parts[2]; // blogs, case-studies, press-release
+  const type = parts[2];
   const slug = parts[3];
 
-  let data: any = null;
+  let apiPath = '';
   let backLink = '/resources/blogs';
-  let typeLabel = 'Blog';
+  let typeLabel = 'Blog Article';
 
   if (type === 'blogs') {
-    data = blogs.find(b => b.slug === slug);
+    apiPath = `/api/blogs/${slug}`;
     backLink = '/resources/blogs';
     typeLabel = 'Blog Article';
   } else if (type === 'case-studies') {
-    data = caseStudies.find(c => c.slug === slug);
+    apiPath = `/api/case-studies/${slug}`;
     backLink = '/resources/case-studies';
     typeLabel = 'Case Study';
   } else if (type === 'press-release') {
-    data = pressReleases.find(p => p.slug === slug);
+    apiPath = `/api/press-releases/${slug}`;
     backLink = '/resources/press-release';
     typeLabel = 'Press Release';
   }
 
-  if (!data) {
+  const { data, isLoading, error } = useQuery<Blog | CaseStudy | PressRelease>({
+    queryKey: [apiPath],
+    enabled: !!apiPath,
+  });
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-zinc-950 text-white flex flex-col">
+        <Navbar />
+        <div className="flex-grow flex items-center justify-center">
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!data || error) {
     return (
       <div className="min-h-screen bg-zinc-950 text-white flex flex-col">
         <Navbar />
@@ -51,6 +68,8 @@ export default function ResourceDetail() {
       </div>
     );
   }
+
+  const blogData = data as any;
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white selection:bg-primary/30">
@@ -71,42 +90,42 @@ export default function ResourceDetail() {
             
             <div className="flex items-center justify-center gap-3 mb-6">
               <Badge variant="outline" className="border-primary/20 text-primary bg-primary/5 uppercase tracking-wider px-3 py-1">
-                {data.category}
+                {blogData.category}
               </Badge>
-              {data.readTime && (
+              {blogData.readTime && (
                 <span className="text-zinc-500 text-sm flex items-center gap-1">
-                   <Clock className="w-3 h-3" /> {data.readTime}
+                   <Clock className="w-3 h-3" /> {blogData.readTime}
                 </span>
               )}
             </div>
 
             <h1 className="text-4xl md:text-6xl font-heading font-bold mb-8 leading-tight">
-              {data.title}
+              {blogData.title}
             </h1>
 
             {/* Meta Data */}
             <div className="flex items-center justify-center gap-6 text-zinc-400 text-sm mb-12 border-y border-white/10 py-6">
-               {data.author && (
+               {blogData.author && (
                  <div className="flex items-center gap-2">
                    <User className="w-4 h-4" />
-                   <span className="text-white font-medium">{data.author}</span>
+                   <span className="text-white font-medium">{blogData.author}</span>
                  </div>
                )}
-               {data.client && (
+               {blogData.client && (
                  <div className="flex items-center gap-2">
                    <User className="w-4 h-4" />
-                   <span className="text-white font-medium">Client: {data.client}</span>
+                   <span className="text-white font-medium">Client: {blogData.client}</span>
                  </div>
                )}
-               {(data.createdAt || data.date) && (
+               {(blogData.createdAt || blogData.date) && (
                  <div className="flex items-center gap-2">
                    <Calendar className="w-4 h-4" />
-                   <span>{data.createdAt || data.date}</span>
+                   <span>{blogData.createdAt || blogData.date}</span>
                  </div>
                )}
-               {data.source && (
+               {blogData.source && (
                  <div className="flex items-center gap-2">
-                   <span>Source: {data.source}</span>
+                   <span>Source: {blogData.source}</span>
                  </div>
                )}
             </div>
@@ -114,7 +133,7 @@ export default function ResourceDetail() {
         </div>
 
         {/* Featured Image */}
-        {data.image && (
+        {blogData.image && (
           <div className="container mx-auto px-4 md:px-8 max-w-5xl mb-16">
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
@@ -123,8 +142,8 @@ export default function ResourceDetail() {
               className="rounded-3xl overflow-hidden border border-white/10 aspect-[16/9] md:aspect-[21/9]"
             >
               <LazyImage 
-                src={data.image} 
-                alt={data.title}
+                src={blogData.image} 
+                alt={blogData.title}
                 ratio={21/9}
                 className="w-full h-full object-cover"
               />
@@ -140,10 +159,9 @@ export default function ResourceDetail() {
             transition={{ delay: 0.3 }}
             className="prose prose-lg prose-invert mx-auto prose-headings:font-heading prose-headings:font-bold prose-a:text-primary prose-img:rounded-2xl"
           >
-             {/* If we have stats for case studies, show them prominently */}
-             {data.stats && (
+             {blogData.stats && (
                <div className="grid grid-cols-2 gap-4 my-10 not-prose">
-                 {data.stats.map((stat: any, i: number) => (
+                 {(blogData.stats as { label: string; value: string }[]).map((stat, i) => (
                    <div key={i} className="bg-white/5 border border-white/10 p-6 rounded-2xl text-center">
                      <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
                      <div className="text-sm text-zinc-400 uppercase tracking-wider">{stat.label}</div>
@@ -152,8 +170,7 @@ export default function ResourceDetail() {
                </div>
              )}
 
-             {/* Render HTML content */}
-             <div dangerouslySetInnerHTML={{ __html: data.content }} />
+             <div dangerouslySetInnerHTML={{ __html: blogData.content }} />
              
           </motion.div>
           

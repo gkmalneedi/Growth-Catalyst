@@ -2,18 +2,20 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { LazyImage } from "@/components/ui/lazy-image";
 import { Button } from "@/components/ui/button";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, TrendingUp, Users, Target, BarChart2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { useRef } from "react";
 import { Link } from "wouter";
-import { caseStudies } from "@/lib/mockData";
+import { useQuery } from "@tanstack/react-query";
+import type { CaseStudy } from "@shared/schema";
 
 export default function CaseStudies() {
-  const containerRef = useRef(null);
+  const { data: caseStudies = [], isLoading } = useQuery<CaseStudy[]>({
+    queryKey: ["/api/case-studies"],
+  });
   
   return (
-    <div ref={containerRef} className="min-h-screen bg-zinc-950 text-white selection:bg-primary/30">
+    <div className="min-h-screen bg-zinc-950 text-white selection:bg-primary/30">
       <Navbar />
       
       {/* Hero Section */}
@@ -55,14 +57,20 @@ export default function CaseStudies() {
       {/* Case Studies List */}
       <section className="px-4 md:px-8 pb-32">
         <div className="container mx-auto max-w-7xl space-y-32">
-          {caseStudies.map((study, i) => (
-            <CaseStudyItem key={i} study={study} index={i} />
-          ))}
+          {isLoading ? (
+            <div className="flex justify-center py-20">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            </div>
+          ) : (
+            caseStudies.map((study, i) => (
+              <CaseStudyItem key={study.id} study={study} index={i} />
+            ))
+          )}
         </div>
         
         <div className="mt-32 text-center">
           <h2 className="text-3xl md:text-5xl font-heading font-bold mb-8">Ready to write your success story?</h2>
-          <Button size="lg" className="rounded-full h-16 px-12 text-lg bg-white text-black hover:bg-white/90">
+          <Button size="lg" className="rounded-full h-16 px-12 text-lg bg-white text-black hover:bg-white/90" data-testid="button-start-project">
             Start a Project <ArrowRight className="ml-2" />
           </Button>
         </div>
@@ -73,8 +81,9 @@ export default function CaseStudies() {
   );
 }
 
-function CaseStudyItem({ study, index }: { study: any, index: number }) {
+function CaseStudyItem({ study, index }: { study: CaseStudy, index: number }) {
   const isEven = index % 2 === 0;
+  const stats = study.stats as { label: string; value: string }[];
   
   return (
     <motion.div 
@@ -83,6 +92,7 @@ function CaseStudyItem({ study, index }: { study: any, index: number }) {
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8 }}
       className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-20 items-center group`}
+      data-testid={`card-casestudy-${study.id}`}
     >
       {/* Image Side */}
       <div className="w-full lg:w-3/5">
@@ -99,7 +109,7 @@ function CaseStudyItem({ study, index }: { study: any, index: number }) {
              {/* Floating Stats Card */}
              <div className={`absolute bottom-6 ${isEven ? 'right-6' : 'left-6'} bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl z-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100`}>
                <div className="flex gap-8">
-                 {study.stats.map((stat: any, i: number) => (
+                 {stats.map((stat, i) => (
                    <div key={i}>
                      <div className="text-2xl font-bold text-white">{stat.value}</div>
                      <div className="text-xs text-zinc-300 uppercase tracking-wider">{stat.label}</div>

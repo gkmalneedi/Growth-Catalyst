@@ -1,18 +1,78 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, serial, integer, boolean, json, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const users = pgTable("users", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  username: text("username").notNull().unique(),
-  password: text("password").notNull(),
+export const blogs = pgTable("blogs", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  category: text("category").notNull(),
+  description: text("description").notNull(),
+  content: text("content").notNull(),
+  image: text("image").notNull(),
+  createdAt: text("created_at").notNull(),
+  author: text("author").notNull(),
+  readTime: text("read_time").notNull(),
+  featured: boolean("featured").default(false),
 });
 
-export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true,
+export const caseStudies = pgTable("case_studies", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  client: text("client").notNull(),
+  category: text("category").notNull(),
+  date: text("date").notNull(),
+  stats: json("stats").$type<{ label: string; value: string }[]>().notNull(),
+  description: text("description").notNull(),
+  content: text("content").notNull(),
+  image: text("image").notNull(),
+  color: text("color").notNull(),
 });
 
-export type InsertUser = z.infer<typeof insertUserSchema>;
-export type User = typeof users.$inferSelect;
+export const pressReleases = pgTable("press_releases", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  category: text("category").notNull(),
+  source: text("source").notNull(),
+  description: text("description").notNull(),
+  content: text("content").notNull(),
+  date: text("date").notNull(),
+  year: text("year").notNull(),
+  link: text("link").notNull(),
+});
+
+export const contactSubmissions = pgTable("contact_submissions", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  service: text("service").notNull(),
+  message: text("message"),
+  submittedAt: timestamp("submitted_at").defaultNow(),
+});
+
+export const newsletterSubscribers = pgTable("newsletter_subscribers", {
+  id: serial("id").primaryKey(),
+  email: text("email").notNull().unique(),
+  subscribedAt: timestamp("subscribed_at").defaultNow(),
+});
+
+export const insertBlogSchema = createInsertSchema(blogs).omit({ id: true });
+export const insertCaseStudySchema = createInsertSchema(caseStudies).omit({ id: true });
+export const insertPressReleaseSchema = createInsertSchema(pressReleases).omit({ id: true });
+export const insertContactSubmissionSchema = createInsertSchema(contactSubmissions).omit({ id: true, submittedAt: true });
+export const insertNewsletterSubscriberSchema = createInsertSchema(newsletterSubscribers).omit({ id: true, subscribedAt: true });
+
+export type Blog = typeof blogs.$inferSelect;
+export type InsertBlog = z.infer<typeof insertBlogSchema>;
+export type CaseStudy = typeof caseStudies.$inferSelect;
+export type InsertCaseStudy = z.infer<typeof insertCaseStudySchema>;
+export type PressRelease = typeof pressReleases.$inferSelect;
+export type InsertPressRelease = z.infer<typeof insertPressReleaseSchema>;
+export type ContactSubmission = typeof contactSubmissions.$inferSelect;
+export type InsertContactSubmission = z.infer<typeof insertContactSubmissionSchema>;
+export type NewsletterSubscriber = typeof newsletterSubscribers.$inferSelect;
+export type InsertNewsletterSubscriber = z.infer<typeof insertNewsletterSubscriberSchema>;

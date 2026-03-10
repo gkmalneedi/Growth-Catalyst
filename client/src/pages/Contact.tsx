@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Phone, Mail, MapPin, Globe, Award, Star, CheckCircle2 } from "lucide-react";
+import { Phone, Mail, MapPin, Globe, Award, Star, CheckCircle2, Loader2 } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -20,11 +20,30 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 
 // Images
 import heroBg from "@assets/generated_images/digital_waves_data_visualization_for_marketing.png";
 
 export default function Contact() {
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", service: "", message: "" });
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+
+  const contactMutation = useMutation({
+    mutationFn: async (data: typeof formData) => {
+      const res = await apiRequest("POST", "/api/contact", data);
+      return res.json();
+    },
+    onSuccess: () => {
+      setSubmitStatus("success");
+      setFormData({ name: "", email: "", phone: "", service: "", message: "" });
+    },
+    onError: () => {
+      setSubmitStatus("error");
+    },
+  });
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navbar />
@@ -93,27 +112,31 @@ export default function Contact() {
                transition={{ duration: 0.8, delay: 0.2 }}
                className="bg-zinc-900/80 backdrop-blur-xl border border-white/10 p-8 md:p-10 rounded-3xl shadow-2xl"
             >
-               <form className="space-y-6">
+               <form className="space-y-6" onSubmit={(e) => {
+                 e.preventDefault();
+                 setSubmitStatus("idle");
+                 contactMutation.mutate(formData);
+               }}>
                  <div className="space-y-2">
                    <label className="text-sm font-medium text-zinc-300">Name *</label>
-                   <Input placeholder="Enter your full name" className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 h-12 rounded-xl focus:border-primary/50 focus:ring-primary/20" />
+                   <Input placeholder="Enter your full name" value={formData.name} onChange={(e) => setFormData(p => ({ ...p, name: e.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 h-12 rounded-xl focus:border-primary/50 focus:ring-primary/20" required data-testid="input-name" />
                  </div>
                  
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                    <div className="space-y-2">
                      <label className="text-sm font-medium text-zinc-300">Email *</label>
-                     <Input type="email" placeholder="Enter your email" className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 h-12 rounded-xl focus:border-primary/50 focus:ring-primary/20" />
+                     <Input type="email" placeholder="Enter your email" value={formData.email} onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 h-12 rounded-xl focus:border-primary/50 focus:ring-primary/20" required data-testid="input-email" />
                    </div>
                    <div className="space-y-2">
                      <label className="text-sm font-medium text-zinc-300">Phone Number *</label>
-                     <Input type="tel" placeholder="+91" className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 h-12 rounded-xl focus:border-primary/50 focus:ring-primary/20" />
+                     <Input type="tel" placeholder="+91" value={formData.phone} onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 h-12 rounded-xl focus:border-primary/50 focus:ring-primary/20" required data-testid="input-phone" />
                    </div>
                  </div>
 
                  <div className="space-y-2">
                    <label className="text-sm font-medium text-zinc-300">Select Service *</label>
-                   <Select>
-                     <SelectTrigger className="bg-white/5 border-white/10 text-white h-12 rounded-xl focus:border-primary/50 focus:ring-primary/20">
+                   <Select value={formData.service} onValueChange={(val) => setFormData(p => ({ ...p, service: val }))}>
+                     <SelectTrigger className="bg-white/5 border-white/10 text-white h-12 rounded-xl focus:border-primary/50 focus:ring-primary/20" data-testid="select-service">
                        <SelectValue placeholder="Select..." />
                      </SelectTrigger>
                      <SelectContent>
@@ -128,12 +151,19 @@ export default function Contact() {
 
                  <div className="space-y-2">
                    <label className="text-sm font-medium text-zinc-300">Your Message</label>
-                   <Textarea placeholder="Tell us about your project..." className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 min-h-[120px] rounded-xl focus:border-primary/50 focus:ring-primary/20 resize-none" />
+                   <Textarea placeholder="Tell us about your project..." value={formData.message} onChange={(e) => setFormData(p => ({ ...p, message: e.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 min-h-[120px] rounded-xl focus:border-primary/50 focus:ring-primary/20 resize-none" data-testid="input-message" />
                  </div>
 
-                 <Button type="submit" size="lg" className="w-full h-14 text-lg font-medium rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 shadow-lg shadow-purple-500/25">
-                   Connect Now
+                 <Button type="submit" size="lg" className="w-full h-14 text-lg font-medium rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 shadow-lg shadow-purple-500/25" disabled={contactMutation.isPending} data-testid="button-submit-contact">
+                   {contactMutation.isPending ? <Loader2 className="w-5 h-5 animate-spin mr-2" /> : null}
+                   {contactMutation.isPending ? "Submitting..." : "Connect Now"}
                  </Button>
+                 {submitStatus === "success" && (
+                   <p className="text-green-400 text-center text-sm" data-testid="text-contact-success">Thank you! We'll be in touch soon.</p>
+                 )}
+                 {submitStatus === "error" && (
+                   <p className="text-red-400 text-center text-sm">Something went wrong. Please try again.</p>
+                 )}
                </form>
             </motion.div>
           </div>
