@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { IndustriesSlider } from "@/components/IndustriesSlider";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, BarChart, Users, Globe, ChevronRight, Star, Plus, Minus, MessageCircle, Megaphone, Share2, Target, Search, Smartphone, Zap, TrendingUp, Database, Settings, FileText, PenTool, Eye, Layers, Clock, Palette, Lightbulb, Shield, Heart, Mail, Layout, Video, Rocket, Award, Gauge, Workflow, BrainCircuit } from "lucide-react";
 import { useLocation } from "wouter";
@@ -25,10 +26,7 @@ import emailImg from "@assets/generated_images/email_envelope_future_3d.png";
 import uiuxImg from "@assets/generated_images/ui_ux_interface_layers_3d.png";
 import videoImg from "@assets/generated_images/video_play_button_3d.png";
 
-// Import industry & success images
-import healthcareImg from "@assets/generated_images/doctor_holding_stethoscope_for_healthcare_industry.png";
-import educationImg from "@assets/generated_images/stack_of_books_for_education_industry.png";
-import realEstateImg from "@assets/generated_images/modern_architectural_house_for_real_estate.png";
+// Import success images
 import fabpikImg from "@assets/generated_images/happy_child_shopping_for_ecommerce_success.png";
 import monarchImg from "@assets/generated_images/modern_office_space_for_furniture_brand.png";
 import centroImg from "@assets/generated_images/futuristic_athletic_shoe_for_footwear_brand.png";
@@ -234,41 +232,7 @@ export default function ServiceTemplate() {
       </section>
 
       {/* 4. INDUSTRIES */}
-      <section className="py-24 bg-zinc-950 text-white section-black">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="flex justify-between items-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-heading font-bold max-w-2xl">
-              No Matter Which Industry You Belong to, We've Got You Covered
-            </h2>
-            <div className="hidden md:flex gap-4">
-              <Button variant="outline" size="icon" className="rounded-full border-white/10 bg-white/5 hover:bg-white/10 text-white">
-                <ArrowRight className="h-5 w-5 rotate-180" />
-              </Button>
-              <Button variant="outline" size="icon" className="rounded-full border-white/10 bg-white/5 hover:bg-white/10 text-white">
-                <ArrowRight className="h-5 w-5" />
-              </Button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <IndustryCard 
-              img={healthcareImg}
-              title="Healthcare"
-              desc="Bridging the gap between healthcare with patients through digital excellence"
-            />
-            <IndustryCard 
-              img={educationImg}
-              title="Education"
-              desc="Strategically boosting educational engagement with digital innovations"
-            />
-            <IndustryCard 
-              img={realEstateImg}
-              title="Real Estate"
-              desc="Leading the digital frontier in real estate marketing"
-            />
-          </div>
-        </div>
-      </section>
+      <IndustriesSlider />
 
       {/* 5. SUCCESS STORIES */}
       <section className="py-24 container mx-auto px-4 md:px-8 bg-white">
@@ -357,18 +321,6 @@ function ServiceItem({ icon, title, desc }: { icon: React.ReactNode, title: stri
       <p className="text-muted-foreground text-sm leading-relaxed border-t border-white/10 pt-4 mt-4">
         {desc}
       </p>
-    </div>
-  );
-}
-
-function IndustryCard({ img, title, desc }: { img: string, title: string, desc: string }) {
-  return (
-    <div>
-      <div className="rounded-xl overflow-hidden mb-6 aspect-[4/3]">
-        <img src={img} alt={title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
-      </div>
-      <h3 className="text-xl font-bold font-heading mb-2">{title}</h3>
-      <p className="text-muted-foreground text-sm">{desc}</p>
     </div>
   );
 }
