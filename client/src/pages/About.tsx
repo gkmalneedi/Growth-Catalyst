@@ -261,8 +261,8 @@ export default function About() {
            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">Digital Marketing Voyage?</span>
          </h2>
          <Link href="/contact">
-           <Button size="lg" className="rounded-full h-16 px-12 text-xl bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/25">
-             Let's Talk Business
+           <Button size="lg" className="rounded-full h-16 px-10 text-xl bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow hover:opacity-90 text-white border-0 shadow-[0_0_40px_-10px_rgba(225,48,108,0.5)] hover:scale-105 transition-all duration-300 group">
+             Let's Talk Business <ArrowRight className="ml-2 h-6 w-6 group-hover:translate-x-1 transition-transform" />
            </Button>
          </Link>
       </section>

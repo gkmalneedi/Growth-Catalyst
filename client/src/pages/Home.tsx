@@ -112,7 +112,7 @@ export default function Home() {
               <CarouselContent>
                 {heroSlides.map((slide, index) => (
                   <CarouselItem key={index}>
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-tight mb-8">
+                    <h1 className="text-5xl md:text-6xl lg:text-8xl font-heading font-bold leading-tight mb-8">
                       {slide.title} <br />
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">
                         {slide.highlight},
@@ -126,7 +126,7 @@ export default function Home() {
             
             <div className="flex justify-center mt-8 mb-8">
               <Link href="/contact">
-                <Button size="lg" className="rounded-full h-16 px-10 text-xl bg-solid-white hover:bg-white/90 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:scale-105 transition-all duration-300 group">
+                <Button size="lg" className="rounded-full h-16 px-10 text-xl bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow hover:opacity-90 text-white border-0 shadow-[0_0_40px_-10px_rgba(225,48,108,0.5)] hover:scale-105 transition-all duration-300 group">
                   Let's Connect <ArrowRight className="ml-2 h-6 w-6 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
@@ -208,8 +208,8 @@ export default function Home() {
              We're the architects of your digital success, fueled by AI innovations. From ultra-tailored messages to hyper-targeted campaigns, we harness cutting-edge AI solutions and proven techniques to propel your brand to the forefront of the digital landscape.
            </p>
            <Link href="/about">
-             <Button size="lg" className="rounded-full h-14 px-8 bg-[#ffffff] text-black hover:bg-white/90 shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] text-lg transition-all hover:scale-105 group">
-               Know More About Us <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+             <Button size="lg" className="rounded-full h-16 px-10 text-xl bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow hover:opacity-90 text-white border-0 shadow-[0_0_40px_-10px_rgba(225,48,108,0.5)] hover:scale-105 transition-all duration-300 group">
+               Know More About Us <ArrowRight className="ml-2 h-6 w-6 group-hover:translate-x-1 transition-transform" />
              </Button>
            </Link>
         </div>
@@ -226,8 +226,8 @@ export default function Home() {
               Your ‘growth’ forms the foundation of everything we do. We constantly innovate and push the boundaries to propel you forward, elevating your online presence with unprecedented growth opportunities.
             </p>
             <Link href="/portfolio">
-              <Button size="lg" className="rounded-full h-14 px-8 bg-[#ffffff] text-black hover:bg-white/90 shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] text-lg transition-all hover:scale-105 group">
-                See Our Works <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <Button size="lg" className="rounded-full h-16 px-10 text-xl bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow hover:opacity-90 text-white border-0 shadow-[0_0_40px_-10px_rgba(225,48,108,0.5)] hover:scale-105 transition-all duration-300 group">
+                See Our Works <ArrowRight className="ml-2 h-6 w-6 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
           </div>
@@ -245,8 +245,8 @@ export default function Home() {
               Cruise Towards Intelligent Digital Marketing With Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">Tailored Services</span>
             </h2>
             <Link href="/services">
-              <Button size="lg" className="rounded-full h-14 px-8 bg-[#ffffff] text-black hover:bg-white/90 shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] text-lg transition-all hover:scale-105 group">
-                Explore More Services <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <Button size="lg" className="rounded-full h-16 px-10 text-xl bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow hover:opacity-90 text-white border-0 shadow-[0_0_40px_-10px_rgba(225,48,108,0.5)] hover:scale-105 transition-all duration-300 group">
+                Explore More Services <ArrowRight className="ml-2 h-6 w-6 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
           </div>

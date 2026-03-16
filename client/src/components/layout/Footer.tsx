@@ -89,8 +89,9 @@ export function Footer() {
             </div>
           </div>
           
-          <div className="border-t border-white/5 pt-8 text-center text-muted-foreground text-sm">
-            &copy; {new Date().getFullYear()} Nexus Digital Agency. All rights reserved.
+          <div className="border-t border-white/5 pt-8 text-center text-muted-foreground text-sm space-y-2">
+            <div>&copy; {new Date().getFullYear()} Nexus Digital Agency. All rights reserved.</div>
+            <div>Developed by <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow font-semibold">Gopikrishna Malneedi</span></div>
           </div>
         </div>
       </footer>
