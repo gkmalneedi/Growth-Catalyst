@@ -51,13 +51,36 @@ const heroSlides = [
   }
 ];
 
+const brandLogos = [
+  { name: "Govt of India", color: "text-orange-400" },
+  { name: "IDBI Bank", color: "text-green-500" },
+  { name: "Philips", color: "text-blue-400" },
+  { name: "EuroArt", color: "text-yellow-400" },
+  { name: "TechMahindra", color: "text-blue-500" },
+  { name: "Accenture", color: "text-purple-400" },
+  { name: "Google", color: "text-red-400" },
+  { name: "Amazon", color: "text-orange-500" },
+  { name: "Microsoft", color: "text-cyan-400" },
+  { name: "Netflix", color: "text-red-500" },
+  { name: "Spotify", color: "text-green-400" },
+  { name: "Uber", color: "text-white/80" },
+  { name: "Airbnb", color: "text-rose-400" },
+  { name: "Tesla", color: "text-red-500" },
+  { name: "Samsung", color: "text-blue-500" },
+  { name: "Sony", color: "text-white/80" },
+  { name: "LG", color: "text-red-400" },
+  { name: "HP", color: "text-blue-400" },
+  { name: "Dell", color: "text-blue-500" },
+  { name: "Intel", color: "text-blue-400" },
+];
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navbar />
 
       {/* 1. HERO SECTION */}
-      <section className="relative min-h-screen flex items-center justify-center pt-32 pb-32 overflow-hidden bg-zinc-950 text-white section-black">
+      <section className="relative min-h-[80vh] flex items-center justify-center pt-28 pb-20 overflow-hidden bg-zinc-950 text-white section-black">
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -89,7 +112,7 @@ export default function Home() {
               <CarouselContent>
                 {heroSlides.map((slide, index) => (
                   <CarouselItem key={index}>
-                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold leading-tight mb-12">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-tight mb-8">
                       {slide.title} <br />
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">
                         {slide.highlight},
@@ -101,7 +124,7 @@ export default function Home() {
               </CarouselContent>
             </Carousel>
             
-            <div className="flex justify-center mt-12 mb-12">
+            <div className="flex justify-center mt-8 mb-8">
               <Link href="/contact">
                 <Button size="lg" className="rounded-full h-16 px-10 text-xl bg-solid-white hover:bg-white/90 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:scale-105 transition-all duration-300 group">
                   Let's Connect <ArrowRight className="ml-2 h-6 w-6 group-hover:translate-x-1 transition-transform" />
@@ -115,52 +138,36 @@ export default function Home() {
       {/* 2. TRUSTED BY / PARTNERS */}
       <section className="py-20 bg-white/5 backdrop-blur-sm overflow-hidden">
         <div className="container mx-auto px-4 md:px-8 mb-10">
-          <h2 className="text-center text-muted-foreground text-lg font-medium tracking-wide uppercase">
-            A Trusted Digital Growth Companion For Startups, Scale-ups & Enterprises
+          <h2 className="text-center text-xl md:text-2xl font-heading font-bold tracking-wide uppercase">
+            A Trusted Digital Growth Companion For{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">Startups, Scale-ups & Enterprises</span>
           </h2>
         </div>
         
         {/* Infinite Slider */}
         <div className="relative flex overflow-x-hidden group">
           <div className="flex animate-marquee whitespace-nowrap gap-20 items-center">
-             {[
-               "Govt of India", "IDBI Bank", "Philips", "EuroArt", "TechMahindra", "Accenture", 
-               "Google", "Amazon", "Microsoft", "Netflix", "Spotify", "Uber", "Airbnb", 
-               "Tesla", "Samsung", "Sony", "LG", "HP", "Dell", "Intel"
-             ].map((logo, i) => (
-               <div key={i} className="text-xl md:text-3xl font-bold font-heading text-white/50 hover:text-white transition-colors duration-300 mx-4 cursor-default select-none">
-                 {logo}
+             {brandLogos.map((logo, i) => (
+               <div key={i} className={`text-xl md:text-3xl font-bold font-heading ${logo.color} hover:opacity-100 transition-all duration-300 mx-4 cursor-default select-none`}>
+                 {logo.name}
                </div>
              ))}
-             {/* Duplicated for seamless loop */}
-             {[
-               "Govt of India", "IDBI Bank", "Philips", "EuroArt", "TechMahindra", "Accenture", 
-               "Google", "Amazon", "Microsoft", "Netflix", "Spotify", "Uber", "Airbnb", 
-               "Tesla", "Samsung", "Sony", "LG", "HP", "Dell", "Intel"
-             ].map((logo, i) => (
-               <div key={`dup-${i}`} className="text-xl md:text-3xl font-bold font-heading text-white/50 hover:text-white transition-colors duration-300 mx-4 cursor-default select-none">
-                 {logo}
+             {brandLogos.map((logo, i) => (
+               <div key={`dup-${i}`} className={`text-xl md:text-3xl font-bold font-heading ${logo.color} hover:opacity-100 transition-all duration-300 mx-4 cursor-default select-none`}>
+                 {logo.name}
                </div>
              ))}
           </div>
           
           <div className="absolute top-0 flex animate-marquee2 whitespace-nowrap gap-20 items-center">
-             {[
-               "Govt of India", "IDBI Bank", "Philips", "EuroArt", "TechMahindra", "Accenture", 
-               "Google", "Amazon", "Microsoft", "Netflix", "Spotify", "Uber", "Airbnb", 
-               "Tesla", "Samsung", "Sony", "LG", "HP", "Dell", "Intel"
-             ].map((logo, i) => (
-               <div key={`dup2-${i}`} className="text-xl md:text-3xl font-bold font-heading text-white/50 hover:text-white transition-colors duration-300 mx-4 cursor-default select-none">
-                 {logo}
+             {brandLogos.map((logo, i) => (
+               <div key={`dup2-${i}`} className={`text-xl md:text-3xl font-bold font-heading ${logo.color} hover:opacity-100 transition-all duration-300 mx-4 cursor-default select-none`}>
+                 {logo.name}
                </div>
              ))}
-             {[
-               "Govt of India", "IDBI Bank", "Philips", "EuroArt", "TechMahindra", "Accenture", 
-               "Google", "Amazon", "Microsoft", "Netflix", "Spotify", "Uber", "Airbnb", 
-               "Tesla", "Samsung", "Sony", "LG", "HP", "Dell", "Intel"
-             ].map((logo, i) => (
-               <div key={`dup3-${i}`} className="text-xl md:text-3xl font-bold font-heading text-white/50 hover:text-white transition-colors duration-300 mx-4 cursor-default select-none">
-                 {logo}
+             {brandLogos.map((logo, i) => (
+               <div key={`dup3-${i}`} className={`text-xl md:text-3xl font-bold font-heading ${logo.color} hover:opacity-100 transition-all duration-300 mx-4 cursor-default select-none`}>
+                 {logo.name}
                </div>
              ))}
           </div>

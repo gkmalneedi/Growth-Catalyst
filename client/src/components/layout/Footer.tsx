@@ -1,5 +1,6 @@
 import { Rocket, Mail, MapPin, Phone, Github, Twitter, Linkedin, ArrowRight } from "lucide-react";
 import { Link, useLocation } from "wouter";
+import { servicesList } from "@/lib/data";
 
 export function Footer() {
   const [location] = useLocation();
@@ -44,20 +45,23 @@ export function Footer() {
             <div>
               <h3 className="font-heading font-bold text-lg mb-4">Services</h3>
               <ul className="space-y-2 text-muted-foreground">
-                <li className="hover:text-primary cursor-pointer transition-colors">Brand Creation</li>
-                <li className="hover:text-primary cursor-pointer transition-colors">Digital Marketing</li>
-                <li className="hover:text-primary cursor-pointer transition-colors">Web Development</li>
-                <li className="hover:text-primary cursor-pointer transition-colors">AI Agents</li>
+                {servicesList.map((service) => (
+                  <li key={service.title}>
+                    <Link href={service.href}>
+                      <a className="hover:text-primary cursor-pointer transition-colors">{service.title}</a>
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 
             <div>
               <h3 className="font-heading font-bold text-lg mb-4">Company</h3>
               <ul className="space-y-2 text-muted-foreground">
-                <li className="hover:text-primary cursor-pointer transition-colors">About Us</li>
-                <li className="hover:text-primary cursor-pointer transition-colors">Careers</li>
-                <li className="hover:text-primary cursor-pointer transition-colors">Blog</li>
-                <li className="hover:text-primary cursor-pointer transition-colors">Contact</li>
+                <li><Link href="/about"><a className="hover:text-primary cursor-pointer transition-colors">About Us</a></Link></li>
+                <li><Link href="/contact"><a className="hover:text-primary cursor-pointer transition-colors">Contact</a></Link></li>
+                <li><Link href="/privacy-policy"><a className="hover:text-primary cursor-pointer transition-colors">Privacy Policy</a></Link></li>
+                <li><Link href="/terms"><a className="hover:text-primary cursor-pointer transition-colors">Terms and Conditions</a></Link></li>
               </ul>
             </div>
 

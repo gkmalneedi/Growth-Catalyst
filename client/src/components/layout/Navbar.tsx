@@ -53,15 +53,12 @@ export function Navbar() {
                   Services
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-popover/95 backdrop-blur-xl border border-white/10 rounded-xl">
+                  <ul className="grid w-[400px] gap-2 p-3 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-popover/95 backdrop-blur-xl border border-white/10 rounded-xl">
                     {servicesList.map((service) => (
                       <li key={service.title}>
                         <Link href={service.href}>
-                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow text-white h-full">
-                            <div className="text-sm font-medium leading-none text-white mb-1">{service.title}</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-white/90">
-                              {service.description}
-                            </p>
+                          <a className="block select-none rounded-md px-3 py-2.5 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow text-white">
+                            <div className="text-sm font-medium leading-none text-white">{service.title}</div>
                           </a>
                         </Link>
                       </li>
@@ -76,15 +73,12 @@ export function Navbar() {
                   Industries
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-popover/95 backdrop-blur-xl border border-white/10 rounded-xl">
+                  <ul className="grid w-[400px] gap-2 p-3 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-popover/95 backdrop-blur-xl border border-white/10 rounded-xl">
                     {industriesList.map((industry) => (
                       <li key={industry.title}>
                         <Link href={industry.href}>
-                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow text-white h-full">
-                            <div className="text-sm font-medium leading-none text-white mb-1">{industry.title}</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-white/90">
-                              specialized solutions for {industry.title} sector.
-                            </p>
+                          <a className="block select-none rounded-md px-3 py-2.5 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow text-white">
+                            <div className="text-sm font-medium leading-none text-white">{industry.title}</div>
                           </a>
                         </Link>
                       </li>
@@ -107,15 +101,12 @@ export function Navbar() {
                   Resources
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 bg-popover/95 backdrop-blur-xl border border-white/10 rounded-xl">
+                  <ul className="grid w-[400px] gap-2 p-3 bg-popover/95 backdrop-blur-xl border border-white/10 rounded-xl">
                     {resourcesList.map((resource) => (
                       <li key={resource.title}>
                         <Link href={resource.href}>
-                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow text-white h-full">
-                            <div className="text-sm font-medium leading-none text-white mb-1">{resource.title}</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-white/90">
-                              {resource.description}
-                            </p>
+                          <a className="block select-none rounded-md px-3 py-2.5 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow text-white">
+                            <div className="text-sm font-medium leading-none text-white">{resource.title}</div>
                           </a>
                         </Link>
                       </li>
