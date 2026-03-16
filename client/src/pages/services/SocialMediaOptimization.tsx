@@ -81,23 +81,18 @@ export default function SocialMediaOptimization() {
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-12">
-            <div>
-              <div className="text-5xl font-bold font-heading mb-2">80%</div>
-              <div className="text-zinc-400">Increase in brand visibility</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold font-heading mb-2">5x</div>
-              <div className="text-zinc-400">Growth in social traffic</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold font-heading mb-2">75%</div>
-              <div className="text-zinc-400">Improvement in customer retention</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold font-heading mb-2">2x</div>
-              <div className="text-zinc-400">Lead Generation</div>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20 pt-12">
+            {[
+              { value: "80%", label: "Increase in brand visibility" },
+              { value: "5x", label: "Growth in social traffic" },
+              { value: "75%", label: "Improvement in customer retention" },
+              { value: "2x", label: "Lead Generation" }
+            ].map((stat, i) => (
+              <div key={i} className="p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
+                <div className="text-4xl md:text-5xl font-bold font-heading mb-3 text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">{stat.value}</div>
+                <div className="text-zinc-400 text-sm">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

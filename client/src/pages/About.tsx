@@ -50,8 +50,8 @@ export default function About() {
              </p>
              <div className="flex justify-center gap-4">
                 <Link href="/contact">
-                  <Button size="lg" className="rounded-full h-14 px-8 bg-white text-zinc-950 hover:bg-zinc-200 text-lg font-medium">
-                    Start Your Journey
+                  <Button size="lg" className="rounded-full h-16 px-10 text-xl bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow hover:opacity-90 text-white border-0 shadow-[0_0_40px_-10px_rgba(225,48,108,0.5)] hover:scale-105 transition-all duration-300 group">
+                    Start Your Journey <ArrowRight className="ml-2 h-6 w-6 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
              </div>

@@ -66,19 +66,72 @@ export default function IndustryTemplate() {
       </section>
 
       {/* 2. PARTNERS SECTION */}
-      <section className="py-20 bg-black text-white border-t border-white/10">
-        <div className="container mx-auto px-4 md:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-16">
+      <section className="py-20 bg-black text-white border-t border-white/10 overflow-hidden">
+        <div className="container mx-auto px-4 md:px-8 text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-heading font-bold">
             Partners Driving <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">{industry.title} Success</span>
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center opacity-70">
-            {/* Using text placeholders for logos as per design consistency */}
-            <div className="flex items-center justify-center text-2xl font-bold font-heading">Bing ads</div>
-            <div className="flex items-center justify-center text-2xl font-bold font-heading">amazon</div>
-            <div className="flex items-center justify-center text-2xl font-bold font-heading">CleverTap</div>
-            <div className="flex items-center justify-center text-2xl font-bold font-heading">HubSpot</div>
-            <div className="flex items-center justify-center text-2xl font-bold font-heading">Google Ads</div>
-            <div className="flex items-center justify-center text-2xl font-bold font-heading">Meta</div>
+        </div>
+        <div className="relative flex overflow-x-hidden">
+          <div className="flex animate-marquee whitespace-nowrap gap-16 items-center">
+            {[
+              { name: "Meta", color: "text-blue-500" },
+              { name: "Google Ads", color: "text-yellow-400" },
+              { name: "Bing Ads", color: "text-teal-400" },
+              { name: "Amazon", color: "text-orange-500" },
+              { name: "CleverTap", color: "text-red-500" },
+              { name: "HubSpot", color: "text-orange-500" },
+              { name: "Salesforce", color: "text-blue-400" },
+              { name: "Shopify", color: "text-green-500" },
+              { name: "Mailchimp", color: "text-yellow-500" },
+              { name: "Semrush", color: "text-orange-400" },
+            ].map((logo, i) => (
+              <span key={i} className={`text-2xl md:text-3xl font-bold font-heading ${logo.color} mx-4 cursor-default select-none`}>{logo.name}</span>
+            ))}
+            {[
+              { name: "Meta", color: "text-blue-500" },
+              { name: "Google Ads", color: "text-yellow-400" },
+              { name: "Bing Ads", color: "text-teal-400" },
+              { name: "Amazon", color: "text-orange-500" },
+              { name: "CleverTap", color: "text-red-500" },
+              { name: "HubSpot", color: "text-orange-500" },
+              { name: "Salesforce", color: "text-blue-400" },
+              { name: "Shopify", color: "text-green-500" },
+              { name: "Mailchimp", color: "text-yellow-500" },
+              { name: "Semrush", color: "text-orange-400" },
+            ].map((logo, i) => (
+              <span key={`dup-${i}`} className={`text-2xl md:text-3xl font-bold font-heading ${logo.color} mx-4 cursor-default select-none`}>{logo.name}</span>
+            ))}
+          </div>
+          <div className="absolute top-0 flex animate-marquee2 whitespace-nowrap gap-16 items-center">
+            {[
+              { name: "Meta", color: "text-blue-500" },
+              { name: "Google Ads", color: "text-yellow-400" },
+              { name: "Bing Ads", color: "text-teal-400" },
+              { name: "Amazon", color: "text-orange-500" },
+              { name: "CleverTap", color: "text-red-500" },
+              { name: "HubSpot", color: "text-orange-500" },
+              { name: "Salesforce", color: "text-blue-400" },
+              { name: "Shopify", color: "text-green-500" },
+              { name: "Mailchimp", color: "text-yellow-500" },
+              { name: "Semrush", color: "text-orange-400" },
+            ].map((logo, i) => (
+              <span key={`dup2-${i}`} className={`text-2xl md:text-3xl font-bold font-heading ${logo.color} mx-4 cursor-default select-none`}>{logo.name}</span>
+            ))}
+            {[
+              { name: "Meta", color: "text-blue-500" },
+              { name: "Google Ads", color: "text-yellow-400" },
+              { name: "Bing Ads", color: "text-teal-400" },
+              { name: "Amazon", color: "text-orange-500" },
+              { name: "CleverTap", color: "text-red-500" },
+              { name: "HubSpot", color: "text-orange-500" },
+              { name: "Salesforce", color: "text-blue-400" },
+              { name: "Shopify", color: "text-green-500" },
+              { name: "Mailchimp", color: "text-yellow-500" },
+              { name: "Semrush", color: "text-orange-400" },
+            ].map((logo, i) => (
+              <span key={`dup3-${i}`} className={`text-2xl md:text-3xl font-bold font-heading ${logo.color} mx-4 cursor-default select-none`}>{logo.name}</span>
+            ))}
           </div>
         </div>
       </section>

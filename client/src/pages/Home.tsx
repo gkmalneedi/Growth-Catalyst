@@ -262,7 +262,7 @@ export default function Home() {
                 className="group p-10 rounded-3xl border border-white/10 bg-white/5 hover:bg-white/10 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:bg-primary group-hover:text-white transition-colors duration-300 text-primary">
-                  <Star className="h-8 w-8" />
+                  <service.icon className="h-8 w-8" />
                 </div>
                 <h3 className="text-2xl font-bold font-heading mb-4 text-white">{service.title}</h3>
                 <p className="text-muted-foreground mb-8 leading-relaxed">{service.description}</p>
@@ -329,11 +329,11 @@ export default function Home() {
       </section>
 
       {/* 8. PARTNERS & AWARDS RESTRUCTURED */}
-      <section className="py-24 bg-black text-white">
+      <section className="py-16 bg-black text-white">
         <div className="container mx-auto px-4 md:px-8">
           
           {/* Top Row: Partners */}
-          <div className="flex flex-col md:flex-row gap-16 mb-32">
+          <div className="flex flex-col md:flex-row gap-12 mb-16">
             {/* Left: Partner Logos */}
             <div className="md:w-1/2 grid grid-cols-3 gap-8 items-center">
                <div className="flex items-center justify-center">
@@ -368,7 +368,7 @@ export default function Home() {
           </div>
 
           {/* Bottom Row: Awards */}
-          <div className="flex flex-col md:flex-row gap-16">
+          <div className="flex flex-col md:flex-row gap-12">
             {/* Left: Awards Text */}
             <div className="md:w-1/2 flex flex-col justify-center">
                <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 leading-tight">

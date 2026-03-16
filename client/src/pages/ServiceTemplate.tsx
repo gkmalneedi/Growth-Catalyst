@@ -98,27 +98,76 @@ export default function ServiceTemplate() {
     desc: `Experience ${service.title} like never before. We combine cutting-edge technology with human creativity to deliver results that matter.`
   };
 
-  const benefitIcons = [
-    <TrendingUp className="h-8 w-8" />,
-    <Heart className="h-8 w-8" />,
-    <Award className="h-8 w-8" />,
-    <Shield className="h-8 w-8" />,
-    <Lightbulb className="h-8 w-8" />,
-    <Rocket className="h-8 w-8" />,
-  ];
+  const iconMap: Record<string, React.ReactNode> = {
+    "Workflow Efficiency": <Workflow className="h-8 w-8" />,
+    "Lead Nurturing": <Heart className="h-8 w-8" />,
+    "Data Integration": <Database className="h-8 w-8" />,
+    "Audit & Blueprint": <Search className="h-8 w-8" />,
+    "Platform Setup": <Settings className="h-8 w-8" />,
+    "Workflow Creation": <Layers className="h-8 w-8" />,
+    "Performance Tuning": <Gauge className="h-8 w-8" />,
+    "Brand Awareness": <Megaphone className="h-8 w-8" />,
+    "Community Building": <Users className="h-8 w-8" />,
+    "Viral Growth": <TrendingUp className="h-8 w-8" />,
+    "Audience Analysis": <Eye className="h-8 w-8" />,
+    "Content Calendar": <FileText className="h-8 w-8" />,
+    "Engagement Management": <MessageCircle className="h-8 w-8" />,
+    "Analytics Reporting": <BarChart className="h-8 w-8" />,
+    "Organic Traffic": <Globe className="h-8 w-8" />,
+    "High Intent Leads": <Target className="h-8 w-8" />,
+    "Authority Building": <Award className="h-8 w-8" />,
+    "Keyword Research": <Search className="h-8 w-8" />,
+    "On-Page Optimization": <Settings className="h-8 w-8" />,
+    "Link Building": <Share2 className="h-8 w-8" />,
+    "Conversion Optimization": <Gauge className="h-8 w-8" />,
+    "Consistent Identity": <Palette className="h-8 w-8" />,
+    "Emotional Connection": <Heart className="h-8 w-8" />,
+    "Premium Positioning": <Award className="h-8 w-8" />,
+    "Brand Audit": <Search className="h-8 w-8" />,
+    "Identity Design": <PenTool className="h-8 w-8" />,
+    "Guidelines Creation": <FileText className="h-8 w-8" />,
+    "Rollout Strategy": <Rocket className="h-8 w-8" />,
+    "Thought Leadership": <Lightbulb className="h-8 w-8" />,
+    "SEO Fuel": <Search className="h-8 w-8" />,
+    "Lead Magnet": <Target className="h-8 w-8" />,
+    "Content Strategy": <BrainCircuit className="h-8 w-8" />,
+    "Production": <Video className="h-8 w-8" />,
+    "Distribution": <Share2 className="h-8 w-8" />,
+    "Performance Analysis": <BarChart className="h-8 w-8" />,
+    "Instant Reach": <Zap className="h-8 w-8" />,
+    "Direct Communication": <MessageCircle className="h-8 w-8" />,
+    "Automated Support": <BrainCircuit className="h-8 w-8" />,
+    "Audience Segmentation": <Users className="h-8 w-8" />,
+    "Template Design": <Layout className="h-8 w-8" />,
+    "Automation Setup": <Settings className="h-8 w-8" />,
+    "Campaign Launch": <Rocket className="h-8 w-8" />,
+    "High ROI": <TrendingUp className="h-8 w-8" />,
+    "Personalization": <Heart className="h-8 w-8" />,
+    "Lifecycle Marketing": <Workflow className="h-8 w-8" />,
+    "List Cleaning": <Shield className="h-8 w-8" />,
+    "Flow Construction": <Layers className="h-8 w-8" />,
+    "Creative Design": <PenTool className="h-8 w-8" />,
+    "A/B Testing": <Gauge className="h-8 w-8" />,
+    "User Satisfaction": <Heart className="h-8 w-8" />,
+    "Higher Conversions": <TrendingUp className="h-8 w-8" />,
+    "Reduced Churn": <Shield className="h-8 w-8" />,
+    "User Research": <Eye className="h-8 w-8" />,
+    "Wireframing": <Layout className="h-8 w-8" />,
+    "Visual Design": <Palette className="h-8 w-8" />,
+    "Prototyping": <Layers className="h-8 w-8" />,
+    "Higher Engagement": <TrendingUp className="h-8 w-8" />,
+    "Complex Explanations": <Lightbulb className="h-8 w-8" />,
+    "Brand Personality": <Star className="h-8 w-8" />,
+    "Storyboarding": <FileText className="h-8 w-8" />,
+    "Post-Production": <Settings className="h-8 w-8" />,
+    "Format Optimization": <Gauge className="h-8 w-8" />,
+  };
 
-  const processIcons = [
-    <Search className="h-8 w-8" />,
-    <Settings className="h-8 w-8" />,
-    <Workflow className="h-8 w-8" />,
-    <Gauge className="h-8 w-8" />,
-    <BrainCircuit className="h-8 w-8" />,
-    <Layers className="h-8 w-8" />,
-  ];
+  const getIcon = (title: string) => iconMap[title] || <Star className="h-8 w-8" />;
 
   const gridItems = [
-    ...(service.benefits || []).map((b, i) => ({ ...b, icon: benefitIcons[i % benefitIcons.length] })),
-    ...(service.process || []).map((p, i) => ({ ...p, icon: processIcons[i % processIcons.length] }))
+    ...(service.benefits || []).map((b) => ({ ...b, icon: getIcon(b.title) })),
+    ...(service.process || []).map((p) => ({ ...p, icon: getIcon(p.title) }))
   ];
 
   if (gridItems.length < 6) {
@@ -187,11 +236,11 @@ export default function ServiceTemplate() {
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20 pt-12">
             {stats.map((stat, i) => (
-              <div key={i}>
-                <div className="text-5xl font-bold font-heading mb-2">{stat.value}</div>
-                <div className="text-zinc-400">{stat.label}</div>
+              <div key={i} className="p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
+                <div className="text-4xl md:text-5xl font-bold font-heading mb-3 text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">{stat.value}</div>
+                <div className="text-zinc-400 text-sm">{stat.label}</div>
               </div>
             ))}
           </div>
