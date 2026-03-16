@@ -72,7 +72,7 @@ export default function Contact() {
                </div>
                <h1 className="text-5xl md:text-7xl font-heading font-bold leading-tight mb-8">
                  Get in Touch <br/>
-                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-orange-400">
+                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">
                    with Us
                  </span>
                </h1>
@@ -154,7 +154,7 @@ export default function Contact() {
                    <Textarea placeholder="Tell us about your project..." value={formData.message} onChange={(e) => setFormData(p => ({ ...p, message: e.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 min-h-[120px] rounded-xl focus:border-primary/50 focus:ring-primary/20 resize-none" data-testid="input-message" />
                  </div>
 
-                 <Button type="submit" size="lg" className="w-full h-14 text-lg font-medium rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 shadow-lg shadow-purple-500/25" disabled={contactMutation.isPending} data-testid="button-submit-contact">
+                 <Button type="submit" size="lg" className="w-full h-14 text-lg font-medium rounded-xl bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow hover:opacity-90 shadow-lg shadow-brand-pink/25" disabled={contactMutation.isPending} data-testid="button-submit-contact">
                    {contactMutation.isPending ? <Loader2 className="w-5 h-5 animate-spin mr-2" /> : null}
                    {contactMutation.isPending ? "Submitting..." : "Connect Now"}
                  </Button>
@@ -235,7 +235,7 @@ export default function Contact() {
         <div className="container mx-auto px-4 md:px-8 text-center">
           <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6 text-white leading-tight">
              It Takes a Lot to Achieve an Award, <br/>
-             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">But We’re Always Ready for it</span>
+             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">But We’re Always Ready for it</span>
           </h2>
           <p className="text-xl text-zinc-400 mb-16 max-w-2xl mx-auto">
              Awards Demand Dedication, and We're Always Ready to Rise to the Occasion.

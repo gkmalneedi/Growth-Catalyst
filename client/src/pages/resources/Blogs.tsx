@@ -32,7 +32,7 @@ export default function Blogs() {
           >
             <h1 className="text-6xl md:text-8xl font-heading font-bold mb-6 tracking-tight">
               Insights & <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Perspectives</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">Perspectives</span>
             </h1>
             <p className="text-xl text-zinc-400 max-w-xl leading-relaxed">
               Deep dives into digital strategy, design trends, and the future of technology. Curated by the Nexus team.
@@ -89,7 +89,7 @@ export default function Blogs() {
                     
                     <div className="pt-4 flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center font-bold text-sm">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-pink via-brand-red to-brand-yellow flex items-center justify-center font-bold text-sm">
                           {featuredPost.author.charAt(0)}
                         </div>
                         <div>
@@ -116,7 +116,7 @@ export default function Blogs() {
                 {['All', 'Strategy', 'Design', 'Development', 'AI & Tech', 'Marketing', 'Branding'].map((cat, i) => (
                   <button 
                     key={i}
-                    className="px-6 py-2 rounded-full text-sm font-medium transition-all bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:opacity-90 border-0"
+                    className="px-6 py-2 rounded-full text-sm font-medium transition-all bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow text-white hover:opacity-90 border-0"
                     data-testid={`filter-${cat.toLowerCase().replace(/\s+/g, '-')}`}
                   >
                     {cat}

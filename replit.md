@@ -1,7 +1,7 @@
 # Nexus Digital Marketing Website
 
 ## Overview
-A full-stack digital marketing agency website built with React + Express + PostgreSQL. Features a dark theme with glassmorphism effects, purple-to-pink gradients, and smooth Framer Motion animations.
+A full-stack digital marketing agency website built with React + Express + PostgreSQL. Features a dark theme with glassmorphism effects and smooth Framer Motion animations. Uses a custom 6-color brand gradient palette (Dark Pink #C13584, Rose #E1306C, Red #FD1D1D, Dark Orange #F56040, Orange #F77737, Yellow #FCAF45) defined as Tailwind theme colors (`brand-pink`, `brand-rose`, `brand-red`, `brand-orange-dark`, `brand-orange`, `brand-yellow`).
 
 ## Tech Stack
 - **Frontend**: React 19, Vite, Tailwind CSS v4, Framer Motion, Wouter routing, TanStack Query

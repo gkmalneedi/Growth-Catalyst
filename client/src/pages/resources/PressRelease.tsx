@@ -145,7 +145,7 @@ function PressItem({ item, index }: { item: PressReleaseType, index: number }) {
       className={`relative flex flex-col md:flex-row items-center gap-8 md:gap-0 ${isEven ? 'md:flex-row-reverse' : ''}`}
       data-testid={`card-press-${item.id}`}
     >
-      <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-zinc-950 border-2 border-primary z-10 shadow-[0_0_10px_rgba(168,85,247,0.5)]" />
+      <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-zinc-950 border-2 border-primary z-10 shadow-[0_0_10px_rgba(193,53,132,0.5)]" />
       
       <div className={`w-full md:w-1/2 pl-12 md:pl-0 ${isEven ? 'md:pr-16 text-left md:text-right' : 'md:pl-16 text-left'}`}>
         <Link href={`/resources/press-release/${item.slug}`}>

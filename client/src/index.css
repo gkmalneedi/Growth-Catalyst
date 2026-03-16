@@ -37,6 +37,13 @@
   --color-chart-3: hsl(var(--chart-3));
   --color-chart-4: hsl(var(--chart-4));
   --color-chart-5: hsl(var(--chart-5));
+
+  --color-brand-pink: #C13584;
+  --color-brand-rose: #E1306C;
+  --color-brand-red: #FD1D1D;
+  --color-brand-orange-dark: #F56040;
+  --color-brand-orange: #F77737;
+  --color-brand-yellow: #FCAF45;
 }
 
 @layer base {
@@ -51,7 +58,7 @@
     --popover: 260 30% 8%;
     --popover-foreground: 0 0% 100%;
     
-    --primary: 290 85% 60%; /* Vibrant Pink/Purple */
+    --primary: 340 78% 54%; /* Brand Rose #E1306C */
     --primary-foreground: 0 0% 100%;
     
     --secondary: 260 20% 15%;
@@ -60,7 +67,7 @@
     --muted: 260 20% 15%;
     --muted-foreground: 260 10% 65%;
     
-    --accent: 290 85% 60%;
+    --accent: 340 78% 54%;
     --accent-foreground: 0 0% 100%;
     
     --destructive: 0 62.8% 30.6%;
@@ -68,13 +75,13 @@
     
     --border: 260 20% 20%;
     --input: 260 20% 20%;
-    --ring: 290 85% 60%;
+    --ring: 340 78% 54%;
     
     --radius: 0.5rem;
     
-    --chart-1: 290 85% 60%;
-    --chart-2: 320 85% 60%;
-    --chart-3: 260 85% 60%;
+    --chart-1: 340 78% 54%;
+    --chart-2: 15 97% 55%;
+    --chart-3: 30 93% 60%;
     --chart-4: 45 100% 50%;
     --chart-5: 10 100% 60%;
   }
@@ -163,7 +170,7 @@
   }
 
   .text-glow {
-    text-shadow: 0 0 20px hsla(290, 85%, 60%, 0.5);
+    text-shadow: 0 0 20px hsla(340, 78%, 54%, 0.5);
   }
   
   .container-padding {

@@ -91,7 +91,7 @@ export default function Home() {
                   <CarouselItem key={index}>
                     <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold leading-tight mb-12">
                       {slide.title} <br />
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400">
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">
                         {slide.highlight},
                       </span> <br />
                       {slide.subtitle}
@@ -178,7 +178,7 @@ export default function Home() {
               className="text-4xl md:text-6xl font-heading font-bold mb-8 leading-tight text-white"
             >
               From Strategy to Outcomes: <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Our Proven Approach Ensures Success</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">Our Proven Approach Ensures Success</span>
             </motion.h2>
             <p className="text-xl text-muted-foreground leading-relaxed">
               We're a creative force driven by the belief that the perfect blend of the right people, right ideas, right approach, and right technology can make the impossible, possible.
@@ -195,7 +195,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10" />
         <div className="container mx-auto px-4 md:px-8 relative z-10 text-center max-w-5xl">
            <h2 className="text-4xl md:text-6xl font-heading font-bold mb-10 leading-tight">
-             Setting the Pace & Breaking the Barriers of <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Digital Marketing with AI</span>
+             Setting the Pace & Breaking the Barriers of <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">Digital Marketing with AI</span>
            </h2>
            <p className="text-xl text-zinc-300 mb-14 max-w-3xl mx-auto leading-relaxed">
              We're the architects of your digital success, fueled by AI innovations. From ultra-tailored messages to hyper-targeted campaigns, we harness cutting-edge AI solutions and proven techniques to propel your brand to the forefront of the digital landscape.
@@ -213,7 +213,7 @@ export default function Home() {
         <div className="flex flex-col md:flex-row-reverse items-center gap-20">
           <div className="md:w-1/2">
             <h2 className="text-4xl md:text-6xl font-heading font-bold mb-8 leading-tight text-white">
-              With Us, Your Digital Growth isn't Just Rapid - <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">it's Unstoppable</span>
+              With Us, Your Digital Growth isn't Just Rapid - <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">it's Unstoppable</span>
             </h2>
             <p className="text-xl text-muted-foreground mb-12 leading-relaxed">
               Your ‘growth’ forms the foundation of everything we do. We constantly innovate and push the boundaries to propel you forward, elevating your online presence with unprecedented growth opportunities.
@@ -235,7 +235,7 @@ export default function Home() {
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <h2 className="text-4xl md:text-6xl font-heading font-bold mb-8 text-white">
-              Cruise Towards Intelligent Digital Marketing With Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Tailored Services</span>
+              Cruise Towards Intelligent Digital Marketing With Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">Tailored Services</span>
             </h2>
             <Link href="/services">
               <Button size="lg" className="rounded-full h-14 px-8 bg-[#ffffff] text-black hover:bg-white/90 shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] text-lg transition-all hover:scale-105 group">
@@ -274,7 +274,7 @@ export default function Home() {
       <section className="py-32 section-black">
         <div className="container mx-auto px-4 md:px-8">
           <h2 className="text-3xl md:text-5xl font-heading font-bold text-center mb-20">
-            Some of the Golden Lines that <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Keep Us Motivated</span>
+            Some of the Golden Lines that <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">Keep Us Motivated</span>
           </h2>
           
           <Carousel className="w-full max-w-5xl mx-auto">
@@ -298,7 +298,7 @@ export default function Home() {
               ].map((testimonial, i) => (
                 <CarouselItem key={i}>
                   <div className="p-10 md:p-16 rounded-[2rem] bg-gradient-to-br from-white/10 to-white/5 border border-white/10 text-center relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-purple-500 to-pink-500" />
+                    <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow" />
                     <div className="flex justify-center mb-8">
                       <div className="flex gap-1">
                         {[1,2,3,4,5].map(s => <Star key={s} className="h-6 w-6 fill-yellow-500 text-yellow-500" />)}

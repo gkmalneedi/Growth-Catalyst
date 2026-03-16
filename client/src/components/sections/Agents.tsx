@@ -107,7 +107,7 @@ export function AgentsSection() {
                   transition={{ delay: 0.4 }}
                 >
                   <div className="flex justify-between items-start">
-                    <div className="bg-purple-500/10 text-purple-500 px-2 py-1 rounded text-xs">ROI</div>
+                    <div className="bg-brand-pink/10 text-brand-pink px-2 py-1 rounded text-xs">ROI</div>
                     <Network className="h-5 w-5 text-muted-foreground" />
                   </div>
                   <div className="font-mono text-2xl font-bold">10x</div>

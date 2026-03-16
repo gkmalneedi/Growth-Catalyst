@@ -49,7 +49,7 @@ export function Navbar() {
               
               {/* Services Dropdown */}
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">
                   Services
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -57,7 +57,7 @@ export function Navbar() {
                     {servicesList.map((service) => (
                       <li key={service.title}>
                         <Link href={service.href}>
-                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-purple-500 to-pink-500 text-white h-full">
+                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow text-white h-full">
                             <div className="text-sm font-medium leading-none text-white mb-1">{service.title}</div>
                             <p className="line-clamp-2 text-sm leading-snug text-white/90">
                               {service.description}
@@ -72,7 +72,7 @@ export function Navbar() {
 
               {/* Industries Dropdown */}
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">
                   Industries
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -80,7 +80,7 @@ export function Navbar() {
                     {industriesList.map((industry) => (
                       <li key={industry.title}>
                         <Link href={industry.href}>
-                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-purple-500 to-pink-500 text-white h-full">
+                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow text-white h-full">
                             <div className="text-sm font-medium leading-none text-white mb-1">{industry.title}</div>
                             <p className="line-clamp-2 text-sm leading-snug text-white/90">
                               specialized solutions for {industry.title} sector.
@@ -95,7 +95,7 @@ export function Navbar() {
 
               <NavigationMenuItem>
                 <Link href="/portfolio">
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-muted-foreground hover:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400")}>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-muted-foreground hover:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow")}>
                     Portfolio
                   </NavigationMenuLink>
                 </Link>
@@ -103,7 +103,7 @@ export function Navbar() {
               
               {/* Resources Dropdown */}
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">
                   Resources
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -111,7 +111,7 @@ export function Navbar() {
                     {resourcesList.map((resource) => (
                       <li key={resource.title}>
                         <Link href={resource.href}>
-                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-purple-500 to-pink-500 text-white h-full">
+                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow text-white h-full">
                             <div className="text-sm font-medium leading-none text-white mb-1">{resource.title}</div>
                             <p className="line-clamp-2 text-sm leading-snug text-white/90">
                               {resource.description}
@@ -126,7 +126,7 @@ export function Navbar() {
 
               <NavigationMenuItem>
                 <Link href="/about">
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-muted-foreground hover:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400")}>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-muted-foreground hover:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow")}>
                     About Us
                   </NavigationMenuLink>
                 </Link>
@@ -134,7 +134,7 @@ export function Navbar() {
 
               <NavigationMenuItem>
                 <Link href="/contact">
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-muted-foreground hover:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400")}>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-muted-foreground hover:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow")}>
                     Contact
                   </NavigationMenuLink>
                 </Link>
@@ -145,12 +145,12 @@ export function Navbar() {
 
           <div className="flex gap-4 ml-4">
             <Link href="/proposal">
-              <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 text-white rounded-full px-6 border-0">
+              <Button className="bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow hover:opacity-90 text-white rounded-full px-6 border-0">
                 Start Project
               </Button>
             </Link>
             <Link href="/contact">
-              <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 text-white rounded-full px-6 border-0">
+              <Button className="bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow hover:opacity-90 text-white rounded-full px-6 border-0">
                 Let's Talk
               </Button>
             </Link>

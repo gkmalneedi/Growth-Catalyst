@@ -41,7 +41,7 @@ export default function About() {
           >
              <h1 className="text-5xl md:text-7xl font-heading font-bold leading-tight mb-8">
                Curious About Our Story? <br/>
-               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-orange-400">
+               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">
                  Actually, it's All About YOU!
                </span>
              </h1>
@@ -77,7 +77,7 @@ export default function About() {
                   transition={{ delay: i * 0.1 }}
                   className="p-6"
                 >
-                  <div className="text-4xl md:text-6xl font-heading font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">{stat.value}</div>
+                  <div className="text-4xl md:text-6xl font-heading font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">{stat.value}</div>
                   <div className="text-zinc-400 text-lg">{stat.label}</div>
                 </motion.div>
               ))}
@@ -92,10 +92,10 @@ export default function About() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-zinc-900/50 border border-white/10 rounded-3xl p-10 md:p-14 relative overflow-hidden group hover:border-purple-500/50 transition-colors"
+            className="bg-zinc-900/50 border border-white/10 rounded-3xl p-10 md:p-14 relative overflow-hidden group hover:border-brand-pink/50 transition-colors"
           >
              <div className="absolute top-0 right-0 p-8 opacity-20 group-hover:opacity-40 transition-opacity">
-               <Target className="w-32 h-32 text-purple-500" />
+               <Target className="w-32 h-32 text-brand-rose" />
              </div>
              <h3 className="text-3xl font-heading font-bold mb-6 text-white relative z-10">Our Mission</h3>
              <p className="text-xl text-zinc-400 leading-relaxed relative z-10">
@@ -107,10 +107,10 @@ export default function About() {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-zinc-900/50 border border-white/10 rounded-3xl p-10 md:p-14 relative overflow-hidden group hover:border-pink-500/50 transition-colors"
+            className="bg-zinc-900/50 border border-white/10 rounded-3xl p-10 md:p-14 relative overflow-hidden group hover:border-brand-orange-dark/50 transition-colors"
           >
              <div className="absolute top-0 right-0 p-8 opacity-20 group-hover:opacity-40 transition-opacity">
-               <Lightbulb className="w-32 h-32 text-pink-500" />
+               <Lightbulb className="w-32 h-32 text-brand-red" />
              </div>
              <h3 className="text-3xl font-heading font-bold mb-6 text-white relative z-10">Our Vision</h3>
              <p className="text-xl text-zinc-400 leading-relaxed relative z-10">
@@ -124,7 +124,7 @@ export default function About() {
       <section className="py-32 bg-zinc-950 section-black">
         <div className="container mx-auto px-4 md:px-8 text-center max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-6xl font-heading font-bold mb-6 text-white">
-            Our Strategic Approach To <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Your Success</span>
+            Our Strategic Approach To <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">Your Success</span>
           </h2>
           <p className="text-xl text-zinc-400 mb-20">
             With a true understanding of what's now and what's next in digital, we follow a strategic approach to ensure your digital success.
@@ -137,12 +137,12 @@ export default function About() {
               desc="Conduct in-depth analysis to understand your audience's behavior and preferences."
             />
             <StrategicCard 
-              icon={<Target className="w-10 h-10 text-purple-400" />}
+              icon={<Target className="w-10 h-10 text-brand-orange" />}
               title="Precise Targeting"
               desc="Leverage AI algorithms to target the right audience at the right time for maximum engagement."
             />
             <StrategicCard 
-              icon={<Zap className="w-10 h-10 text-pink-400" />}
+              icon={<Zap className="w-10 h-10 text-brand-orange-dark" />}
               title="Personalized Content"
               desc="Blend human creativity and AI to create hyper-personalized content that resonates."
             />
@@ -258,7 +258,7 @@ export default function About() {
       <section className="py-32 container mx-auto px-4 md:px-8 text-center">
          <h2 className="text-4xl md:text-6xl font-heading font-bold mb-10 text-white">
            Ready to Embark on a Strategic <br/>
-           <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Digital Marketing Voyage?</span>
+           <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">Digital Marketing Voyage?</span>
          </h2>
          <Link href="/contact">
            <Button size="lg" className="rounded-full h-16 px-12 text-xl bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/25">

@@ -73,10 +73,10 @@ export default function SocialMediaOptimization() {
                  
                  {/* Floating Elements */}
                  <div className="absolute -top-10 -right-10 p-4 bg-zinc-900 border border-white/10 rounded-2xl shadow-xl animate-bounce duration-[3000ms]">
-                   <Users className="h-8 w-8 text-pink-500" />
+                   <Users className="h-8 w-8 text-brand-orange-dark" />
                  </div>
                  <div className="absolute -bottom-5 -left-5 p-4 bg-zinc-900 border border-white/10 rounded-2xl shadow-xl animate-bounce duration-[4000ms]">
-                   <MessageCircle className="h-8 w-8 text-purple-500" />
+                   <MessageCircle className="h-8 w-8 text-brand-rose" />
                  </div>
                </motion.div>
             </div>

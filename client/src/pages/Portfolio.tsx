@@ -8,7 +8,7 @@ const projects = [
   {
     title: "Neon Horizon",
     category: "Brand Identity",
-    image: "bg-gradient-to-br from-purple-500/20 to-blue-500/20",
+    image: "bg-gradient-to-br from-brand-pink/20 to-blue-500/20",
     client: "TechFlow"
   },
   {
@@ -20,7 +20,7 @@ const projects = [
   {
     title: "Cyber Sphere",
     category: "Marketing Campaign",
-    image: "bg-gradient-to-tr from-pink-500/20 to-rose-500/20",
+    image: "bg-gradient-to-tr from-brand-red/20 to-brand-orange-dark/20",
     client: "FutureCorp"
   },
   {

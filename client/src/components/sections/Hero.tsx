@@ -36,7 +36,7 @@ export function Hero() {
             className="text-5xl md:text-7xl font-heading font-bold leading-tight mb-6 text-glow"
           >
             We Build Brands & <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">
               Deploy Digital Agents
             </span>
           </motion.h1>

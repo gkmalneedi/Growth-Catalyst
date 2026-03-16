@@ -32,7 +32,7 @@ export default function IndustryTemplate() {
       
       {/* 1. HERO SECTION */}
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-zinc-950 text-white section-black">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.15),transparent_50%)] -z-10" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(193,53,132,0.15),transparent_50%)] -z-10" />
         <div className="container mx-auto px-4 md:px-8 text-center">
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
@@ -41,7 +41,7 @@ export default function IndustryTemplate() {
             className="text-5xl md:text-7xl font-heading font-bold mb-8 leading-tight max-w-5xl mx-auto"
           >
             Crush Your Competitors with Our AI-powered <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">{industry.title} Marketing!</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">{industry.title} Marketing!</span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 30 }}
@@ -69,7 +69,7 @@ export default function IndustryTemplate() {
       <section className="py-20 bg-black text-white border-t border-white/10">
         <div className="container mx-auto px-4 md:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-heading font-bold mb-16">
-            Partners Driving <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">{industry.title} Success</span>
+            Partners Driving <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">{industry.title} Success</span>
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center opacity-70">
             {/* Using text placeholders for logos as per design consistency */}
@@ -97,11 +97,11 @@ export default function IndustryTemplate() {
             </div>
             <div className="lg:w-1/2 grid grid-cols-1 md:grid-cols-3 gap-6">
                <div className="p-8 rounded-2xl bg-zinc-900/50 border border-white/10 text-center">
-                 <div className="text-4xl font-bold text-purple-500 mb-2">200% +</div>
+                 <div className="text-4xl font-bold text-brand-rose mb-2">200% +</div>
                  <div className="text-sm text-zinc-400">Higher in customer engagement</div>
                </div>
                <div className="p-8 rounded-2xl bg-zinc-900/50 border border-white/10 text-center">
-                 <div className="text-4xl font-bold text-pink-500 mb-2">300% +</div>
+                 <div className="text-4xl font-bold text-brand-red mb-2">300% +</div>
                  <div className="text-sm text-zinc-400">Improved customer trust</div>
                </div>
                <div className="p-8 rounded-2xl bg-zinc-900/50 border border-white/10 text-center">
@@ -119,7 +119,7 @@ export default function IndustryTemplate() {
            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-8">
              {industry.title} Marketing With Precision Targeting
            </h2>
-           <h3 className="text-2xl font-medium text-purple-400 mb-6">
+           <h3 className="text-2xl font-medium text-brand-orange mb-6">
              Our Strategies Are Cutting-Edge, Yet Designed With Your Customers In Mind.
            </h3>
            <p className="text-xl text-zinc-400 leading-relaxed">
@@ -139,10 +139,10 @@ export default function IndustryTemplate() {
             {servicesList.slice(0, 8).map((service, i) => (
               <Link key={i} href={service.href}>
                 <div className="flex flex-col items-center text-center group cursor-pointer p-6 rounded-2xl hover:bg-white/5 transition-colors">
-                  <div className="h-20 w-20 rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-white/10">
+                  <div className="h-20 w-20 rounded-full bg-gradient-to-br from-brand-pink/20 to-brand-yellow/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-white/10">
                     <service.icon className="h-10 w-10 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold font-heading text-white group-hover:text-purple-400 transition-colors">
+                  <h3 className="text-xl font-bold font-heading text-white group-hover:text-brand-orange transition-colors">
                     {service.title}
                   </h3>
                 </div>
@@ -227,10 +227,10 @@ export default function IndustryTemplate() {
       </section>
 
       {/* 8. FINAL CTA */}
-      <section className="py-24 bg-gradient-to-r from-purple-900/20 to-pink-900/20 text-white text-center">
+      <section className="py-24 bg-gradient-to-r from-brand-pink/20 to-brand-yellow/20 text-white text-center">
         <div className="container mx-auto px-4 md:px-8">
            <h2 className="text-4xl md:text-6xl font-heading font-bold mb-12 max-w-4xl mx-auto leading-tight">
-             Let's Build Your Strategies to Dominate the <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">{industry.title} World!</span>
+             Let's Build Your Strategies to Dominate the <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">{industry.title} World!</span>
            </h2>
            <Link href="/contact">
              <Button size="lg" className="rounded-full h-16 px-10 text-xl bg-solid-white hover:bg-white/90 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:scale-105 transition-all duration-300 group text-black">
