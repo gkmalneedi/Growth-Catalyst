@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, BarChart, Users, Globe, ChevronRight, Star, Plus, Minus, MessageCircle, Megaphone, Share2, Target, Search, Smartphone } from "lucide-react";
+import { ArrowRight, CheckCircle2, BarChart, Users, Globe, ChevronRight, Star, Plus, Minus, MessageCircle, Megaphone, Share2, Target, Search, Smartphone, Zap, TrendingUp, Database, Settings, FileText, PenTool, Eye, Layers, Clock, Palette, Lightbulb, Shield, Heart, Mail, Layout, Video, Rocket, Award, Gauge, Workflow, BrainCircuit } from "lucide-react";
 import { useLocation } from "wouter";
 import { servicesList } from "@/lib/data";
 import { motion } from "framer-motion";
@@ -100,13 +100,29 @@ export default function ServiceTemplate() {
     desc: `Experience ${service.title} like never before. We combine cutting-edge technology with human creativity to deliver results that matter.`
   };
 
-  // Combine benefits and process for the grid, or generic ones
-  const gridItems = [
-    ...(service.benefits || []).map(b => ({ ...b, icon: <Star className="h-8 w-8" /> })),
-    ...(service.process || []).map(p => ({ ...p, icon: <Target className="h-8 w-8" /> }))
+  const benefitIcons = [
+    <TrendingUp className="h-8 w-8" />,
+    <Heart className="h-8 w-8" />,
+    <Award className="h-8 w-8" />,
+    <Shield className="h-8 w-8" />,
+    <Lightbulb className="h-8 w-8" />,
+    <Rocket className="h-8 w-8" />,
   ];
 
-  // Fill up grid if less than 6
+  const processIcons = [
+    <Search className="h-8 w-8" />,
+    <Settings className="h-8 w-8" />,
+    <Workflow className="h-8 w-8" />,
+    <Gauge className="h-8 w-8" />,
+    <BrainCircuit className="h-8 w-8" />,
+    <Layers className="h-8 w-8" />,
+  ];
+
+  const gridItems = [
+    ...(service.benefits || []).map((b, i) => ({ ...b, icon: benefitIcons[i % benefitIcons.length] })),
+    ...(service.process || []).map((p, i) => ({ ...p, icon: processIcons[i % processIcons.length] }))
+  ];
+
   if (gridItems.length < 6) {
      gridItems.push({ title: "Custom Strategy", desc: "Tailored specifically to your business goals.", icon: <Users className="h-8 w-8" /> });
      gridItems.push({ title: "Data-Driven", desc: "Decisions backed by real-time analytics.", icon: <BarChart className="h-8 w-8" /> });
@@ -197,20 +213,23 @@ export default function ServiceTemplate() {
       </section>
 
       {/* 3. SERVICES GRID */}
-      <section className="py-24 container mx-auto px-4 md:px-8 bg-white/5 backdrop-blur-sm">
-        <h2 className="text-4xl md:text-5xl font-heading font-bold mb-16 max-w-3xl text-white">
-          The {service.title} Magic Happens with Our Tailored Services
-        </h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-          {gridItems.map((item, i) => (
-            <ServiceItem 
-              key={i}
-              icon={item.icon}
-              title={item.title}
-              desc={item.desc}
-            />
-          ))}
+      <section className="py-24 bg-gradient-to-b from-zinc-950 via-zinc-900/50 to-zinc-950 border-y border-white/5">
+        <div className="container mx-auto px-4 md:px-8">
+          <h2 className="text-4xl md:text-5xl font-heading font-bold mb-16 max-w-3xl text-white">
+            The {service.title} Magic Happens with Our{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">Tailored Services</span>
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+            {gridItems.map((item, i) => (
+              <ServiceItem 
+                key={i}
+                icon={item.icon}
+                title={item.title}
+                desc={item.desc}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
@@ -330,8 +349,8 @@ export default function ServiceTemplate() {
 
 function ServiceItem({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) {
   return (
-    <div className="group">
-      <div className="mb-4 text-white/80 group-hover:text-primary transition-colors">
+    <div className="group p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.06] hover:border-brand-pink/20 transition-all duration-300">
+      <div className="mb-4 w-14 h-14 rounded-xl bg-gradient-to-br from-brand-pink/20 to-brand-yellow/10 flex items-center justify-center text-brand-rose group-hover:from-brand-pink/30 group-hover:to-brand-yellow/20 transition-all duration-300">
         {icon}
       </div>
       <h3 className="text-xl font-bold font-heading mb-3 text-white">{title}</h3>

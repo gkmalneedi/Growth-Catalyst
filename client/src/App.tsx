@@ -19,6 +19,8 @@ import Blogs from "@/pages/resources/Blogs";
 import CaseStudies from "@/pages/resources/CaseStudies";
 import PressRelease from "@/pages/resources/PressRelease";
 import ResourceDetail from "@/pages/resources/ResourceDetail";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import Terms from "@/pages/Terms";
 
 function Router() {
   return (
@@ -55,6 +57,8 @@ function Router() {
       <Route path="/resources" component={PlaceholderPage} />
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
+      <Route path="/privacy-policy" component={PrivacyPolicy} />
+      <Route path="/terms" component={Terms} />
       
       <Route component={NotFound} />
     </Switch>

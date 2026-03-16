@@ -117,9 +117,11 @@ export default function SocialMediaOptimization() {
       </section>
 
       {/* 3. SERVICES GRID */}
-      <section className="py-24 container mx-auto px-4 md:px-8 bg-white/5 backdrop-blur-sm">
+      <section className="py-24 bg-gradient-to-b from-zinc-950 via-zinc-900/50 to-zinc-950 border-y border-white/5">
+        <div className="container mx-auto px-4 md:px-8">
         <h2 className="text-4xl md:text-5xl font-heading font-bold mb-16 max-w-3xl text-white">
-          The Social Media Magic Happens with Our Tailored Services
+          The Social Media Magic Happens with Our{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">Tailored Services</span>
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
@@ -168,6 +170,7 @@ export default function SocialMediaOptimization() {
             title="Influencer Collaboration"
             desc="We team up with influencers to expand your brand's reach and credibility among your target audience."
           />
+        </div>
         </div>
       </section>
 
@@ -287,8 +290,8 @@ export default function SocialMediaOptimization() {
 
 function ServiceItem({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) {
   return (
-    <div className="group">
-      <div className="mb-4 text-white/80 group-hover:text-primary transition-colors">
+    <div className="group p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.06] hover:border-brand-pink/20 transition-all duration-300">
+      <div className="mb-4 w-14 h-14 rounded-xl bg-gradient-to-br from-brand-pink/20 to-brand-yellow/10 flex items-center justify-center text-brand-rose group-hover:from-brand-pink/30 group-hover:to-brand-yellow/20 transition-all duration-300">
         {icon}
       </div>
       <h3 className="text-xl font-bold font-heading mb-3 text-white">{title}</h3>
