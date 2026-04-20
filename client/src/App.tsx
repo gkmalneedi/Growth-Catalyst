@@ -13,6 +13,7 @@ import Contact from "@/pages/Contact";
 import ServiceTemplate from "@/pages/ServiceTemplate";
 import IndustryTemplate from "@/pages/IndustryTemplate";
 import Portfolio from "@/pages/Portfolio";
+import PortfolioDetail from "@/pages/PortfolioDetail";
 import AdminDashboard from "@/pages/Admin";
 import SocialMediaOptimization from "@/pages/services/SocialMediaOptimization";
 import Blogs from "@/pages/resources/Blogs";
@@ -39,6 +40,7 @@ function Router() {
       <Route path="/admin" component={AdminDashboard} />
       
       <Route path="/portfolio" component={Portfolio} />
+      <Route path="/portfolio/:slug" component={PortfolioDetail} />
       
       {/* Resources Pages */}
       <Route path="/resources/blogs" component={Blogs} />
