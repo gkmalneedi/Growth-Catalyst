@@ -1,9 +1,10 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Star, Search, Lightbulb, Rocket, BarChart2, RefreshCw, Trophy, Medal, Award, Shield, CheckCircle2 } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowRight, Star, Search, Lightbulb, Rocket, BarChart2, RefreshCw } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
+import { useState, useEffect } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
@@ -14,38 +15,11 @@ import {
 } from "@/components/ui/carousel";
 
 import heroBg from "@assets/generated_images/abstract_blue_vector_wave_background.png";
-
 import { servicesList } from "@/lib/data";
-
 import isoBadge1 from "@assets/stock_images/gold_iso_certificati_34a75bf8.jpg";
 import isoBadge2 from "@assets/stock_images/gold_iso_certificati_91c79c8d.jpg";
 
-const heroSlides = [
-  {
-    label: "AI-Powered Marketing",
-    title: "We're the Crusaders of",
-    highlight: "Agent Marketing",
-    subtitle: "Redefining Engagement"
-  },
-  {
-    label: "Smarter Campaigns",
-    title: "We're the Crusaders of",
-    highlight: "AI Marketing",
-    subtitle: "Redefining Engagement"
-  },
-  {
-    label: "Zero Waste Growth",
-    title: "We're the Crusaders of",
-    highlight: "Automation",
-    subtitle: "Redefining Engagement"
-  },
-  {
-    label: "Maximum Impact",
-    title: "We're the Crusaders of",
-    highlight: "More ROI",
-    subtitle: "Redefining Engagement"
-  }
-];
+const highlightWords = ["Agent Marketing", "AI Marketing", "Automation", "More ROI"];
 
 const trustedLogos = [
   { name: "Govt of India", color: "text-orange-400" },
@@ -66,63 +40,139 @@ const trustedLogos = [
 ];
 
 const workflowSteps = [
+  { number: "01", icon: Search, title: "Discovery & Audit", desc: "We deep-dive into your brand, competitors, and audience to uncover hidden growth opportunities." },
+  { number: "02", icon: Lightbulb, title: "Strategy Development", desc: "Our team crafts a custom AI-powered marketing blueprint aligned to your business goals." },
+  { number: "03", icon: Rocket, title: "Campaign Execution", desc: "Multi-channel campaigns with precision targeting, compelling creatives, and A/B testing." },
+  { number: "04", icon: BarChart2, title: "Monitor & Optimize", desc: "Real-time dashboards and AI analytics ensure every rupee works harder." },
+  { number: "05", icon: RefreshCw, title: "Report & Scale", desc: "Transparent reporting and data-driven decisions that accelerate growth month over month." }
+];
+
+// Partner logos styled to match screenshot
+const partnerLogos = [
   {
-    number: "01",
-    icon: Search,
-    title: "Discovery & Audit",
-    desc: "We deep-dive into your brand, competitors, and audience to uncover hidden growth opportunities and gaps."
+    id: "meta",
+    logo: (
+      <div className="flex items-center gap-2">
+        <span className="text-blue-500 text-2xl font-bold">∞∞</span>
+        <span className="text-white text-xl font-bold font-heading">Meta</span>
+      </div>
+    )
   },
   {
-    number: "02",
-    icon: Lightbulb,
-    title: "Strategy Development",
-    desc: "Our team crafts a custom AI-powered marketing blueprint aligned to your specific business goals."
+    id: "google",
+    logo: (
+      <div className="flex items-center gap-2">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L3 7l9 5 9-5-9-5z" fill="#4285F4"/>
+          <path d="M3 7v10l9 5V12L3 7z" fill="#34A853"/>
+          <path d="M21 7v10l-9 5V12l9-5z" fill="#EA4335"/>
+        </svg>
+        <span className="text-white text-xl font-bold font-heading">Google Ads</span>
+      </div>
+    )
   },
   {
-    number: "03",
-    icon: Rocket,
-    title: "Campaign Execution",
-    desc: "We launch multi-channel campaigns with precision targeting, compelling creatives, and A/B testing."
+    id: "bing",
+    logo: (
+      <div className="flex items-center gap-2">
+        <span className="text-teal-400 text-2xl font-bold font-heading">b</span>
+        <span className="text-white text-xl font-bold font-heading">Bing ads</span>
+      </div>
+    )
   },
   {
-    number: "04",
-    icon: BarChart2,
-    title: "Monitor & Optimize",
-    desc: "Real-time dashboards and AI analytics ensure every rupee is working harder, continuously improving performance."
+    id: "amazon",
+    logo: (
+      <div className="flex flex-col items-start">
+        <span className="text-white text-xl font-bold font-heading">amazon<span className="text-white font-medium">ads</span></span>
+        <div className="h-[2px] w-full bg-gradient-to-r from-orange-400 to-transparent mt-0.5 rounded-full" />
+      </div>
+    )
   },
   {
-    number: "05",
-    icon: RefreshCw,
-    title: "Report & Scale",
-    desc: "Transparent reporting and data-driven scaling decisions that accelerate your growth month over month."
+    id: "clevertap",
+    logo: (
+      <div className="flex items-center gap-2">
+        <div className="w-7 h-7 rounded-full border-2 border-red-500 flex items-center justify-center">
+          <span className="text-red-500 text-xs font-bold">C</span>
+        </div>
+        <span className="text-white text-xl font-bold font-heading">CleverTap</span>
+      </div>
+    )
+  },
+  {
+    id: "hubspot",
+    logo: (
+      <div className="flex items-center gap-2">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="#FF7A59">
+          <path d="M22.4 11.6c-.6-1.4-1.8-2.4-3.2-2.8V6.6c.7-.4 1.2-1.1 1.2-2 0-1.3-1-2.3-2.3-2.3s-2.3 1-2.3 2.3c0 .9.5 1.6 1.2 2v2.2c-1 .3-1.9.8-2.6 1.5L6.7 6.4c.1-.2.1-.4.1-.6C6.8 4.2 5.6 3 4.1 3S1.4 4.2 1.4 5.8s1.2 2.8 2.7 2.8c.5 0 1-.1 1.4-.4l7.5 4c-.1.4-.2.7-.2 1.1 0 .7.2 1.4.5 2l-2.4 2.4c-.2-.1-.4-.1-.6-.1-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2c0-.1 0-.3-.1-.4l2.3-2.3c.8.5 1.7.8 2.7.8 2.8 0 5.1-2.3 5.1-5.1-.1-1.3-.5-2.4-1.3-3z"/>
+        </svg>
+        <span className="text-white text-xl font-bold font-heading">Hub<span className="text-orange-400">S</span>pot</span>
+      </div>
+    )
   }
 ];
 
-const partnerLogos = [
-  { name: "Meta", bg: "bg-blue-600", text: "text-white", symbol: "f" },
-  { name: "Google Ads", bg: "bg-white", text: "text-zinc-800", symbol: "G" },
-  { name: "HubSpot", bg: "bg-orange-500", text: "text-white", symbol: "H" },
-  { name: "Bing Ads", bg: "bg-teal-600", text: "text-white", symbol: "B" },
-  { name: "Amazon", bg: "bg-yellow-400", text: "text-zinc-900", symbol: "a" },
-  { name: "CleverTap", bg: "bg-red-600", text: "text-white", symbol: "CT" },
-  { name: "Salesforce", bg: "bg-blue-500", text: "text-white", symbol: "SF" },
-  { name: "Mailchimp", bg: "bg-yellow-300", text: "text-zinc-900", symbol: "M" },
-  { name: "Semrush", bg: "bg-orange-600", text: "text-white", symbol: "SR" },
-  { name: "Shopify", bg: "bg-green-500", text: "text-white", symbol: "S" },
-  { name: "Hootsuite", bg: "bg-indigo-600", text: "text-white", symbol: "HS" },
-  { name: "Buffer", bg: "bg-sky-500", text: "text-white", symbol: "Bu" },
-];
-
-const achievements = [
-  { icon: Trophy, value: "50+", label: "Industry Awards Won", color: "text-yellow-400" },
-  { icon: Medal, value: "ISO 9001", label: "Quality Management Certified", color: "text-brand-orange" },
-  { icon: Shield, value: "ISO 27001", label: "Information Security Certified", color: "text-blue-400" },
-  { icon: CheckCircle2, value: "95%", label: "Client Satisfaction Rate", color: "text-green-400" },
-  { icon: Award, value: "Top 10", label: "Digital Agency in India 2024", color: "text-brand-pink" },
-  { icon: Star, value: "4.9/5", label: "Average Client Rating", color: "text-brand-yellow" },
+// Award badges for carousel
+const awardBadges = [
+  {
+    id: "thub",
+    badge: (
+      <div className="flex items-center justify-center">
+        <div className="w-48 h-48 rounded-full border-4 border-orange-500 flex flex-col items-center justify-center text-center p-4 relative">
+          <div className="absolute inset-0 rounded-full border-4 border-orange-500/20" style={{ transform: 'scale(1.06)' }} />
+          <span className="text-orange-500 text-4xl font-black font-heading italic leading-none">t-</span>
+          <span className="text-white text-4xl font-black font-heading italic leading-none">hub</span>
+          <div className="mt-2 text-center">
+            <p className="text-zinc-400 text-[9px] tracking-widest uppercase leading-tight">CONVERGE · CONNECT · CREATE</p>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  {
+    id: "goodfirms",
+    badge: (
+      <div className="flex items-center justify-center">
+        <div className="w-48 h-48 rounded-full border-4 border-blue-500 flex flex-col items-center justify-center text-center p-4 relative bg-white/5">
+          <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mb-2">
+            <span className="text-white font-bold text-lg">G</span>
+          </div>
+          <span className="text-white text-sm font-bold font-heading">GoodFirms</span>
+          <div className="mt-1 px-3 py-0.5 bg-blue-600 rounded-sm">
+            <p className="text-white text-[8px] font-bold tracking-wider uppercase">TOP DIGITAL MARKETING</p>
+            <p className="text-white text-[8px] font-bold tracking-wider uppercase">COMPANY</p>
+          </div>
+          <p className="text-zinc-500 text-[9px] mt-1">goodfirms.co</p>
+        </div>
+      </div>
+    )
+  },
+  {
+    id: "iso",
+    badge: (
+      <div className="flex items-center justify-center gap-6">
+        <div className="text-center">
+          <img src={isoBadge1} alt="ISO 27001" className="h-40 w-40 object-contain drop-shadow-[0_0_20px_rgba(234,179,8,0.4)]" />
+        </div>
+        <div className="text-center">
+          <img src={isoBadge2} alt="ISO 9001" className="h-40 w-40 object-contain drop-shadow-[0_0_20px_rgba(234,179,8,0.4)]" />
+        </div>
+      </div>
+    )
+  }
 ];
 
 export default function Home() {
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex(prev => (prev + 1) % highlightWords.length);
+    }, 2200);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navbar />
@@ -131,54 +181,48 @@ export default function Home() {
       <section className="relative min-h-screen flex items-center justify-center pt-28 pb-20 overflow-hidden bg-zinc-950 text-white section-black">
         <div className="absolute inset-0 z-0">
           <img src={heroBg} alt="" className="w-full h-full object-cover opacity-15" />
-          <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/70 via-transparent to-zinc-950" />
+          <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/80 via-transparent to-zinc-950" />
         </div>
-        {/* Radial glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(193,53,132,0.12),transparent_60%)] -z-0" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(193,53,132,0.1),transparent_65%)]" />
 
         <div className="container mx-auto px-4 md:px-8 relative z-10 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.9 }}
             className="max-w-6xl mx-auto"
           >
-            <Carousel
-              plugins={[Autoplay({ delay: 2500 })]}
-              opts={{ loop: true }}
-              className="w-full"
-            >
-              <CarouselContent>
-                {heroSlides.map((slide, index) => (
-                  <CarouselItem key={index}>
-                    <div className="flex flex-col items-center">
-                      <motion.span
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="inline-block mb-6 px-5 py-2 rounded-full border border-white/10 bg-white/5 text-sm font-medium tracking-widest uppercase text-zinc-300"
-                      >
-                        {slide.label}
-                      </motion.span>
-                      <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold leading-[1.1] mb-4">
-                        {slide.title} <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">
-                          {slide.highlight},
-                        </span>
-                      </h1>
-                      <p className="text-2xl md:text-3xl font-heading font-light text-zinc-400 mt-2 mb-6">
-                        {slide.subtitle}
-                      </p>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
+            {/* Static top line */}
+            <h1 className="text-5xl md:text-7xl lg:text-[88px] font-heading font-black leading-[1.05] tracking-tight text-white mb-4">
+              We're the Crusaders of
+            </h1>
 
-            <p className="text-xl text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+            {/* Animated cycling word */}
+            <div className="h-[100px] md:h-[120px] lg:h-[140px] flex items-center justify-center overflow-hidden mb-4">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={wordIndex}
+                  initial={{ opacity: 0, y: 60 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -60 }}
+                  transition={{ duration: 0.45, ease: "easeInOut" }}
+                  className="text-5xl md:text-7xl lg:text-[88px] font-heading font-black leading-[1.05] tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow block"
+                >
+                  {highlightWords[wordIndex]},
+                </motion.span>
+              </AnimatePresence>
+            </div>
+
+            {/* Static bottom line */}
+            <h1 className="text-5xl md:text-7xl lg:text-[88px] font-heading font-black leading-[1.05] tracking-tight text-zinc-300 mb-10">
+              Redefining Engagement
+            </h1>
+
+            <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto mb-12 leading-relaxed">
               AI-driven strategies. Creative excellence. Measurable results. We help ambitious brands dominate the digital landscape.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-5 justify-center mb-20">
               <Link href="/contact">
                 <Button size="lg" className="rounded-full h-16 px-10 text-xl bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow hover:opacity-90 text-white border-0 shadow-[0_0_40px_-10px_rgba(225,48,108,0.5)] hover:scale-105 transition-all duration-300 group">
                   Let's Connect <ArrowRight className="ml-2 h-6 w-6 group-hover:translate-x-1 transition-transform" />
@@ -192,7 +236,7 @@ export default function Home() {
             </div>
 
             {/* Stats bar */}
-            <div className="flex flex-wrap justify-center gap-12 mt-20 pt-10 border-t border-white/10">
+            <div className="flex flex-wrap justify-center gap-10 pt-10 border-t border-white/10">
               {[
                 { value: "300%", label: "Avg ROI Delivered" },
                 { value: "500+", label: "Campaigns Launched" },
@@ -201,7 +245,7 @@ export default function Home() {
               ].map((s, i) => (
                 <div key={i} className="text-center">
                   <div className="text-3xl md:text-4xl font-bold font-heading text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">{s.value}</div>
-                  <div className="text-zinc-400 text-sm mt-1">{s.label}</div>
+                  <div className="text-zinc-500 text-sm mt-1">{s.label}</div>
                 </div>
               ))}
             </div>
@@ -210,33 +254,33 @@ export default function Home() {
       </section>
 
       {/* ── SECTION 2: TRUSTED PARTNERS MARQUEE ── */}
-      <section className="py-16 bg-black border-y border-white/5 overflow-hidden">
+      <section className="py-14 bg-black border-y border-white/5 overflow-hidden">
         <div className="container mx-auto px-4 md:px-8 mb-8">
-          <p className="text-center text-sm font-medium tracking-widest uppercase text-zinc-500">
+          <p className="text-center text-xs font-medium tracking-widest uppercase text-zinc-500">
             Trusted by leading brands & enterprises worldwide
           </p>
         </div>
         <div className="relative flex overflow-x-hidden">
           <div className="flex animate-marquee whitespace-nowrap gap-16 items-center">
             {trustedLogos.map((logo, i) => (
-              <span key={i} className={`text-xl md:text-2xl font-bold font-heading ${logo.color} opacity-60 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>
+              <span key={i} className={`text-xl md:text-2xl font-bold font-heading ${logo.color} opacity-50 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>
                 {logo.name}
               </span>
             ))}
             {trustedLogos.map((logo, i) => (
-              <span key={`d-${i}`} className={`text-xl md:text-2xl font-bold font-heading ${logo.color} opacity-60 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>
+              <span key={`d-${i}`} className={`text-xl md:text-2xl font-bold font-heading ${logo.color} opacity-50 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>
                 {logo.name}
               </span>
             ))}
           </div>
           <div className="absolute top-0 flex animate-marquee2 whitespace-nowrap gap-16 items-center">
             {trustedLogos.map((logo, i) => (
-              <span key={`d2-${i}`} className={`text-xl md:text-2xl font-bold font-heading ${logo.color} opacity-60 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>
+              <span key={`d2-${i}`} className={`text-xl md:text-2xl font-bold font-heading ${logo.color} opacity-50 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>
                 {logo.name}
               </span>
             ))}
             {trustedLogos.map((logo, i) => (
-              <span key={`d3-${i}`} className={`text-xl md:text-2xl font-bold font-heading ${logo.color} opacity-60 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>
+              <span key={`d3-${i}`} className={`text-xl md:text-2xl font-bold font-heading ${logo.color} opacity-50 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>
                 {logo.name}
               </span>
             ))}
@@ -244,38 +288,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── SECTION 3: HOW WE WORK (WORKFLOW) ── */}
+      {/* ── SECTION 3: HOW WE WORK ── */}
       <section className="py-28 bg-zinc-950 section-black relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(193,53,132,0.08),transparent_60%)]" />
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="text-center mb-20">
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-sm font-medium tracking-widest uppercase text-brand-orange mb-4"
-            >
-              Our Process
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-4xl md:text-6xl font-heading font-bold text-white"
-            >
+            <p className="text-sm font-medium tracking-widest uppercase text-brand-orange mb-4">Our Process</p>
+            <h2 className="text-4xl md:text-6xl font-heading font-bold text-white">
               How We Work <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">With Our Clients</span>
-            </motion.h2>
+            </h2>
             <p className="text-xl text-zinc-400 mt-6 max-w-2xl mx-auto">
               A proven 5-step framework that transforms your digital presence into a growth engine.
             </p>
           </div>
 
-          {/* Steps */}
           <div className="relative">
-            {/* Connecting line (desktop) */}
             <div className="hidden lg:block absolute top-16 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
               {workflowSteps.map((step, i) => (
                 <motion.div
@@ -286,13 +315,11 @@ export default function Home() {
                   transition={{ delay: i * 0.1 }}
                   className="flex flex-col items-center text-center group"
                 >
-                  {/* Icon circle */}
                   <div className="relative mb-6">
                     <div className="w-32 h-32 rounded-full border border-white/10 bg-white/5 flex flex-col items-center justify-center group-hover:border-brand-pink/50 group-hover:bg-white/10 transition-all duration-300">
                       <step.icon className="h-8 w-8 text-brand-orange mb-1" />
                       <span className="text-xs font-bold text-zinc-500 font-heading">{step.number}</span>
                     </div>
-                    {/* Number badge */}
                     <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-gradient-to-br from-brand-pink to-brand-yellow flex items-center justify-center text-white text-xs font-bold">
                       {i + 1}
                     </div>
@@ -372,30 +399,10 @@ export default function Home() {
           <Carousel className="w-full max-w-5xl mx-auto">
             <CarouselContent>
               {[
-                {
-                  quote: "Nexus's Email Marketing services have truly transformed our outreach strategy. Their personalized approach, AI-driven techniques, and expertly tailored campaigns have significantly increased our engagement rates.",
-                  name: "Pradeep Reddy",
-                  role: "Senior Manager, Accenture",
-                  rating: 5
-                },
-                {
-                  quote: "The SEO squad is terrific at achieving organic traffic! Their genuine care for our growth and attention to detail have truly impressed me. We've seen a remarkable increase in our online visibility.",
-                  name: "Ramesh Rathi",
-                  role: "GM, CipherCloud",
-                  rating: 5
-                },
-                {
-                  quote: "Kudos to your outstanding content marketing services! Your strategic approach, creativity, and profound understanding of our business have truly elevated our brand's voice.",
-                  name: "Ashok Boddeda",
-                  role: "Director, Sysgain INC",
-                  rating: 5
-                },
-                {
-                  quote: "Working with Nexus was a game-changer. Our social media presence grew by 200% in just 3 months. The team's dedication and creativity are unmatched in the industry.",
-                  name: "Sunita Sharma",
-                  role: "Marketing Head, TechBridge India",
-                  rating: 5
-                }
+                { quote: "Nexus's Email Marketing services have truly transformed our outreach strategy. Their personalized approach, AI-driven techniques, and expertly tailored campaigns have significantly increased our engagement rates.", name: "Pradeep Reddy", role: "Senior Manager, Accenture", rating: 5 },
+                { quote: "The SEO squad is terrific at achieving organic traffic! Their genuine care for our growth and attention to detail have truly impressed me. We've seen a remarkable increase in our online visibility.", name: "Ramesh Rathi", role: "GM, CipherCloud", rating: 5 },
+                { quote: "Kudos to your outstanding content marketing services! Your strategic approach, creativity, and profound understanding of our business have truly elevated our brand's voice.", name: "Ashok Boddeda", role: "Director, Sysgain INC", rating: 5 },
+                { quote: "Working with Nexus was a game-changer. Our social media presence grew by 200% in just 3 months. The team's dedication and creativity are unmatched in the industry.", name: "Sunita Sharma", role: "Marketing Head, TechBridge India", rating: 5 }
               ].map((t, i) => (
                 <CarouselItem key={i}>
                   <div className="p-10 md:p-16 rounded-[2rem] bg-gradient-to-br from-white/10 to-white/5 border border-white/10 text-center relative overflow-hidden">
@@ -422,125 +429,87 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── SECTION 6: PARTNER LOGOS ── */}
-      <section className="py-28 bg-black text-white">
+      {/* ── SECTION 6: PARTNER LOGOS (screenshot layout) ── */}
+      <section className="py-24 bg-black text-white">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="text-center mb-16">
-            <p className="text-sm font-medium tracking-widest uppercase text-brand-orange mb-4">Ecosystem</p>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold">
-              Our Technology <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">Partners</span>
-            </h2>
-            <p className="text-zinc-400 mt-4 text-lg max-w-2xl mx-auto">
-              Fast-track your growth with our strategic partners' ecosystem — the world's most powerful marketing platforms.
-            </p>
-          </div>
+          <div className="flex flex-col md:flex-row items-center gap-16">
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
-            {partnerLogos.map((logo, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className="group flex flex-col items-center gap-3 p-5 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:-translate-y-1 cursor-default"
-              >
-                {/* Logo placeholder box */}
-                <div className={`w-14 h-14 rounded-xl ${logo.bg} flex items-center justify-center font-bold text-xl font-heading ${logo.text} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                  {logo.symbol}
-                </div>
-                <span className="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors text-center leading-tight">{logo.name}</span>
-              </motion.div>
-            ))}
+            {/* Left: 3×2 logo grid */}
+            <div className="md:w-1/2 grid grid-cols-3 gap-x-12 gap-y-10 items-center">
+              {partnerLogos.map((p) => (
+                <motion.div
+                  key={p.id}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="flex items-center justify-start"
+                >
+                  {p.logo}
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Right: text */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="md:w-1/2"
+            >
+              <h2 className="text-4xl md:text-5xl font-heading font-bold text-white leading-tight mb-6">
+                Together, We Propel Your <br /> Growth: Our Partners
+              </h2>
+              <p className="text-zinc-400 text-lg leading-relaxed">
+                Fast-track your growth with our strategic partners' ecosystem and unmatched experience in crafting digital dominance for businesses across industries.
+              </p>
+            </motion.div>
+
           </div>
         </div>
       </section>
 
-      {/* ── SECTION 7: ACHIEVEMENTS & AWARDS ── */}
-      <section className="py-28 bg-zinc-950 section-black relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(252,175,69,0.06),transparent_60%)]" />
-        <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="text-center mb-16">
-            <p className="text-sm font-medium tracking-widest uppercase text-brand-orange mb-4">Recognition</p>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold text-white">
-              What We've <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-yellow via-brand-orange to-brand-orange-dark">Achieved</span>
-            </h2>
-            <p className="text-zinc-400 mt-4 text-lg">
-              Awards demand dedication — and we're always ready to rise to the occasion.
-            </p>
-          </div>
+      {/* ── SECTION 7: AWARDS (screenshot layout) ── */}
+      <section className="py-24 bg-black text-white border-t border-white/5">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex flex-col md:flex-row items-center gap-16">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-            {achievements.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="p-8 rounded-3xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-300 group flex items-center gap-6"
-              >
-                <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center flex-shrink-0 group-hover:bg-white/10 transition-colors">
-                  <item.icon className={`h-8 w-8 ${item.color}`} />
+            {/* Left: text */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="md:w-1/2"
+            >
+              <h2 className="text-4xl md:text-5xl font-heading font-bold text-white leading-tight mb-6">
+                It Takes a Lot to Achieve an Award, But We're Always Ready for it
+              </h2>
+              <p className="text-zinc-400 text-lg">
+                Awards Demand Dedication, and We're Always Ready to Rise to the Occasion
+              </p>
+            </motion.div>
+
+            {/* Right: award badges carousel */}
+            <div className="md:w-1/2">
+              <Carousel opts={{ loop: true }} plugins={[Autoplay({ delay: 3000 })]}>
+                <CarouselContent>
+                  {awardBadges.map((badge) => (
+                    <CarouselItem key={badge.id}>
+                      <div className="flex items-center justify-center py-8">
+                        {badge.badge}
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                {/* Dot indicators */}
+                <div className="flex justify-center gap-2 mt-4">
+                  {awardBadges.map((_, i) => (
+                    <div key={i} className="h-2 w-2 rounded-full bg-white/30" />
+                  ))}
                 </div>
-                <div>
-                  <div className={`text-3xl font-bold font-heading ${item.color}`}>{item.value}</div>
-                  <div className="text-zinc-400 text-sm mt-1">{item.label}</div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+              </Carousel>
+            </div>
 
-          {/* ISO Badges showcase */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-12 p-10 rounded-3xl border border-yellow-500/20 bg-yellow-500/5">
-            <div className="text-center md:text-left">
-              <h3 className="text-2xl font-bold font-heading text-white mb-2">Internationally Certified</h3>
-              <p className="text-zinc-400 max-w-md">Our processes and systems are certified to international standards, ensuring quality and data security at every step.</p>
-            </div>
-            <div className="flex gap-8">
-              <div className="text-center">
-                <img src={isoBadge1} alt="ISO 27001" className="h-28 w-28 object-contain drop-shadow-[0_0_20px_rgba(234,179,8,0.4)] mx-auto mb-2" />
-                <span className="text-xs text-zinc-400">ISO 27001</span>
-              </div>
-              <div className="text-center">
-                <img src={isoBadge2} alt="ISO 9001" className="h-28 w-28 object-contain drop-shadow-[0_0_20px_rgba(234,179,8,0.4)] mx-auto mb-2" />
-                <span className="text-xs text-zinc-400">ISO 9001</span>
-              </div>
-            </div>
           </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 8: CTA BANNER ── */}
-      <section className="py-28 bg-gradient-to-br from-brand-pink/10 via-brand-red/5 to-brand-yellow/10 border-y border-white/5 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(225,48,108,0.15),transparent_70%)]" />
-        <div className="container mx-auto px-4 md:px-8 text-center relative z-10 max-w-5xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <p className="text-sm font-medium tracking-widest uppercase text-brand-orange mb-6">Ready to Grow?</p>
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-8 leading-tight">
-              Stop Guessing. <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">Start Dominating.</span>
-            </h2>
-            <p className="text-xl text-zinc-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Your competitors aren't waiting. Partner with Nexus today and let AI-powered marketing turn your vision into unstoppable growth.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-5 justify-center">
-              <Link href="/contact">
-                <Button size="lg" className="rounded-full h-16 px-12 text-xl bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow hover:opacity-90 text-white border-0 shadow-[0_0_50px_-10px_rgba(225,48,108,0.6)] hover:scale-105 transition-all duration-300 group">
-                  Start Your Journey <ArrowRight className="ml-2 h-6 w-6 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <Link href="/portfolio">
-                <Button size="lg" variant="outline" className="rounded-full h-16 px-12 text-xl border-white/20 hover:bg-white/10 bg-transparent text-white">
-                  View Our Work
-                </Button>
-              </Link>
-            </div>
-          </motion.div>
         </div>
       </section>
 
