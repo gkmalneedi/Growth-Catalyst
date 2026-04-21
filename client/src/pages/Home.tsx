@@ -193,7 +193,7 @@ export default function Home() {
             className="max-w-6xl mx-auto"
           >
             {/* Static top line */}
-            <h1 className="text-5xl md:text-7xl lg:text-[88px] font-heading font-black leading-[1.05] tracking-tight text-white mb-4">
+            <h1 className="text-[46px] md:text-[70px] lg:text-[86px] font-heading font-black leading-[1.05] tracking-tight text-white mb-4">
               We're the Crusaders of
             </h1>
 
@@ -206,7 +206,7 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -60 }}
                   transition={{ duration: 0.45, ease: "easeInOut" }}
-                  className="text-5xl md:text-7xl lg:text-[88px] font-heading font-black leading-[1.05] tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow block"
+                  className="text-[46px] md:text-[70px] lg:text-[86px] font-heading font-black leading-[1.05] tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow block"
                 >
                   {highlightWords[wordIndex]},
                 </motion.span>
@@ -214,7 +214,7 @@ export default function Home() {
             </div>
 
             {/* Static bottom line */}
-            <h1 className="text-5xl md:text-7xl lg:text-[88px] font-heading font-black leading-[1.05] tracking-tight text-zinc-300 mb-10">
+            <h1 className="text-[46px] md:text-[70px] lg:text-[86px] font-heading font-black leading-[1.05] tracking-tight text-zinc-300 mb-10">
               Redefining Engagement
             </h1>
 
