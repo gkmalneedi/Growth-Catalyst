@@ -1,5 +1,5 @@
 import { Mail, MapPin, Github, Twitter, Linkedin, ArrowRight } from "lucide-react";
-import logoImg from "@assets/mai_logo_transparent.png";
+import logoImg from "@assets/MAI_logo_final_transparent.png";
 import { Link, useLocation } from "wouter";
 import { servicesList } from "@/lib/data";
 

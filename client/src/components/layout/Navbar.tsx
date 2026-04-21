@@ -1,7 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
-import logoImg from "@assets/mai_logo_transparent.png";
+import logoImg from "@assets/MAI_logo_final_transparent.png";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
