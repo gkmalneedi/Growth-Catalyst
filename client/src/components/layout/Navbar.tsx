@@ -38,7 +38,7 @@ export function Navbar() {
       <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
         <Link href="/">
           <a className="flex items-center">
-            <img src={logoImg} alt="Nexus" className="h-12 w-auto object-contain" />
+            <img src={logoImg} alt="Nexus" className="object-contain" style={{width: 150, height: 100}} />
           </a>
         </Link>
 

@@ -35,7 +35,7 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div className="space-y-4">
               <div className="flex items-center">
-                <img src={logoImg} alt="Nexus" className="h-14 w-auto object-contain" />
+                <img src={logoImg} alt="Nexus" className="object-contain" style={{width: 150, height: 100}} />
               </div>
               <p className="text-muted-foreground">
                 Empowering businesses with next-gen digital solutions, brand strategy, and AI-driven growth.
