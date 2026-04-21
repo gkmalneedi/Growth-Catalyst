@@ -1,6 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
-import { Menu, X, Rocket } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import logoImg from "@assets/MAI_Logo_nobg.png";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -36,9 +37,8 @@ export function Navbar() {
     >
       <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
         <Link href="/">
-          <a className="text-2xl font-bold font-heading tracking-tighter flex items-center gap-2">
-            <Rocket className="h-6 w-6 text-primary" />
-            NEXUS
+          <a className="flex items-center">
+            <img src={logoImg} alt="Nexus" className="h-12 w-auto object-contain" />
           </a>
         </Link>
 

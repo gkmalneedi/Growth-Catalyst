@@ -1,4 +1,5 @@
-import { Rocket, Mail, MapPin, Phone, Github, Twitter, Linkedin, ArrowRight } from "lucide-react";
+import { Mail, MapPin, Github, Twitter, Linkedin, ArrowRight } from "lucide-react";
+import logoImg from "@assets/MAI_Logo_nobg.png";
 import { Link, useLocation } from "wouter";
 import { servicesList } from "@/lib/data";
 
@@ -33,9 +34,8 @@ export function Footer() {
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div className="space-y-4">
-              <div className="flex items-center gap-2 text-2xl font-bold font-heading tracking-tighter">
-                <Rocket className="h-6 w-6 text-primary" />
-                NEXUS
+              <div className="flex items-center">
+                <img src={logoImg} alt="Nexus" className="h-14 w-auto object-contain" />
               </div>
               <p className="text-muted-foreground">
                 Empowering businesses with next-gen digital solutions, brand strategy, and AI-driven growth.
