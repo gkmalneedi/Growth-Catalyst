@@ -32,13 +32,13 @@ export function Navbar() {
     <nav
       className={cn(
         "fixed top-0 w-full z-50 transition-all duration-300",
-        scrolled ? "bg-background/80 backdrop-blur-md border-b border-white/10 py-4" : "bg-transparent py-6"
+        scrolled ? "bg-background/80 backdrop-blur-md border-b border-white/10 py-2" : "bg-transparent py-3"
       )}
     >
       <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
         <Link href="/">
           <a className="flex items-center">
-            <img src={logoImg} alt="Nexus" className="object-contain" style={{width: 130, height: 80, mixBlendMode: 'screen'}} />
+            <img src={logoImg} alt="Nexus" className="object-contain" style={{width: 200, height: 'auto', mixBlendMode: 'screen'}} />
           </a>
         </Link>
 
