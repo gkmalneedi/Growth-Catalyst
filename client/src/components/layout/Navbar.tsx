@@ -192,7 +192,7 @@ export function Navbar() {
             </div>
 
             {/* Flat links */}
-            <div className="pt-1 border-t border-white/5 mt-2">
+            <div className="pt-1 mt-2">
               <Link href="/portfolio">
                 <a className="block p-3 text-base font-semibold text-white hover:bg-white/5 rounded-xl transition-colors" onClick={() => setIsOpen(false)}>Success Stories</a>
               </Link>
