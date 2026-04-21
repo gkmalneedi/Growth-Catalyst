@@ -1,7 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
-import logoImg from "@assets/MAI_Logo_1_nobg.png";
+import logoImg from "@assets/MAI_Final_Logo_nobg.png";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,7 +13,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { servicesList, industriesList, resourcesList } from "@/lib/data";
+import { servicesList, industriesList } from "@/lib/data";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -90,29 +90,17 @@ export function Navbar() {
               <NavigationMenuItem>
                 <Link href="/portfolio">
                   <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-muted-foreground hover:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow !text-base font-medium")}>
-                    Portfolio
+                    Success Stories
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
-              
-              {/* Resources Dropdown */}
+
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow !text-base font-medium">
-                  Resources
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-2 p-3 bg-popover/95 backdrop-blur-xl border border-white/10 rounded-xl">
-                    {resourcesList.map((resource) => (
-                      <li key={resource.title}>
-                        <Link href={resource.href}>
-                          <a className="block select-none rounded-md px-3 py-2.5 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow text-white">
-                            <div className="text-sm font-medium leading-none text-white">{resource.title}</div>
-                          </a>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
+                <Link href="/thought-leadership">
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-muted-foreground hover:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow !text-base font-medium")}>
+                    Thought Leadership
+                  </NavigationMenuLink>
+                </Link>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
@@ -138,11 +126,6 @@ export function Navbar() {
             <Link href="/proposal">
               <Button className="bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow hover:opacity-90 text-white rounded-full px-6 border-0">
                 Start Project
-              </Button>
-            </Link>
-            <Link href="/contact">
-              <Button className="bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow hover:opacity-90 text-white rounded-full px-6 border-0">
-                Let's Talk
               </Button>
             </Link>
           </div>
@@ -189,21 +172,11 @@ export function Navbar() {
             
             <div className="grid grid-cols-1 gap-1">
                <Link href="/portfolio">
-                 <a className="block p-2 text-lg font-medium hover:bg-white/5 rounded-lg" onClick={() => setIsOpen(false)}>Portfolio</a>
+                 <a className="block p-2 text-lg font-medium hover:bg-white/5 rounded-lg" onClick={() => setIsOpen(false)}>Success Stories</a>
                </Link>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-bold text-muted-foreground uppercase mb-2 px-2">Resources</h4>
-              <div className="grid grid-cols-1 gap-1">
-                {resourcesList.map((item) => (
-                  <Link key={item.title} href={item.href}>
-                    <a className="block p-2 text-lg hover:bg-white/5 rounded-lg" onClick={() => setIsOpen(false)}>
-                      {item.title}
-                    </a>
-                  </Link>
-                ))}
-              </div>
+               <Link href="/thought-leadership">
+                 <a className="block p-2 text-lg font-medium hover:bg-white/5 rounded-lg" onClick={() => setIsOpen(false)}>Thought Leadership</a>
+               </Link>
             </div>
 
             <div className="grid grid-cols-1 gap-1">
@@ -219,11 +192,6 @@ export function Navbar() {
               <Link href="/proposal">
                 <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-full">
                   Start Project
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-full">
-                  Let's Talk
                 </Button>
               </Link>
             </div>

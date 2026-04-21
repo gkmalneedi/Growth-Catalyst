@@ -42,6 +42,9 @@ function Router() {
       <Route path="/portfolio" component={Portfolio} />
       <Route path="/portfolio/:slug" component={PortfolioDetail} />
       
+      {/* Thought Leadership */}
+      <Route path="/thought-leadership" component={Blogs} />
+
       {/* Resources Pages */}
       <Route path="/resources/blogs" component={Blogs} />
       <Route path="/resources/case-studies" component={CaseStudies} />

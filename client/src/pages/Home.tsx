@@ -294,7 +294,7 @@ export default function Home() {
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="text-center mb-20">
             <p className="text-sm font-medium tracking-widest uppercase text-brand-orange mb-4">Our Process</p>
-            <h2 className="text-4xl md:text-6xl font-heading font-bold text-white">
+            <h2 className="text-3xl md:text-5xl font-heading font-bold text-white">
               How We Work <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">With Our Clients</span>
             </h2>
@@ -347,7 +347,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
             <div className="max-w-2xl">
               <p className="text-sm font-medium tracking-widest uppercase text-brand-orange mb-4">What We Do</p>
-              <h2 className="text-4xl md:text-6xl font-heading font-bold text-white">
+              <h2 className="text-3xl md:text-5xl font-heading font-bold text-white">
                 Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">Tailored Services</span>
               </h2>
             </div>
@@ -391,7 +391,7 @@ export default function Home() {
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="text-center mb-16">
             <p className="text-sm font-medium tracking-widest uppercase text-brand-orange mb-4">Client Love</p>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white">
               Golden Lines That <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">Keep Us Motivated</span>
             </h2>
           </div>
@@ -456,7 +456,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="md:w-1/2"
             >
-              <h2 className="text-4xl md:text-5xl font-heading font-bold text-white leading-tight mb-6">
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-white leading-tight mb-6">
                 Together, We Propel Your <br /> Growth: Our Partners
               </h2>
               <p className="text-zinc-400 text-lg leading-relaxed">
@@ -480,7 +480,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="md:w-1/2"
             >
-              <h2 className="text-4xl md:text-5xl font-heading font-bold text-white leading-tight mb-6">
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-white leading-tight mb-6">
                 It Takes a Lot to Achieve an Award, But We're Always Ready for it
               </h2>
               <p className="text-zinc-400 text-lg">
