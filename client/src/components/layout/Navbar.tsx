@@ -49,7 +49,7 @@ export function Navbar() {
               
               {/* Services Dropdown */}
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">
+                <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow !text-base font-medium">
                   Services
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -69,7 +69,7 @@ export function Navbar() {
 
               {/* Industries Dropdown */}
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">
+                <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow !text-base font-medium">
                   Industries
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -89,7 +89,7 @@ export function Navbar() {
 
               <NavigationMenuItem>
                 <Link href="/portfolio">
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-muted-foreground hover:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow")}>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-muted-foreground hover:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow !text-base font-medium")}>
                     Portfolio
                   </NavigationMenuLink>
                 </Link>
@@ -97,7 +97,7 @@ export function Navbar() {
               
               {/* Resources Dropdown */}
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">
+                <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow !text-base font-medium">
                   Resources
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -117,7 +117,7 @@ export function Navbar() {
 
               <NavigationMenuItem>
                 <Link href="/about">
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-muted-foreground hover:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow")}>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-muted-foreground hover:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow !text-base font-medium")}>
                     About Us
                   </NavigationMenuLink>
                 </Link>
@@ -125,7 +125,7 @@ export function Navbar() {
 
               <NavigationMenuItem>
                 <Link href="/contact">
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-muted-foreground hover:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow")}>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-muted-foreground hover:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow !text-base font-medium")}>
                     Contact
                   </NavigationMenuLink>
                 </Link>
