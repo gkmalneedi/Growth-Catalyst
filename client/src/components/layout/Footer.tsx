@@ -1,11 +1,11 @@
 import { Mail, MapPin, Github, Twitter, Linkedin, ArrowRight } from "lucide-react";
-import logoImg from "@assets/MAI_Final_Logo_nobg.png";
+import logoImg from "@assets/MAI_Final_Logo_1776754610858.png";
 import { Link, useLocation } from "wouter";
 import { servicesList } from "@/lib/data";
 
 export function Footer() {
   const [location] = useLocation();
-  const isIndustryPage = location.startsWith('/industries/');
+  const isIndustryPage = location.startsWith('/industries/') || location === '/about';
 
   return (
     <>
@@ -35,7 +35,7 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div className="space-y-4">
               <div className="flex items-center">
-                <img src={logoImg} alt="Nexus" className="object-contain" style={{width: 130, height: 80}} />
+                <img src={logoImg} alt="Nexus" className="object-contain" style={{width: 130, height: 80, mixBlendMode: 'screen'}} />
               </div>
               <p className="text-muted-foreground">
                 Empowering businesses with next-gen digital solutions, brand strategy, and AI-driven growth.

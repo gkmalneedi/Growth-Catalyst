@@ -238,10 +238,11 @@ export default function Home() {
             {/* Stats bar */}
             <div className="flex flex-wrap justify-center gap-10 pt-10 border-t border-white/10">
               {[
-                { value: "300%", label: "Avg ROI Delivered" },
-                { value: "500+", label: "Campaigns Launched" },
+                { value: "12+", label: "Years Experience" },
                 { value: "68+", label: "Expert Specialists" },
-                { value: "10+", label: "Years Experience" },
+                { value: "200+", label: "Number of Clients" },
+                { value: "500+", label: "Campaigns Launched" },
+                { value: "300%", label: "ROI Delivered" },
               ].map((s, i) => (
                 <div key={i} className="text-center">
                   <div className="text-3xl md:text-4xl font-bold font-heading text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">{s.value}</div>
@@ -295,11 +296,10 @@ export default function Home() {
           <div className="text-center mb-20">
             <p className="text-sm font-medium tracking-widest uppercase text-brand-orange mb-4">Our Process</p>
             <h2 className="text-3xl md:text-5xl font-heading font-bold text-white">
-              How We Work <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">With Our Clients</span>
+              How We Work
             </h2>
             <p className="text-xl text-zinc-400 mt-6 max-w-2xl mx-auto">
-              A proven 5-step framework that transforms your digital presence into a growth engine.
+              MAI's Flagship 5-step framework that transforms your digital presence into a growth engine.
             </p>
           </div>
 
