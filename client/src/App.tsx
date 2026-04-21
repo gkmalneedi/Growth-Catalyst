@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useEffect } from "react";
+import { ScrollToTopButton } from "@/components/ScrollToTopButton";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import ServicesPage from "@/pages/Services";
@@ -88,6 +89,7 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <Router />
+        <ScrollToTopButton />
       </TooltipProvider>
     </QueryClientProvider>
   );
