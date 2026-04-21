@@ -1,7 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
-import logoImg from "@assets/MAI_Logo_nobg.png";
+import logoImg from "@assets/MAI_Logo_1_nobg.png";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -38,7 +38,7 @@ export function Navbar() {
       <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
         <Link href="/">
           <a className="flex items-center">
-            <img src={logoImg} alt="Nexus" className="object-contain" style={{width: 150, height: 100}} />
+            <img src={logoImg} alt="Nexus" className="object-contain" style={{width: 130, height: 80}} />
           </a>
         </Link>
 
