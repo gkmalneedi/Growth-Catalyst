@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import logoImg from "@assets/MAI_logo_final_transparent.png";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,8 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [location] = useLocation();
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobileIndustriesOpen, setMobileIndustriesOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -142,55 +144,72 @@ export function Navbar() {
 
       {/* Mobile Nav */}
       {isOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-xl border-b border-white/10 p-4 flex flex-col gap-4 animate-in slide-in-from-top-5 h-[calc(100vh-80px)] overflow-y-auto">
-          <div className="space-y-6 pb-20">
+        <div className="lg:hidden absolute top-full left-0 w-full bg-zinc-950/98 backdrop-blur-xl border-b border-white/10 p-4 flex flex-col gap-2 animate-in slide-in-from-top-5 h-[calc(100vh-80px)] overflow-y-auto">
+          <div className="space-y-1 pb-20">
+
+            {/* Services accordion */}
             <div>
-              <h4 className="text-sm font-bold text-muted-foreground uppercase mb-2 px-2">Services</h4>
-              <div className="grid grid-cols-1 gap-1">
-                {servicesList.map((item) => (
-                  <Link key={item.title} href={item.href}>
-                    <a className="block p-2 text-lg hover:bg-white/5 rounded-lg" onClick={() => setIsOpen(false)}>
-                      {item.title}
-                    </a>
-                  </Link>
-                ))}
-              </div>
+              <button
+                className="w-full flex items-center justify-between p-3 text-base font-semibold text-white hover:bg-white/5 rounded-xl transition-colors"
+                onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+              >
+                <span>Services</span>
+                <ChevronDown className={cn("w-4 h-4 text-zinc-400 transition-transform duration-200", mobileServicesOpen && "rotate-180")} />
+              </button>
+              {mobileServicesOpen && (
+                <div className="ml-3 mt-1 border-l border-white/10 pl-3 flex flex-col gap-0.5">
+                  {servicesList.map((item) => (
+                    <Link key={item.title} href={item.href}>
+                      <a className="block py-2 px-2 text-sm text-zinc-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors" onClick={() => setIsOpen(false)}>
+                        {item.title}
+                      </a>
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
 
+            {/* Industries accordion */}
             <div>
-              <h4 className="text-sm font-bold text-muted-foreground uppercase mb-2 px-2">Industries</h4>
-              <div className="grid grid-cols-1 gap-1">
-                {industriesList.map((item) => (
-                  <Link key={item.title} href={item.href}>
-                    <a className="block p-2 text-lg hover:bg-white/5 rounded-lg" onClick={() => setIsOpen(false)}>
-                      {item.title}
-                    </a>
-                  </Link>
-                ))}
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-1 gap-1">
-               <Link href="/portfolio">
-                 <a className="block p-2 text-lg font-medium hover:bg-white/5 rounded-lg" onClick={() => setIsOpen(false)}>Success Stories</a>
-               </Link>
-               <Link href="/thought-leadership">
-                 <a className="block p-2 text-lg font-medium hover:bg-white/5 rounded-lg" onClick={() => setIsOpen(false)}>Thought Leadership</a>
-               </Link>
-            </div>
-
-            <div className="grid grid-cols-1 gap-1">
-               <Link href="/about">
-                 <a className="block p-2 text-lg font-medium hover:bg-white/5 rounded-lg" onClick={() => setIsOpen(false)}>About Us</a>
-               </Link>
-               <Link href="/contact">
-                 <a className="block p-2 text-lg font-medium hover:bg-white/5 rounded-lg" onClick={() => setIsOpen(false)}>Contact</a>
-               </Link>
+              <button
+                className="w-full flex items-center justify-between p-3 text-base font-semibold text-white hover:bg-white/5 rounded-xl transition-colors"
+                onClick={() => setMobileIndustriesOpen(!mobileIndustriesOpen)}
+              >
+                <span>Industries</span>
+                <ChevronDown className={cn("w-4 h-4 text-zinc-400 transition-transform duration-200", mobileIndustriesOpen && "rotate-180")} />
+              </button>
+              {mobileIndustriesOpen && (
+                <div className="ml-3 mt-1 border-l border-white/10 pl-3 flex flex-col gap-0.5">
+                  {industriesList.map((item) => (
+                    <Link key={item.title} href={item.href}>
+                      <a className="block py-2 px-2 text-sm text-zinc-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors" onClick={() => setIsOpen(false)}>
+                        {item.title}
+                      </a>
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
 
-            <div className="flex flex-col gap-4 mt-4">
+            {/* Flat links */}
+            <div className="pt-1 border-t border-white/5 mt-2">
+              <Link href="/portfolio">
+                <a className="block p-3 text-base font-semibold text-white hover:bg-white/5 rounded-xl transition-colors" onClick={() => setIsOpen(false)}>Success Stories</a>
+              </Link>
+              <Link href="/thought-leadership">
+                <a className="block p-3 text-base font-semibold text-white hover:bg-white/5 rounded-xl transition-colors" onClick={() => setIsOpen(false)}>Thought Leadership</a>
+              </Link>
+              <Link href="/about">
+                <a className="block p-3 text-base font-semibold text-white hover:bg-white/5 rounded-xl transition-colors" onClick={() => setIsOpen(false)}>About Us</a>
+              </Link>
+              <Link href="/contact">
+                <a className="block p-3 text-base font-semibold text-white hover:bg-white/5 rounded-xl transition-colors" onClick={() => setIsOpen(false)}>Contact</a>
+              </Link>
+            </div>
+
+            <div className="pt-4">
               <Link href="/proposal">
-                <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-full">
+                <Button className="w-full bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow hover:opacity-90 text-white rounded-full border-0">
                   Start Project
                 </Button>
               </Link>
