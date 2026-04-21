@@ -3,6 +3,8 @@ import { pgTable, text, varchar, serial, integer, boolean, json, timestamp } fro
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
+// ── Existing tables ──────────────────────────────────────────────────────────
+
 export const blogs = pgTable("blogs", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
@@ -60,11 +62,73 @@ export const newsletterSubscribers = pgTable("newsletter_subscribers", {
   subscribedAt: timestamp("subscribed_at").defaultNow(),
 });
 
+// ── New CMS tables ────────────────────────────────────────────────────────────
+
+export const services = pgTable("services", {
+  id: serial("id").primaryKey(),
+  slug: text("slug").notNull().unique(),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  iconName: text("icon_name").notNull().default("zap"),
+  stats: json("stats").$type<{ value: string; label: string }[]>().default([]),
+  benefits: json("benefits").$type<{ title: string; desc: string }[]>().notNull().default([]),
+  process: json("process").$type<{ title: string; desc: string }[]>().notNull().default([]),
+  redefined: json("redefined").$type<{ title: string; desc: string } | null>().default(null),
+  displayOrder: integer("display_order").default(0),
+  active: boolean("active").default(true),
+});
+
+export const industries = pgTable("industries", {
+  id: serial("id").primaryKey(),
+  slug: text("slug").notNull().unique(),
+  title: text("title").notNull(),
+  description: text("description").notNull().default(""),
+  iconName: text("icon_name").notNull().default("briefcase"),
+  displayOrder: integer("display_order").default(0),
+  active: boolean("active").default(true),
+});
+
+export const portfolioItems = pgTable("portfolio_items", {
+  id: serial("id").primaryKey(),
+  slug: text("slug").notNull().unique(),
+  client: text("client").notNull(),
+  clientColor: text("client_color").notNull().default("text-pink-500"),
+  category: text("category").notNull(),
+  industry: text("industry").notNull(),
+  headline: text("headline").notNull(),
+  tagline: text("tagline").notNull(),
+  heroImage: text("hero_image").notNull(),
+  coverImage: text("cover_image").notNull(),
+  overview: text("overview").notNull(),
+  challenge: text("challenge").notNull(),
+  approach: json("approach").$type<string[]>().notNull().default([]),
+  results: json("results").$type<{ value: string; label: string }[]>().notNull().default([]),
+  projectServices: json("project_services").$type<string[]>().notNull().default([]),
+  duration: text("duration").notNull(),
+  displayOrder: integer("display_order").default(0),
+  active: boolean("active").default(true),
+});
+
+export const siteSettings = pgTable("site_settings", {
+  id: serial("id").primaryKey(),
+  key: text("key").notNull().unique(),
+  value: json("value").notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// ── Insert schemas ────────────────────────────────────────────────────────────
+
 export const insertBlogSchema = createInsertSchema(blogs).omit({ id: true });
 export const insertCaseStudySchema = createInsertSchema(caseStudies).omit({ id: true });
 export const insertPressReleaseSchema = createInsertSchema(pressReleases).omit({ id: true });
 export const insertContactSubmissionSchema = createInsertSchema(contactSubmissions).omit({ id: true, submittedAt: true });
 export const insertNewsletterSubscriberSchema = createInsertSchema(newsletterSubscribers).omit({ id: true, subscribedAt: true });
+export const insertServiceSchema = createInsertSchema(services).omit({ id: true });
+export const insertIndustrySchema = createInsertSchema(industries).omit({ id: true });
+export const insertPortfolioItemSchema = createInsertSchema(portfolioItems).omit({ id: true });
+export const insertSiteSettingSchema = createInsertSchema(siteSettings).omit({ id: true, updatedAt: true });
+
+// ── Types ─────────────────────────────────────────────────────────────────────
 
 export type Blog = typeof blogs.$inferSelect;
 export type InsertBlog = z.infer<typeof insertBlogSchema>;
@@ -76,3 +140,11 @@ export type ContactSubmission = typeof contactSubmissions.$inferSelect;
 export type InsertContactSubmission = z.infer<typeof insertContactSubmissionSchema>;
 export type NewsletterSubscriber = typeof newsletterSubscribers.$inferSelect;
 export type InsertNewsletterSubscriber = z.infer<typeof insertNewsletterSubscriberSchema>;
+export type Service = typeof services.$inferSelect;
+export type InsertService = z.infer<typeof insertServiceSchema>;
+export type Industry = typeof industries.$inferSelect;
+export type InsertIndustry = z.infer<typeof insertIndustrySchema>;
+export type PortfolioItem = typeof portfolioItems.$inferSelect;
+export type InsertPortfolioItem = z.infer<typeof insertPortfolioItemSchema>;
+export type SiteSetting = typeof siteSettings.$inferSelect;
+export type InsertSiteSetting = z.infer<typeof insertSiteSettingSchema>;
