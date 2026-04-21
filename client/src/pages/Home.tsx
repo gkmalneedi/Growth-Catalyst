@@ -178,7 +178,7 @@ export default function Home() {
       <Navbar />
 
       {/* ── SECTION 1: HERO ── */}
-      <section className="relative min-h-screen flex items-center justify-center pt-28 pb-20 overflow-hidden bg-zinc-950 text-white section-black">
+      <section className="relative min-h-screen flex items-center justify-center pt-44 md:pt-48 pb-20 overflow-hidden bg-zinc-950 text-white section-black">
         <div className="absolute inset-0 z-0">
           <img src={heroBg} alt="" className="w-full h-full object-cover opacity-15" />
           <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/80 via-transparent to-zinc-950" />
@@ -193,12 +193,12 @@ export default function Home() {
             className="max-w-6xl mx-auto"
           >
             {/* Static top line */}
-            <h1 className="text-[46px] md:text-[70px] lg:text-[86px] font-heading font-black leading-[1.05] tracking-tight text-white mb-4">
+            <h1 className="text-[34px] md:text-[52px] lg:text-[66px] font-heading font-black leading-[1.05] tracking-tight text-white mb-4">
               We're the Crusaders of
             </h1>
 
             {/* Animated cycling word */}
-            <div className="h-[100px] md:h-[120px] lg:h-[140px] flex items-center justify-center overflow-hidden mb-4">
+            <div className="h-[80px] md:h-[100px] lg:h-[110px] flex items-center justify-center overflow-hidden mb-4">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={wordIndex}
@@ -206,7 +206,7 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -60 }}
                   transition={{ duration: 0.45, ease: "easeInOut" }}
-                  className="text-[46px] md:text-[70px] lg:text-[86px] font-heading font-black leading-[1.05] tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow block"
+                  className="text-[34px] md:text-[52px] lg:text-[66px] font-heading font-black leading-[1.05] tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow block"
                 >
                   {highlightWords[wordIndex]},
                 </motion.span>
@@ -214,7 +214,7 @@ export default function Home() {
             </div>
 
             {/* Static bottom line */}
-            <h1 className="text-[46px] md:text-[70px] lg:text-[86px] font-heading font-black leading-[1.05] tracking-tight text-zinc-300 mb-10">
+            <h1 className="text-[34px] md:text-[52px] lg:text-[66px] font-heading font-black leading-[1.05] tracking-tight text-zinc-300 mb-10">
               Redefining Engagement
             </h1>
 
