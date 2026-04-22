@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import logoImg from "@assets/MAI_logo_final_transparent.png";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -22,10 +23,26 @@ export function Navbar() {
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileIndustriesOpen, setMobileIndustriesOpen] = useState(false);
 
+  const { data: apiServices } = useQuery<any[]>({
+    queryKey: ["/api/services"],
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const { data: apiIndustries } = useQuery<any[]>({
+    queryKey: ["/api/industries"],
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const navServices = (apiServices && apiServices.length > 0)
+    ? apiServices.filter(s => s.active !== false).map(s => ({ title: s.title, href: `/services/${s.slug}` }))
+    : servicesList.map(s => ({ title: s.title, href: s.href }));
+
+  const navIndustries = (apiIndustries && apiIndustries.length > 0)
+    ? apiIndustries.filter(i => i.active !== false).map(i => ({ title: i.title, href: `/industries/${i.slug}` }))
+    : industriesList.map(i => ({ title: i.title, href: i.href }));
+
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => { setScrolled(window.scrollY > 50); };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -40,7 +57,7 @@ export function Navbar() {
       <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
         <Link href="/">
           <a className="flex items-center">
-            <img src={logoImg} alt="Nexus" className="object-contain" style={{width: 160, height: 'auto'}} />
+            <img src={logoImg} alt="Nexus" className="object-contain" style={{ width: 160, height: "auto" }} />
           </a>
         </Link>
 
@@ -48,16 +65,15 @@ export function Navbar() {
         <div className="hidden lg:flex items-center gap-4">
           <NavigationMenu>
             <NavigationMenuList>
-              
-              {/* Services Dropdown */}
+
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow !text-base font-medium">
                   Services
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-2 p-3 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-popover/95 backdrop-blur-xl border border-white/10 rounded-xl">
-                    {servicesList.map((service) => (
-                      <li key={service.title}>
+                    {navServices.map((service) => (
+                      <li key={service.href}>
                         <Link href={service.href}>
                           <a className="block select-none rounded-md px-3 py-2.5 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow text-white">
                             <div className="text-sm font-medium leading-none text-white">{service.title}</div>
@@ -69,15 +85,14 @@ export function Navbar() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
-              {/* Industries Dropdown */}
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow !text-base font-medium">
                   Industries
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-2 p-3 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-popover/95 backdrop-blur-xl border border-white/10 rounded-xl">
-                    {industriesList.map((industry) => (
-                      <li key={industry.title}>
+                    {navIndustries.map((industry) => (
+                      <li key={industry.href}>
                         <Link href={industry.href}>
                           <a className="block select-none rounded-md px-3 py-2.5 leading-none no-underline outline-none transition-opacity hover:opacity-90 bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow text-white">
                             <div className="text-sm font-medium leading-none text-white">{industry.title}</div>
@@ -133,21 +148,14 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Menu Toggle */}
-        <button
-          className="lg:hidden text-foreground"
-          onClick={() => setIsOpen(!isOpen)}
-        >
+        <button className="lg:hidden text-foreground" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X /> : <Menu />}
         </button>
       </div>
 
-      {/* Mobile Nav */}
       {isOpen && (
         <div className="lg:hidden absolute top-full left-0 w-full bg-zinc-950/98 backdrop-blur-xl border-b border-white/10 p-4 flex flex-col gap-2 animate-in slide-in-from-top-5 h-[calc(100vh-80px)] overflow-y-auto">
           <div className="space-y-1 pb-20">
-
-            {/* Services accordion */}
             <div>
               <button
                 className="w-full flex items-center justify-between p-3 text-base font-semibold text-white hover:bg-white/5 rounded-xl transition-colors"
@@ -158,8 +166,8 @@ export function Navbar() {
               </button>
               {mobileServicesOpen && (
                 <div className="ml-3 mt-1 border-l border-white/10 pl-3 flex flex-col gap-0.5">
-                  {servicesList.map((item) => (
-                    <Link key={item.title} href={item.href}>
+                  {navServices.map((item) => (
+                    <Link key={item.href} href={item.href}>
                       <a className="block py-2 px-2 text-sm text-zinc-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors" onClick={() => setIsOpen(false)}>
                         {item.title}
                       </a>
@@ -169,7 +177,6 @@ export function Navbar() {
               )}
             </div>
 
-            {/* Industries accordion */}
             <div>
               <button
                 className="w-full flex items-center justify-between p-3 text-base font-semibold text-white hover:bg-white/5 rounded-xl transition-colors"
@@ -180,8 +187,8 @@ export function Navbar() {
               </button>
               {mobileIndustriesOpen && (
                 <div className="ml-3 mt-1 border-l border-white/10 pl-3 flex flex-col gap-0.5">
-                  {industriesList.map((item) => (
-                    <Link key={item.title} href={item.href}>
+                  {navIndustries.map((item) => (
+                    <Link key={item.href} href={item.href}>
                       <a className="block py-2 px-2 text-sm text-zinc-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors" onClick={() => setIsOpen(false)}>
                         {item.title}
                       </a>
@@ -191,7 +198,6 @@ export function Navbar() {
               )}
             </div>
 
-            {/* Flat links */}
             <div className="pt-1 mt-2">
               <Link href="/portfolio">
                 <a className="block p-3 text-base font-semibold text-white hover:bg-white/5 rounded-xl transition-colors" onClick={() => setIsOpen(false)}>Success Stories</a>

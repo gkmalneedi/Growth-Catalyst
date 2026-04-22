@@ -1,9 +1,10 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, TrendingUp, Users, Target, BarChart2, Zap, ShieldCheck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useLocation, Link } from "wouter";
-import { industriesList, servicesList } from "@/lib/data";
+import { useQuery } from "@tanstack/react-query";
+import { industriesList } from "@/lib/data";
 import { motion } from "framer-motion";
 import {
   Accordion,
@@ -26,31 +27,31 @@ const partnerLogos = [
         </div>
         <span className="text-white text-lg font-bold font-heading">CleverTap</span>
       </div>
-    )
+    ),
   },
   {
     id: "hubspot",
     content: (
       <div className="flex items-center gap-2">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="#FF7A59">
-          <path d="M22.4 11.6c-.6-1.4-1.8-2.4-3.2-2.8V6.6c.7-.4 1.2-1.1 1.2-2 0-1.3-1-2.3-2.3-2.3s-2.3 1-2.3 2.3c0 .9.5 1.6 1.2 2v2.2c-1 .3-1.9.8-2.6 1.5L6.7 6.4c.1-.2.1-.4.1-.6C6.8 4.2 5.6 3 4.1 3S1.4 4.2 1.4 5.8s1.2 2.8 2.7 2.8c.5 0 1-.1 1.4-.4l7.5 4c-.1.4-.2.7-.2 1.1 0 .7.2 1.4.5 2l-2.4 2.4c-.2-.1-.4-.1-.6-.1-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2c0-.1 0-.3-.1-.4l2.3-2.3c.8.5 1.7.8 2.7.8 2.8 0 5.1-2.3 5.1-5.1-.1-1.3-.5-2.4-1.3-3z"/>
+          <path d="M22.4 11.6c-.6-1.4-1.8-2.4-3.2-2.8V6.6c.7-.4 1.2-1.1 1.2-2 0-1.3-1-2.3-2.3-2.3s-2.3 1-2.3 2.3c0 .9.5 1.6 1.2 2v2.2c-1 .3-1.9.8-2.6 1.5L6.7 6.4c.1-.2.1-.4.1-.6C6.8 4.2 5.6 3 4.1 3S1.4 4.2 1.4 5.8s1.2 2.8 2.7 2.8c.5 0 1-.1 1.4-.4l7.5 4c-.1.4-.2.7-.2 1.1 0 .7.2 1.4.5 2l-2.4 2.4c-.2-.1-.4-.1-.6-.1-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2c0-.1 0-.3-.1-.4l2.3-2.3c.8.5 1.7.8 2.7.8 2.8 0 5.1-2.3 5.1-5.1-.1-1.3-.5-2.4-1.3-3z" />
         </svg>
         <span className="text-white text-lg font-bold font-heading">HubSpot</span>
       </div>
-    )
+    ),
   },
   {
     id: "google",
     content: (
       <div className="flex items-center gap-2">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2L3 7l9 5 9-5-9-5z" fill="#4285F4"/>
-          <path d="M3 7v10l9 5V12L3 7z" fill="#34A853"/>
-          <path d="M21 7v10l-9 5V12l9-5z" fill="#EA4335"/>
+          <path d="M12 2L3 7l9 5 9-5-9-5z" fill="#4285F4" />
+          <path d="M3 7v10l9 5V12L3 7z" fill="#34A853" />
+          <path d="M21 7v10l-9 5V12l9-5z" fill="#EA4335" />
         </svg>
         <span className="text-white text-lg font-bold font-heading">Google Ads</span>
       </div>
-    )
+    ),
   },
   {
     id: "meta",
@@ -59,63 +60,85 @@ const partnerLogos = [
         <span className="text-blue-500 text-xl font-bold leading-none">∞∞</span>
         <span className="text-white text-lg font-bold font-heading">Meta</span>
       </div>
-    )
+    ),
   },
 ];
 
 export default function IndustryTemplate() {
   const [location] = useLocation();
-  const industry = industriesList.find(s => s.href === location) || {
-    title: "Industry Not Found",
-    href: "#"
-  };
+  const slug = location.split("/industries/")[1];
+
+  const { data: industry, isLoading } = useQuery<any>({
+    queryKey: [`/api/industries/${slug}`],
+    enabled: !!slug,
+    retry: false,
+  });
+
+  const fallback = industriesList.find(i => i.href === location);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-zinc-950 text-white flex flex-col">
+        <Navbar />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-zinc-400 text-lg">Loading...</div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!industry && !fallback) {
+    return (
+      <div className="min-h-screen bg-zinc-950 text-white flex flex-col">
+        <Navbar />
+        <div className="flex-1 flex items-center justify-center text-center px-4">
+          <div>
+            <h1 className="text-4xl font-bold mb-4">Industry Not Found</h1>
+            <Link href="/industries">
+              <Button className="bg-gradient-to-r from-brand-pink to-brand-yellow text-white rounded-full px-8 h-12">All Industries</Button>
+            </Link>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const data = industry || fallback;
+  const title = data.title;
+  const heroStats = (data.heroStats && data.heroStats.length > 0) ? data.heroStats : [
+    { value: "200%+", label: "Higher customer engagement", color: "from-brand-pink to-brand-rose" },
+    { value: "300%+", label: "Improved customer trust", color: "from-brand-red to-brand-orange-dark" },
+    { value: "80%+", label: "Increased conversion rate", color: "from-brand-orange to-brand-yellow" },
+  ];
+  const faqs = (data.faqs && data.faqs.length > 0) ? data.faqs : [
+    { q: `What is AI-powered ${title} marketing?`, a: `AI-powered ${title} marketing uses artificial intelligence to improve and automate marketing tasks, enabling personalized recommendations, optimized strategies, and targeted campaigns based on customer behavior.` },
+    { q: `How can AI improve my ${title} conversion rates?`, a: `AI analyzes vast amounts of user data to predict buying behavior, enabling real-time personalization of content, offers, and suggestions that increase the likelihood of conversion.` },
+    { q: `How do you measure success of ${title} campaigns?`, a: `We track key KPIs such as ROAS, CAC, Conversion Rate, and CLV to ensure your campaigns deliver tangible business results.` },
+    { q: `How quickly can we expect results?`, a: `Most ${title} clients see measurable improvements within 30–60 days. We share transparent monthly reports with clear KPI tracking.` },
+  ];
+  const precisionText = data.precisionText || `We utilize advanced analytics to deeply understand your ${title} audience and craft personalized campaigns that resonate. Our data-driven approach, guided by human expertise, ensures you attract and retain the loyal customers your ${title} business deserves.`;
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navbar />
 
-      {/* ── 1. HERO (Miraki: centered, breadcrumb, circle-arrow CTA) ── */}
+      {/* HERO */}
       <section className="relative pt-36 pb-32 overflow-hidden bg-zinc-950 text-white section-black">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(193,53,132,0.12),transparent_55%)] pointer-events-none" />
         <div className="container mx-auto px-4 md:px-8 text-center relative z-10">
-
-          {/* Breadcrumb */}
-          <motion.p
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-sm font-medium tracking-widest uppercase text-zinc-400 mb-8"
-          >
-            {industry.title}
+          <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-sm font-medium tracking-widest uppercase text-zinc-400 mb-8">
+            {title}
           </motion.p>
-
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.08 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-heading font-black leading-[1.05] mb-8 max-w-5xl mx-auto"
-          >
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="text-5xl md:text-7xl lg:text-8xl font-heading font-black leading-[1.05] mb-8 max-w-5xl mx-auto">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink to-brand-rose">Crush</span> Your Competitors with Our AI-powered{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">{industry.title} Marketing!</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">{title} Marketing!</span>
           </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.16 }}
-            className="text-xl text-zinc-400 mb-14 max-w-2xl mx-auto leading-relaxed"
-          >
-            Expert {industry.title} Digital Marketing to Make Your Business Shine Online and drive unprecedented growth
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="text-xl text-zinc-400 mb-14 max-w-2xl mx-auto leading-relaxed">
+            Expert {title} Digital Marketing to Make Your Business Shine Online and drive unprecedented growth
           </motion.p>
-
-          {/* Circle-arrow CTA (Miraki style) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.24 }}
-            className="flex items-center justify-center gap-4"
-          >
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }} className="flex items-center justify-center gap-4">
             <Link href="/contact">
               <button className="group flex items-center gap-4 text-white hover:opacity-80 transition-opacity duration-300">
                 <div className="w-14 h-14 rounded-full border-2 border-white/40 flex items-center justify-center group-hover:border-brand-pink group-hover:bg-brand-pink/10 transition-all duration-300">
@@ -128,29 +151,21 @@ export default function IndustryTemplate() {
         </div>
       </section>
 
-      {/* ── 2. PARTNERS STRIP (Miraki: static row between two horizontal rules) ── */}
+      {/* PARTNERS STRIP */}
       <section className="bg-zinc-950 text-white">
         <div className="container mx-auto px-4 md:px-8">
           <div className="border-t border-white/10 py-8">
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
-
-              {/* Label */}
               <div className="flex-shrink-0 md:w-44">
                 <p className="text-sm text-zinc-400 leading-snug">
                   Partners Driving<br />
-                  <span className="text-white font-medium">{industry.title} Success</span>
+                  <span className="text-white font-medium">{title} Success</span>
                 </p>
               </div>
-
-              {/* Divider */}
               <div className="hidden md:block w-px h-10 bg-white/10 flex-shrink-0" />
-
-              {/* Logos */}
               <div className="flex flex-wrap items-center gap-10 md:gap-16">
-                {partnerLogos.map((p) => (
-                  <div key={p.id} className="opacity-70 hover:opacity-100 transition-opacity duration-200 cursor-default">
-                    {p.content}
-                  </div>
+                {partnerLogos.map(p => (
+                  <div key={p.id} className="opacity-70 hover:opacity-100 transition-opacity duration-200 cursor-default">{p.content}</div>
                 ))}
               </div>
             </div>
@@ -159,42 +174,23 @@ export default function IndustryTemplate() {
         </div>
       </section>
 
-      {/* ── 3. BOOST BRAND AWARENESS ── */}
+      {/* BOOST BRAND AWARENESS */}
       <section className="py-24 bg-black text-white">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
-
-            {/* Left: heading + text */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="lg:w-1/2"
-            >
+            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="lg:w-1/2">
               <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 leading-tight">
                 Boost Brand Awareness By More Than{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">50%</span>
               </h2>
               <p className="text-zinc-400 text-lg leading-relaxed">
-                As a leading {industry.title} marketing company, Nexus helps businesses of all sizes craft personalized customer journeys through cutting-edge AI and advanced marketing techniques. We go beyond the surface with insight-driven strategies that turn even window shoppers into loyal customers.
+                As a leading {title} marketing company, MAI helps businesses of all sizes craft personalized customer journeys through cutting-edge AI and advanced marketing techniques. We go beyond the surface with insight-driven strategies that turn even window shoppers into loyal customers.
               </p>
             </motion.div>
-
-            {/* Right: stats */}
             <div className="lg:w-1/2 flex flex-col justify-center gap-0">
-              {[
-                { value: "200%+", label: "Higher customer engagement", color: "from-brand-pink to-brand-rose" },
-                { value: "300%+", label: "Improved customer trust", color: "from-brand-red to-brand-orange-dark" },
-                { value: "80%+", label: "Increased conversion rate", color: "from-brand-orange to-brand-yellow" },
-              ].map((stat, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className={`flex items-center gap-6 py-6 ${i < 2 ? "border-b border-white/8" : ""}`}
-                >
+              {heroStats.map((stat: any, i: number) => (
+                <motion.div key={i} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                  className={`flex items-center gap-6 py-6 ${i < heroStats.length - 1 ? "border-b border-white/8" : ""}`}>
                   <div className={`text-4xl md:text-5xl font-black font-heading text-transparent bg-clip-text bg-gradient-to-r ${stat.color} w-36 flex-shrink-0`}>
                     {stat.value}
                   </div>
@@ -206,54 +202,24 @@ export default function IndustryTemplate() {
         </div>
       </section>
 
-      {/* ── 4. PRECISION TARGETING ── */}
+      {/* PRECISION TARGETING */}
       <section className="py-24 bg-zinc-950 text-white border-t border-white/5">
         <div className="container mx-auto px-4 md:px-8">
           <div className="max-w-5xl">
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-sm font-medium tracking-widest uppercase text-brand-orange mb-6"
-            >
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-sm font-medium tracking-widest uppercase text-brand-orange mb-6">
               Strategy
             </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-heading font-bold mb-6 leading-tight"
-            >
-              {industry.title} Marketing With Precision Targeting
+            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-4xl md:text-5xl font-heading font-bold mb-6 leading-tight">
+              {title} Marketing With Precision Targeting
             </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-xl font-medium text-brand-orange mb-6"
-            >
+            <motion.p initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-xl font-medium text-brand-orange mb-6">
               Our Strategies Are Cutting-Edge, Yet Designed With Your Customers In Mind.
             </motion.p>
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.18 }}
-              className="text-zinc-400 text-lg leading-relaxed max-w-3xl"
-            >
-              We utilize advanced analytics to deeply understand your audience and craft personalized campaigns that resonate. Our data-driven approach, guided by human expertise, ensures you attract and retain the loyal customers your {industry.title} business deserves.
+            <motion.p initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.18 }} className="text-zinc-400 text-lg leading-relaxed max-w-3xl">
+              {precisionText}
             </motion.p>
-
-            {/* Feature pills */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.26 }}
-              className="flex flex-wrap gap-3 mt-10"
-            >
-              {["AI-Powered Targeting", "Real-Time Analytics", "Audience Segmentation", "Conversion Optimization", "Personalized Journeys", "ROI Tracking"].map((tag) => (
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.26 }} className="flex flex-wrap gap-3 mt-10">
+              {["AI-Powered Targeting", "Real-Time Analytics", "Audience Segmentation", "Conversion Optimization", "Personalized Journeys", "ROI Tracking"].map(tag => (
                 <span key={tag} className="px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-zinc-300 hover:border-brand-pink/40 hover:text-white transition-colors duration-200 cursor-default">
                   {tag}
                 </span>
@@ -263,62 +229,14 @@ export default function IndustryTemplate() {
         </div>
       </section>
 
-      {/* ── 5. SERVICES GRID ── */}
-      <section className="py-24 bg-black text-white">
-        <div className="container mx-auto px-4 md:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-heading font-bold leading-tight max-w-xl">
-              Our{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">
-                {industry.title}
-              </span>{" "}
-              Digital Marketing Services
-            </h2>
-            <Link href="/services">
-              <Button size="lg" className="rounded-full h-14 px-8 text-lg bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow hover:opacity-90 text-white border-0 shadow-[0_0_40px_-10px_rgba(225,48,108,0.4)] hover:scale-105 transition-all duration-300 group flex-shrink-0">
-                All Services <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-          </motion.div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5 border border-white/5 rounded-2xl overflow-hidden">
-            {servicesList.slice(0, 8).map((service, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-              >
-                <Link href={service.href}>
-                  <div className="group flex flex-col items-center text-center p-8 bg-black hover:bg-zinc-900 transition-colors duration-300 h-full cursor-pointer">
-                    <div className="h-16 w-16 rounded-full bg-gradient-to-br from-brand-pink/15 to-brand-yellow/10 flex items-center justify-center mb-5 group-hover:from-brand-pink/30 group-hover:to-brand-yellow/20 transition-all duration-300 border border-white/8 group-hover:border-brand-pink/30">
-                      <service.icon className="h-8 w-8 text-brand-rose group-hover:text-brand-orange transition-colors duration-300" />
-                    </div>
-                    <h3 className="text-base font-bold font-heading text-white group-hover:text-brand-orange transition-colors duration-300 leading-snug">
-                      {service.title}
-                    </h3>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 6. SUCCESS STORIES ── */}
+      {/* SUCCESS STORIES */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex justify-between items-end mb-14">
             <h2 className="text-3xl md:text-5xl font-heading font-bold text-zinc-900 leading-tight">
               Some Success Stories <br /> To Inspire You
             </h2>
-            <Link href="/contact">
+            <Link href="/portfolio">
               <button className="group flex items-center gap-3 text-zinc-800 hover:text-brand-pink transition-colors duration-200">
                 <span className="text-lg font-medium">See all</span>
                 <div className="w-8 h-8 rounded-full border border-zinc-300 flex items-center justify-center group-hover:border-brand-pink group-hover:bg-brand-pink group-hover:text-white transition-all duration-300">
@@ -327,7 +245,6 @@ export default function IndustryTemplate() {
               </button>
             </Link>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <SuccessCard img={fabpikImg} badge="Fabpik" title="50% Jump in Brand Visibility: FabPik's in Kids' e-commerce" />
             <SuccessCard img={monarchImg} badge="Monarch" title="From Hidden to Highlighted: Global Office Furniture Brand's Digital Leap with Us" />
@@ -336,45 +253,22 @@ export default function IndustryTemplate() {
         </div>
       </section>
 
-      {/* ── 7. FAQ ── */}
+      {/* FAQ */}
       <section className="py-24 bg-zinc-950 text-white section-black">
         <div className="container mx-auto px-4 md:px-8 flex flex-col lg:flex-row gap-16 lg:gap-24">
           <div className="lg:w-1/3">
             <p className="text-sm font-medium tracking-widest uppercase text-brand-orange mb-4">FAQs</p>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 leading-tight">
-              Frequently Asked Questions
-            </h2>
+            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 leading-tight">Frequently Asked Questions</h2>
             <p className="text-zinc-400 leading-relaxed">
-              As a leading digital marketing agency, we are dedicated to providing comprehensive educational resources and answering frequently asked questions to help our {industry.title} clients make informed decisions.
+              As a leading digital marketing agency, we provide educational resources and answer key questions to help our {title} clients make informed decisions.
             </p>
           </div>
           <div className="lg:w-2/3">
             <Accordion type="single" collapsible className="w-full">
-              {[
-                {
-                  q: `What is AI-powered ${industry.title} marketing?`,
-                  a: `AI-powered ${industry.title} marketing uses artificial intelligence to improve and automate marketing tasks. This includes personalized recommendations, optimized pricing strategies, and targeted campaigns based on customer behavior.`
-                },
-                {
-                  q: `How can AI improve my ${industry.title} conversion rates?`,
-                  a: `AI analyzes vast amounts of user data to predict buying behavior, enabling real-time personalization of content, offers, and product suggestions that significantly increase the likelihood of purchase.`
-                },
-                {
-                  q: `How do you measure success of ${industry.title} marketing campaigns?`,
-                  a: `We track key performance indicators (KPIs) such as Return on Ad Spend (ROAS), Customer Acquisition Cost (CAC), Conversion Rate, and Customer Lifetime Value (CLV) to ensure your campaigns are delivering tangible business results.`
-                },
-                {
-                  q: `How quickly can we expect results?`,
-                  a: `Most ${industry.title} clients see measurable improvements within the first 30–60 days. We share transparent monthly reports with clear KPI tracking so you always know exactly how your brand is growing.`
-                }
-              ].map((faq, i) => (
+              {faqs.map((faq: any, i: number) => (
                 <AccordionItem key={i} value={`item-${i}`} className="border-b border-white/10">
-                  <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-brand-orange py-7 text-white text-left">
-                    {faq.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-zinc-400 pb-6 text-base leading-relaxed">
-                    {faq.a}
-                  </AccordionContent>
+                  <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-brand-orange py-7 text-white text-left">{faq.q}</AccordionTrigger>
+                  <AccordionContent className="text-zinc-400 pb-6 text-base leading-relaxed">{faq.a}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
@@ -382,19 +276,15 @@ export default function IndustryTemplate() {
         </div>
       </section>
 
-      {/* ── 8. FINAL CTA ── */}
+      {/* FINAL CTA */}
       <section className="py-28 bg-black text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(193,53,132,0.12),transparent_65%)] pointer-events-none" />
         <div className="container mx-auto px-4 md:px-8 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <p className="text-sm font-medium tracking-widest uppercase text-brand-orange mb-6">Let's Grow Together</p>
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-black mb-10 max-w-4xl mx-auto leading-tight">
               Let's Build Your Strategies to Dominate the{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">{industry.title} World!</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">{title} World!</span>
             </h2>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
               <Link href="/contact">
@@ -421,15 +311,11 @@ function SuccessCard({ img, badge, title }: { img: string; badge: string; title:
   return (
     <div className="group cursor-pointer">
       <div className="rounded-2xl overflow-hidden mb-5 aspect-[4/3] relative">
-        <div className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-md text-xs font-bold text-white bg-gradient-to-r from-brand-pink to-brand-red">
-          {badge}
-        </div>
+        <div className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-md text-xs font-bold text-white bg-gradient-to-r from-brand-pink to-brand-red">{badge}</div>
         <img src={img} alt={badge} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
-      <h3 className="text-base font-bold font-heading text-zinc-900 leading-snug group-hover:text-brand-pink transition-colors duration-200">
-        {title}
-      </h3>
+      <h3 className="text-base font-bold font-heading text-zinc-900 leading-snug group-hover:text-brand-pink transition-colors duration-200">{title}</h3>
     </div>
   );
 }

@@ -3,8 +3,6 @@ import { pgTable, text, varchar, serial, integer, boolean, json, timestamp } fro
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-// ── Existing tables ──────────────────────────────────────────────────────────
-
 export const blogs = pgTable("blogs", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
@@ -62,8 +60,6 @@ export const newsletterSubscribers = pgTable("newsletter_subscribers", {
   subscribedAt: timestamp("subscribed_at").defaultNow(),
 });
 
-// ── New CMS tables ────────────────────────────────────────────────────────────
-
 export const services = pgTable("services", {
   id: serial("id").primaryKey(),
   slug: text("slug").notNull().unique(),
@@ -74,6 +70,7 @@ export const services = pgTable("services", {
   benefits: json("benefits").$type<{ title: string; desc: string }[]>().notNull().default([]),
   process: json("process").$type<{ title: string; desc: string }[]>().notNull().default([]),
   redefined: json("redefined").$type<{ title: string; desc: string } | null>().default(null),
+  faqs: json("faqs").$type<{ q: string; a: string }[]>().default([]),
   displayOrder: integer("display_order").default(0),
   active: boolean("active").default(true),
 });
@@ -84,6 +81,10 @@ export const industries = pgTable("industries", {
   title: text("title").notNull(),
   description: text("description").notNull().default(""),
   iconName: text("icon_name").notNull().default("briefcase"),
+  imageKey: text("image_key").notNull().default(""),
+  heroStats: json("hero_stats").$type<{ value: string; label: string; color: string }[]>().default([]),
+  faqs: json("faqs").$type<{ q: string; a: string }[]>().default([]),
+  precisionText: text("precision_text").default(""),
   displayOrder: integer("display_order").default(0),
   active: boolean("active").default(true),
 });
@@ -116,8 +117,6 @@ export const siteSettings = pgTable("site_settings", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
-// ── Insert schemas ────────────────────────────────────────────────────────────
-
 export const insertBlogSchema = createInsertSchema(blogs).omit({ id: true });
 export const insertCaseStudySchema = createInsertSchema(caseStudies).omit({ id: true });
 export const insertPressReleaseSchema = createInsertSchema(pressReleases).omit({ id: true });
@@ -127,8 +126,6 @@ export const insertServiceSchema = createInsertSchema(services).omit({ id: true 
 export const insertIndustrySchema = createInsertSchema(industries).omit({ id: true });
 export const insertPortfolioItemSchema = createInsertSchema(portfolioItems).omit({ id: true });
 export const insertSiteSettingSchema = createInsertSchema(siteSettings).omit({ id: true, updatedAt: true });
-
-// ── Types ─────────────────────────────────────────────────────────────────────
 
 export type Blog = typeof blogs.$inferSelect;
 export type InsertBlog = z.infer<typeof insertBlogSchema>;
