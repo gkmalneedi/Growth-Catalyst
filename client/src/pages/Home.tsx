@@ -193,12 +193,12 @@ export default function Home() {
             className="max-w-6xl mx-auto"
           >
             {/* Static top line */}
-            <h1 className="text-[34px] md:text-[52px] lg:text-[66px] font-heading font-black leading-[1.05] tracking-tight text-white mb-4">
+            <h1 className="text-[34px] md:text-[52px] lg:text-[66px] font-heading font-black leading-[1.05] tracking-tight text-white mb-1 md:mb-4">
               We're the Crusaders of
             </h1>
 
             {/* Animated cycling word */}
-            <div className="h-[80px] md:h-[100px] lg:h-[110px] flex items-center justify-center overflow-hidden mb-4">
+            <div className="h-[40px] md:h-[100px] lg:h-[110px] flex items-center justify-center overflow-hidden mb-1 md:mb-4">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={wordIndex}
