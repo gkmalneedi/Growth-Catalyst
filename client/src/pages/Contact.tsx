@@ -5,26 +5,17 @@ import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Phone, Mail, MapPin, Globe, Award, Star, CheckCircle2, Loader2 } from "lucide-react";
+import { Phone, Mail, MapPin, Award, Loader2 } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 
-// Images
 import heroBg from "@assets/generated_images/digital_waves_data_visualization_for_marketing.png";
 
 export default function Contact() {
@@ -44,189 +35,183 @@ export default function Contact() {
       setSubmitStatus("error");
     },
   });
+
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navbar />
 
-      {/* 1. HERO & CONTACT FORM SECTION */}
+      {/* 1. HERO & CONTACT FORM */}
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-zinc-950 text-white section-black">
         <div className="absolute inset-0 z-0">
-           <img 
-             src={heroBg} 
-             alt="Digital Background" 
-             className="w-full h-full object-cover opacity-20"
-           />
-           <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/80 via-transparent to-zinc-950" />
+          <img src={heroBg} alt="Digital Background" className="w-full h-full object-cover opacity-20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/80 via-transparent to-zinc-950" />
         </div>
-        
+
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            {/* Left Column: Content */}
-            <motion.div
-               initial={{ opacity: 0, x: -30 }}
-               animate={{ opacity: 1, x: 0 }}
-               transition={{ duration: 0.8 }}
-            >
-               <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-sm font-medium tracking-wide uppercase mb-6">
-                  Contact Us
-               </div>
-               <h1 className="text-5xl md:text-7xl font-heading font-bold leading-tight mb-8">
-                 Get in Touch <br/>
-                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">
-                   with Us
-                 </span>
-               </h1>
-               <p className="text-xl text-zinc-300 mb-10 leading-relaxed max-w-xl">
-                 Ready to make your brand unforgettable? Our AI-powered digital marketing turns attention into action and ambition into growth. Let us craft your success strategy - today.
-               </p>
+            {/* Left Column */}
+            <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
+              <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-sm font-medium tracking-wide uppercase mb-6">
+                Contact Us
+              </div>
+              <h1 className="text-5xl md:text-7xl font-heading font-bold leading-tight mb-8">
+                Get in Touch <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">with Us</span>
+              </h1>
+              <p className="text-xl text-zinc-300 mb-10 leading-relaxed max-w-xl">
+                Ready to make your brand unforgettable? Our AI-powered digital marketing turns attention into action and ambition into growth. Let us craft your success strategy — today.
+              </p>
 
-               <div className="flex flex-col gap-6 mb-12">
-                 <a href="mailto:growdigital@mirakitech.com" className="flex items-center gap-4 text-xl hover:text-primary transition-colors group">
-                   <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors">
-                     <Mail className="w-5 h-5" />
-                   </div>
-                   growdigital@mirakitech.com
-                 </a>
-                 <a href="tel:+919154904675" className="flex items-center gap-4 text-xl hover:text-primary transition-colors group">
-                   <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors">
-                     <Phone className="w-5 h-5" />
-                   </div>
-                   +91 9154904675
-                 </a>
-               </div>
+              <div className="flex flex-col gap-6 mb-12">
+                <a href="mailto:info@marketingaigency.in" className="flex items-center gap-4 text-xl hover:text-primary transition-colors group">
+                  <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  info@marketingaigency.in
+                </a>
+                <a href="tel:+916309966282" className="flex items-center gap-4 text-xl hover:text-primary transition-colors group">
+                  <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  +91 6309966282
+                </a>
+                <div className="flex items-start gap-4 text-xl text-zinc-300">
+                  <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <span className="leading-relaxed">Flat No. 102, Life Style Building, Plot No 1038 &amp; 1039, 3monkeys circle, Pragathi Nagar, Hyderabad, Telangana 500090</span>
+                </div>
+              </div>
 
-               <div className="border-t border-white/10 pt-10">
-                 <h3 className="text-lg font-medium text-zinc-400 mb-6 uppercase tracking-wide">Together, We Propel Your Growth: Our Partners</h3>
-                 <div className="flex flex-wrap gap-6 items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-                   {["Meta", "Google", "Microsoft", "AWS", "HubSpot", "CleverTap"].map((partner, i) => (
-                     <span key={i} className="text-lg font-bold">{partner}</span>
-                   ))}
-                 </div>
-               </div>
+              <div className="border-t border-white/10 pt-10">
+                <h3 className="text-lg font-medium text-zinc-400 mb-6 uppercase tracking-wide">Together, We Propel Your Growth: Our Partners</h3>
+                <div className="flex flex-wrap gap-6 items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+                  {["Meta", "Google", "Microsoft", "AWS", "HubSpot", "CleverTap"].map((partner, i) => (
+                    <span key={i} className="text-lg font-bold">{partner}</span>
+                  ))}
+                </div>
+              </div>
             </motion.div>
 
             {/* Right Column: Form */}
             <motion.div
-               initial={{ opacity: 0, x: 30 }}
-               animate={{ opacity: 1, x: 0 }}
-               transition={{ duration: 0.8, delay: 0.2 }}
-               className="bg-zinc-900/80 backdrop-blur-xl border border-white/10 p-8 md:p-10 rounded-3xl shadow-2xl"
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="bg-zinc-900/80 backdrop-blur-xl border border-white/10 p-8 md:p-10 rounded-3xl shadow-2xl"
             >
-               <form className="space-y-6" onSubmit={(e) => {
-                 e.preventDefault();
-                 setSubmitStatus("idle");
-                 contactMutation.mutate(formData);
-               }}>
-                 <div className="space-y-2">
-                   <label className="text-sm font-medium text-zinc-300">Name *</label>
-                   <Input placeholder="Enter your full name" value={formData.name} onChange={(e) => setFormData(p => ({ ...p, name: e.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 h-12 rounded-xl focus:border-primary/50 focus:ring-primary/20" required data-testid="input-name" />
-                 </div>
-                 
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                   <div className="space-y-2">
-                     <label className="text-sm font-medium text-zinc-300">Email *</label>
-                     <Input type="email" placeholder="Enter your email" value={formData.email} onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 h-12 rounded-xl focus:border-primary/50 focus:ring-primary/20" required data-testid="input-email" />
-                   </div>
-                   <div className="space-y-2">
-                     <label className="text-sm font-medium text-zinc-300">Phone Number *</label>
-                     <Input type="tel" placeholder="+91" value={formData.phone} onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 h-12 rounded-xl focus:border-primary/50 focus:ring-primary/20" required data-testid="input-phone" />
-                   </div>
-                 </div>
+              <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); setSubmitStatus("idle"); contactMutation.mutate(formData); }}>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-zinc-300">Name *</label>
+                  <Input placeholder="Enter your full name" value={formData.name} onChange={(e) => setFormData(p => ({ ...p, name: e.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 h-12 rounded-xl focus:border-primary/50 focus:ring-primary/20" required data-testid="input-name" />
+                </div>
 
-                 <div className="space-y-2">
-                   <label className="text-sm font-medium text-zinc-300">Select Service *</label>
-                   <Select value={formData.service} onValueChange={(val) => setFormData(p => ({ ...p, service: val }))}>
-                     <SelectTrigger className="bg-white/5 border-white/10 text-white h-12 rounded-xl focus:border-primary/50 focus:ring-primary/20" data-testid="select-service">
-                       <SelectValue placeholder="Select..." />
-                     </SelectTrigger>
-                     <SelectContent>
-                       <SelectItem value="smo">Social Media Optimization</SelectItem>
-                       <SelectItem value="seo">SEO & SEM</SelectItem>
-                       <SelectItem value="content">Content Marketing</SelectItem>
-                       <SelectItem value="branding">Brand Management</SelectItem>
-                       <SelectItem value="automation">Marketing Automation</SelectItem>
-                     </SelectContent>
-                   </Select>
-                 </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-zinc-300">Email *</label>
+                    <Input type="email" placeholder="Enter your email" value={formData.email} onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 h-12 rounded-xl focus:border-primary/50 focus:ring-primary/20" required data-testid="input-email" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-zinc-300">Phone Number *</label>
+                    <Input type="tel" placeholder="+91" value={formData.phone} onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 h-12 rounded-xl focus:border-primary/50 focus:ring-primary/20" required data-testid="input-phone" />
+                  </div>
+                </div>
 
-                 <div className="space-y-2">
-                   <label className="text-sm font-medium text-zinc-300">Your Message</label>
-                   <Textarea placeholder="Tell us about your project..." value={formData.message} onChange={(e) => setFormData(p => ({ ...p, message: e.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 min-h-[120px] rounded-xl focus:border-primary/50 focus:ring-primary/20 resize-none" data-testid="input-message" />
-                 </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-zinc-300">Select Service *</label>
+                  <Select value={formData.service} onValueChange={(val) => setFormData(p => ({ ...p, service: val }))}>
+                    <SelectTrigger className="bg-white/5 border-white/10 text-white h-12 rounded-xl focus:border-primary/50 focus:ring-primary/20" data-testid="select-service">
+                      <SelectValue placeholder="Select..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="smo">Social Media Optimization</SelectItem>
+                      <SelectItem value="seo">SEO & SEM</SelectItem>
+                      <SelectItem value="content">Content Marketing</SelectItem>
+                      <SelectItem value="branding">Brand Management</SelectItem>
+                      <SelectItem value="automation">Marketing Automation</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
 
-                 <Button type="submit" size="lg" className="w-full h-14 text-lg font-medium rounded-xl bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow hover:opacity-90 shadow-lg shadow-brand-pink/25" disabled={contactMutation.isPending} data-testid="button-submit-contact">
-                   {contactMutation.isPending ? <Loader2 className="w-5 h-5 animate-spin mr-2" /> : null}
-                   {contactMutation.isPending ? "Submitting..." : "Connect Now"}
-                 </Button>
-                 {submitStatus === "success" && (
-                   <p className="text-green-400 text-center text-sm" data-testid="text-contact-success">Thank you! We'll be in touch soon.</p>
-                 )}
-                 {submitStatus === "error" && (
-                   <p className="text-red-400 text-center text-sm">Something went wrong. Please try again.</p>
-                 )}
-               </form>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-zinc-300">Your Message</label>
+                  <Textarea placeholder="Tell us about your project..." value={formData.message} onChange={(e) => setFormData(p => ({ ...p, message: e.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-zinc-500 min-h-[120px] rounded-xl focus:border-primary/50 focus:ring-primary/20 resize-none" data-testid="input-message" />
+                </div>
+
+                <Button type="submit" size="lg" className="w-full h-14 text-lg font-medium rounded-xl bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow hover:opacity-90 shadow-lg shadow-brand-pink/25" disabled={contactMutation.isPending} data-testid="button-submit-contact">
+                  {contactMutation.isPending ? <Loader2 className="w-5 h-5 animate-spin mr-2" /> : null}
+                  {contactMutation.isPending ? "Submitting..." : "Connect Now"}
+                </Button>
+                {submitStatus === "success" && (
+                  <p className="text-green-400 text-center text-sm" data-testid="text-contact-success">Thank you! We'll be in touch soon.</p>
+                )}
+                {submitStatus === "error" && (
+                  <p className="text-red-400 text-center text-sm">Something went wrong. Please try again.</p>
+                )}
+              </form>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* 2. LOCATIONS SECTION */}
+      {/* 2. INDIA OFFICE + MAP */}
       <section className="py-24 bg-zinc-900">
         <div className="container mx-auto px-4 md:px-8">
-           <div className="text-center mb-16">
-             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-white">We're Here for You - <span className="text-primary">Reach Out Anytime!</span></h2>
-           </div>
+          <div className="text-center mb-14">
+            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-white">
+              Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">India Office</span>
+            </h2>
+            <p className="text-zinc-400 text-lg">Come visit us or reach out — we're always happy to connect.</p>
+          </div>
 
-           <Tabs defaultValue="india" className="max-w-5xl mx-auto">
-             <TabsList className="grid grid-cols-4 w-full h-auto p-1 bg-white/5 rounded-full border border-white/10 mb-12">
-               <TabsTrigger value="india" className="rounded-full py-3 data-[state=active]:bg-primary data-[state=active]:text-white text-zinc-400 text-lg">India</TabsTrigger>
-               <TabsTrigger value="canada" className="rounded-full py-3 data-[state=active]:bg-primary data-[state=active]:text-white text-zinc-400 text-lg">Canada</TabsTrigger>
-               <TabsTrigger value="uae" className="rounded-full py-3 data-[state=active]:bg-primary data-[state=active]:text-white text-zinc-400 text-lg">UAE</TabsTrigger>
-               <TabsTrigger value="usa" className="rounded-full py-3 data-[state=active]:bg-primary data-[state=active]:text-white text-zinc-400 text-lg">USA</TabsTrigger>
-             </TabsList>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-5xl mx-auto items-start">
+            {/* Office details card */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="bg-zinc-800/50 border border-white/10 rounded-3xl p-8 space-y-6"
+            >
+              <div className="flex items-center gap-3">
+                <MapPin className="w-7 h-7 text-primary flex-shrink-0" />
+                <h3 className="text-2xl font-bold text-white">Hyderabad</h3>
+              </div>
+              <p className="text-zinc-300 text-lg leading-relaxed">
+                Flat No. 102, Life Style Building, Plot No 1038 &amp; 1039, 3monkeys circle,<br />
+                Pragathi Nagar, Hyderabad, Telangana 500090
+              </p>
+              <div className="space-y-3 pt-2 border-t border-white/10">
+                <a href="mailto:info@marketingaigency.in" className="flex items-center gap-3 text-zinc-300 hover:text-primary transition-colors">
+                  <Mail className="w-5 h-5 flex-shrink-0" />
+                  info@marketingaigency.in
+                </a>
+                <a href="tel:+916309966282" className="flex items-center gap-3 text-zinc-300 hover:text-primary transition-colors">
+                  <Phone className="w-5 h-5 flex-shrink-0" />
+                  +91 6309966282
+                </a>
+              </div>
+            </motion.div>
 
-             <TabsContent value="india" className="mt-0">
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                 <LocationCard 
-                   city="Hyderabad"
-                   address="VSSR Square 2rd Floor, Hi-Tech City, Hyderabad, Telangana 500081"
-                   phone="+91-9154904675"
-                 />
-                 <LocationCard 
-                   city="Mumbai"
-                   address="Enam Sambhav, BKC, C - 20, G Block Rd, Bandra Kurla Complex, Mumbai 400051"
-                   phone="+91-9154904674"
-                 />
-               </div>
-             </TabsContent>
-             <TabsContent value="canada" className="mt-0">
-               <div className="flex justify-center">
-                 <LocationCard 
-                   city="Toronto"
-                   address="123 Innovation Drive, Tech District, Toronto, ON M5V 2T6"
-                   phone="+1 (555) 123-4567"
-                 />
-               </div>
-             </TabsContent>
-             <TabsContent value="uae" className="mt-0">
-               <div className="flex justify-center">
-                 <LocationCard 
-                   city="Dubai"
-                   address="Level 14, Boulevard Plaza Tower 1, Sheikh Mohammed Bin Rashid Boulevard, Dubai"
-                   phone="+971 4 123 4567"
-                 />
-               </div>
-             </TabsContent>
-             <TabsContent value="usa" className="mt-0">
-               <div className="flex justify-center">
-                 <LocationCard 
-                   city="New York"
-                   address="450 Lexington Ave, New York, NY 10017, United States"
-                   phone="+1 (212) 555-0199"
-                 />
-               </div>
-             </TabsContent>
-           </Tabs>
+            {/* Google Maps embed */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="rounded-3xl overflow-hidden border border-white/10 shadow-xl"
+              style={{ height: 340 }}
+            >
+              <iframe
+                title="MAI Office Location"
+                src="https://www.google.com/maps?q=Life+Style+Building,+Plot+No+1038,+3monkeys+circle,+Pragathi+Nagar,+Hyderabad,+Telangana+500090&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0, filter: "invert(90%) hue-rotate(180deg)" }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -234,22 +219,22 @@ export default function Contact() {
       <section className="py-24 bg-white/5 backdrop-blur-sm">
         <div className="container mx-auto px-4 md:px-8 text-center">
           <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6 text-white leading-tight">
-             It Takes a Lot to Achieve an Award, <br/>
-             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">But We’re Always Ready for it</span>
+            It Takes a Lot to Achieve an Award, <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">But We're Always Ready for it</span>
           </h2>
           <p className="text-xl text-zinc-400 mb-16 max-w-2xl mx-auto">
-             Awards Demand Dedication, and We're Always Ready to Rise to the Occasion.
+            Awards Demand Dedication, and We're Always Ready to Rise to the Occasion.
           </p>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-             {["T-Hub", "Good Firms", "ISO 27001", "ISO 9001", "Silicon India", "Insights Success"].map((award, i) => (
-               <div key={i} className="flex flex-col items-center justify-center p-6 border border-white/10 rounded-2xl bg-white/5 hover:bg-white/10 hover:scale-105 transition-all duration-300 group">
-                 <div className="w-16 h-16 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 mb-4 group-hover:bg-yellow-500/20 transition-colors">
-                   <Award className="w-8 h-8" />
-                 </div>
-                 <span className="font-bold text-white/90">{award}</span>
-               </div>
-             ))}
+            {["T-Hub", "Good Firms", "ISO 27001", "ISO 9001", "Silicon India", "Insights Success"].map((award, i) => (
+              <div key={i} className="flex flex-col items-center justify-center p-6 border border-white/10 rounded-2xl bg-white/5 hover:bg-white/10 hover:scale-105 transition-all duration-300 group">
+                <div className="w-16 h-16 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 mb-4 group-hover:bg-yellow-500/20 transition-colors">
+                  <Award className="w-8 h-8" />
+                </div>
+                <span className="font-bold text-white/90">{award}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -306,25 +291,5 @@ export default function Contact() {
 
       <Footer />
     </div>
-  );
-}
-
-function LocationCard({ city, address, phone }: { city: string, address: string, phone: string }) {
-  return (
-    <Card className="bg-zinc-800/50 border-white/10 hover:border-primary/50 transition-colors group">
-      <CardHeader>
-        <div className="flex items-center gap-3 mb-2">
-           <MapPin className="w-6 h-6 text-primary" />
-           <CardTitle className="text-2xl font-bold text-white">{city}</CardTitle>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <p className="text-zinc-400 leading-relaxed min-h-[48px]">{address}</p>
-        <div className="flex items-center gap-3 text-white font-medium group-hover:text-primary transition-colors">
-          <Phone className="w-4 h-4" />
-          {phone}
-        </div>
-      </CardContent>
-    </Card>
   );
 }

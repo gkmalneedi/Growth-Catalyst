@@ -3,13 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowRight, CheckCircle2, Star, Users, BarChart, Target, Zap, Heart, Globe, Lightbulb, ShieldCheck } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { ArrowRight, CheckCircle2, Star, Users, BarChart, Target, Zap, Heart, Globe, Lightbulb, ShieldCheck, Linkedin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 // Images
@@ -212,44 +206,48 @@ export default function About() {
         </div>
       </section>
 
-      {/* 7. FAQ */}
+      {/* 7. MEET OUR TEAM */}
       <section className="py-32 bg-zinc-900 section-black">
-        <div className="container mx-auto px-4 md:px-8 flex flex-col lg:flex-row gap-16">
-          <div className="lg:w-1/3">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-white">
-              Frequently Asked Questions
+              Meet Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow">Leadership</span>
             </h2>
-            <p className="text-zinc-400 text-lg">
-              We are dedicated to providing comprehensive educational resources and answering frequently asked questions to help our clients.
+            <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
+              The visionaries driving MAI's mission to redefine digital marketing through AI-powered innovation.
             </p>
           </div>
-          <div className="lg:w-2/3">
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1" className="border-b border-white/10">
-                <AccordionTrigger className="text-xl font-medium hover:no-underline hover:text-primary py-6 text-white">
-                  What is AI-powered digital marketing?
-                </AccordionTrigger>
-                <AccordionContent className="text-zinc-400 text-lg pb-6 leading-relaxed">
-                  AI-powered digital marketing uses artificial intelligence to improve and automate marketing tasks. Technologies like machine learning and data analytics help marketers understand customer behaviour, personalize content, optimize campaigns, and make better decisions.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2" className="border-b border-white/10">
-                <AccordionTrigger className="text-xl font-medium hover:no-underline hover:text-primary py-6 text-white">
-                  How effective is AI in improving customer targeting?
-                </AccordionTrigger>
-                <AccordionContent className="text-zinc-400 text-lg pb-6 leading-relaxed">
-                  AI algorithms analyze vast amounts of data to identify patterns and predict future behaviors. This allows for hyper-precise targeting, ensuring your message reaches the right person at the exact right moment they are most likely to convert.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3" className="border-b border-white/10">
-                <AccordionTrigger className="text-xl font-medium hover:no-underline hover:text-primary py-6 text-white">
-                  How do you measure success?
-                </AccordionTrigger>
-                <AccordionContent className="text-zinc-400 text-lg pb-6 leading-relaxed">
-                  We focus on metrics that matter to your bottom line: ROI, conversion rates, cost per acquisition, and customer lifetime value. We provide transparent, real-time dashboards so you can always see the impact of our work.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {cSuiteTeam.map((member, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group bg-zinc-800/50 border border-white/10 rounded-3xl p-8 flex flex-col items-center text-center hover:border-primary/40 hover:bg-zinc-800/80 transition-all duration-300"
+              >
+                <div
+                  className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold text-white mb-5 shadow-lg"
+                  style={{ background: member.gradient }}
+                >
+                  {member.initials}
+                </div>
+                <h3 className="text-xl font-heading font-bold text-white mb-1">{member.name}</h3>
+                <p className="text-sm text-zinc-400 mb-5 font-medium">{member.designation}</p>
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-zinc-400 hover:text-blue-400 transition-colors"
+                  data-testid={`link-linkedin-${i}`}
+                >
+                  <Linkedin className="w-4 h-4" />
+                  LinkedIn Profile
+                </a>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -281,3 +279,34 @@ function StrategicCard({ icon, title, desc }: { icon: React.ReactNode, title: st
     </div>
   );
 }
+
+const cSuiteTeam = [
+  {
+    name: "Gopikrishna Malneedi",
+    designation: "Chief Executive Officer",
+    initials: "GM",
+    gradient: "linear-gradient(135deg, #C13584, #E1306C)",
+    linkedin: "https://www.linkedin.com/in/gopikrishnamalneedi/",
+  },
+  {
+    name: "Priya Sharma",
+    designation: "Chief Marketing Officer",
+    initials: "PS",
+    gradient: "linear-gradient(135deg, #E1306C, #FD1D1D)",
+    linkedin: "#",
+  },
+  {
+    name: "Arjun Reddy",
+    designation: "Chief Technology Officer",
+    initials: "AR",
+    gradient: "linear-gradient(135deg, #F56040, #F77737)",
+    linkedin: "#",
+  },
+  {
+    name: "Sneha Kapoor",
+    designation: "Chief Operating Officer",
+    initials: "SK",
+    gradient: "linear-gradient(135deg, #F77737, #FCAF45)",
+    linkedin: "#",
+  },
+];

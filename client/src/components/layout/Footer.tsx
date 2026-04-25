@@ -1,4 +1,4 @@
-import { Mail, MapPin, Phone, Instagram, Twitter, Linkedin, Youtube, ArrowRight, MessageCircle } from "lucide-react";
+import { Mail, MapPin, Phone, Instagram, Twitter, Linkedin, Youtube, Facebook, ArrowRight } from "lucide-react";
 import logoImg from "@assets/MAI_logo_final_transparent.png";
 import { Link, useLocation } from "wouter";
 import { servicesList, industriesList } from "@/lib/data";
@@ -60,9 +60,9 @@ export function Footer() {
                   className="p-2 bg-white/5 rounded-full hover:bg-red-500/20 hover:text-red-400 transition-colors">
                   <Youtube className="h-4 w-4" />
                 </a>
-                <a href="https://wa.me/916309966282" target="_blank" rel="noopener noreferrer"
-                  className="p-2 bg-white/5 rounded-full hover:bg-green-500/20 hover:text-green-400 transition-colors">
-                  <MessageCircle className="h-4 w-4" />
+                <a href="https://www.facebook.com/marketingaigency" target="_blank" rel="noopener noreferrer"
+                  className="p-2 bg-white/5 rounded-full hover:bg-blue-600/20 hover:text-blue-400 transition-colors">
+                  <Facebook className="h-4 w-4" />
                 </a>
               </div>
             </div>
@@ -110,9 +110,9 @@ export function Footer() {
             <div>
               <h3 className="font-heading font-bold text-sm uppercase tracking-wider mb-4 text-white/80">Contact</h3>
               <div className="space-y-3 text-muted-foreground text-sm">
-                <a href="mailto:hello@marketingaigency.in" className="flex items-start gap-2 hover:text-primary transition-colors">
+                <a href="mailto:info@marketingaigency.in" className="flex items-start gap-2 hover:text-primary transition-colors">
                   <Mail className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                  <span>hello@marketingaigency.in</span>
+                  <span>info@marketingaigency.in</span>
                 </a>
                 <a href="tel:+916309966282" className="flex items-start gap-2 hover:text-primary transition-colors">
                   <Phone className="h-4 w-4 mt-0.5 flex-shrink-0" />
