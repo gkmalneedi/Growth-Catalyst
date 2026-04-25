@@ -1,4 +1,4 @@
-import { Mail, MapPin, Phone, Instagram, Twitter, Linkedin, ArrowRight, MessageCircle } from "lucide-react";
+import { Mail, MapPin, Phone, Instagram, Twitter, Linkedin, Youtube, ArrowRight, MessageCircle } from "lucide-react";
 import logoImg from "@assets/MAI_logo_final_transparent.png";
 import { Link, useLocation } from "wouter";
 import { servicesList, industriesList } from "@/lib/data";
@@ -44,17 +44,21 @@ export function Footer() {
                 Empowering businesses with next-gen digital solutions, brand strategy, and AI-driven growth.
               </p>
               <div className="flex gap-3 pt-1">
-                <a href="https://instagram.com/mai.agency" target="_blank" rel="noopener noreferrer"
+                <a href="https://www.instagram.com/marketingaigency/" target="_blank" rel="noopener noreferrer"
                   className="p-2 bg-white/5 rounded-full hover:bg-pink-500/20 hover:text-pink-400 transition-colors">
                   <Instagram className="h-4 w-4" />
                 </a>
-                <a href="https://linkedin.com/company/mai-agency" target="_blank" rel="noopener noreferrer"
+                <a href="https://www.linkedin.com/company/marketingaigency/" target="_blank" rel="noopener noreferrer"
                   className="p-2 bg-white/5 rounded-full hover:bg-blue-500/20 hover:text-blue-400 transition-colors">
                   <Linkedin className="h-4 w-4" />
                 </a>
-                <a href="https://twitter.com/mai_agency" target="_blank" rel="noopener noreferrer"
+                <a href="https://x.com/MAIgency" target="_blank" rel="noopener noreferrer"
                   className="p-2 bg-white/5 rounded-full hover:bg-sky-500/20 hover:text-sky-400 transition-colors">
                   <Twitter className="h-4 w-4" />
+                </a>
+                <a href="https://www.youtube.com/@MarketingAIgency" target="_blank" rel="noopener noreferrer"
+                  className="p-2 bg-white/5 rounded-full hover:bg-red-500/20 hover:text-red-400 transition-colors">
+                  <Youtube className="h-4 w-4" />
                 </a>
                 <a href="https://wa.me/916309966282" target="_blank" rel="noopener noreferrer"
                   className="p-2 bg-white/5 rounded-full hover:bg-green-500/20 hover:text-green-400 transition-colors">
@@ -91,15 +95,8 @@ export function Footer() {
               </ul>
             </div>
 
-            {/* Resources + Company */}
+            {/* Company */}
             <div>
-              <h3 className="font-heading font-bold text-sm uppercase tracking-wider mb-4 text-white/80">Resources</h3>
-              <ul className="space-y-2 text-muted-foreground text-sm mb-6">
-                <li><Link href="/resources/blogs"><a className="hover:text-primary cursor-pointer transition-colors">Blogs</a></Link></li>
-                <li><Link href="/resources/case-studies"><a className="hover:text-primary cursor-pointer transition-colors">Case Studies</a></Link></li>
-                <li><Link href="/resources/press-release"><a className="hover:text-primary cursor-pointer transition-colors">Press Release</a></Link></li>
-                <li><Link href="/portfolio"><a className="hover:text-primary cursor-pointer transition-colors">Success Stories</a></Link></li>
-              </ul>
               <h3 className="font-heading font-bold text-sm uppercase tracking-wider mb-4 text-white/80">Company</h3>
               <ul className="space-y-2 text-muted-foreground text-sm">
                 <li><Link href="/about"><a className="hover:text-primary cursor-pointer transition-colors">About Us</a></Link></li>
@@ -123,7 +120,7 @@ export function Footer() {
                 </a>
                 <div className="flex items-start gap-2">
                   <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                  <span>Hyderabad, Telangana, India</span>
+                  <span>Flat No. 102, Life Style Building, Plot No 1038 &amp; 1039, 3monkeys circle, Pragathi Nagar, Hyderabad, Telangana 500090</span>
                 </div>
               </div>
             </div>
