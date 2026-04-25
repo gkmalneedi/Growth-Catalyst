@@ -390,7 +390,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(253,29,29,0.06),transparent_60%)]" />
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="text-center mb-16">
-            <p className="text-sm font-medium tracking-widest uppercase text-brand-orange mb-4">Client Love</p>
+            <p className="text-sm font-medium tracking-widest uppercase text-brand-orange mb-4">In us, our customers trust</p>
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-white">
               Golden Lines That <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow">Keep Us Motivated</span>
             </h2>
@@ -457,7 +457,7 @@ export default function Home() {
               className="md:w-1/2"
             >
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-white leading-tight mb-6">
-                Together, We Propel Your <br /> Growth: Our Partners
+                We and our partners together propel your growth
               </h2>
               <p className="text-zinc-400 text-lg leading-relaxed">
                 Fast-track your growth with our strategic partners' ecosystem and unmatched experience in crafting digital dominance for businesses across industries.

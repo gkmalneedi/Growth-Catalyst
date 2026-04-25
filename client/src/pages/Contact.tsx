@@ -84,7 +84,7 @@ export default function Contact() {
               </div>
 
               <div className="border-t border-white/10 pt-10">
-                <h3 className="text-lg font-medium text-zinc-400 mb-6 uppercase tracking-wide">Together, We Propel Your Growth: Our Partners</h3>
+                <h3 className="text-lg font-medium text-zinc-400 mb-6 uppercase tracking-wide">We and our partners together propel your growth</h3>
                 <div className="flex flex-wrap gap-6 items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
                   {["Meta", "Google", "Microsoft", "AWS", "HubSpot", "CleverTap"].map((partner, i) => (
                     <span key={i} className="text-lg font-bold">{partner}</span>
