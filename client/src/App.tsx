@@ -51,6 +51,9 @@ function Router() {
       <Route path="/proposal" component={ProposalPage} />
       <Route path="/admin" component={AdminDashboard} />
       
+      <Route path="/success-stories" component={Portfolio} />
+      <Route path="/success-stories/:slug" component={PortfolioDetail} />
+      {/* Legacy redirects */}
       <Route path="/portfolio" component={Portfolio} />
       <Route path="/portfolio/:slug" component={PortfolioDetail} />
       

@@ -24,7 +24,7 @@ const imageMap: Record<string, string> = {
 
 export default function PortfolioDetail() {
   const [location] = useLocation();
-  const slug = location.split("/portfolio/")[1];
+  const slug = location.split("/").pop();
 
   const { data: work, isLoading } = useQuery<any>({
     queryKey: [`/api/portfolio/${slug}`],
@@ -56,7 +56,7 @@ export default function PortfolioDetail() {
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-4xl font-bold mb-6">Case Study Not Found</h1>
-            <Link href="/portfolio">
+            <Link href="/success-stories">
               <Button className="bg-gradient-to-r from-brand-pink to-brand-yellow text-white rounded-full px-8 h-12">
                 Back to Works
               </Button>
@@ -83,7 +83,7 @@ export default function PortfolioDetail() {
       <section className="pt-32 pb-12 bg-zinc-950">
         <div className="container mx-auto px-4 md:px-8">
           <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className="mb-10">
-            <Link href="/portfolio">
+            <Link href="/success-stories">
               <button className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors duration-200 group">
                 <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
                 <span className="text-sm font-medium tracking-wide">All Case Studies</span>
@@ -223,7 +223,7 @@ export default function PortfolioDetail() {
                 <p className={`text-base font-bold mb-2 ${nextWork.clientColor}`}>{nextWork.client}</p>
                 <h2 className="text-3xl md:text-4xl font-heading font-bold text-white leading-tight max-w-2xl">{nextWork.headline}</h2>
               </div>
-              <Link href={`/portfolio/${nextWork.slug}`}>
+              <Link href={`/success-stories/${nextWork.slug}`}>
                 <button className="group flex items-center gap-4 text-white hover:opacity-80 transition-opacity flex-shrink-0">
                   <div className="w-16 h-16 rounded-full border-2 border-white/30 flex items-center justify-center group-hover:border-brand-pink group-hover:bg-brand-pink/10 transition-all duration-300">
                     <ArrowUpRight className="h-6 w-6 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />

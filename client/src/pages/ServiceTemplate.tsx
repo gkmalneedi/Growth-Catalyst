@@ -282,7 +282,7 @@ export default function ServiceTemplate() {
             <h2 className="text-3xl md:text-5xl font-heading font-bold text-zinc-900 leading-tight">
               Some Success Stories <br /> To Inspire You
             </h2>
-            <Link href="/portfolio">
+            <Link href="/success-stories">
               <Button variant="ghost" className="text-lg text-zinc-800 group flex items-center gap-2 hover:bg-transparent hover:text-brand-pink">
                 See all
                 <div className="w-8 h-8 rounded-full border border-zinc-300 flex items-center justify-center group-hover:bg-brand-pink group-hover:border-brand-pink group-hover:text-white transition-all duration-300">

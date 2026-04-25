@@ -236,7 +236,7 @@ export default function IndustryTemplate() {
             <h2 className="text-3xl md:text-5xl font-heading font-bold text-zinc-900 leading-tight">
               Some Success Stories <br /> To Inspire You
             </h2>
-            <Link href="/portfolio">
+            <Link href="/success-stories">
               <button className="group flex items-center gap-3 text-zinc-800 hover:text-brand-pink transition-colors duration-200">
                 <span className="text-lg font-medium">See all</span>
                 <div className="w-8 h-8 rounded-full border border-zinc-300 flex items-center justify-center group-hover:border-brand-pink group-hover:bg-brand-pink group-hover:text-white transition-all duration-300">

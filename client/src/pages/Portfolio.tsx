@@ -120,7 +120,7 @@ function WorkCard({
       transition={{ delay: (index % 4) * 0.08 }}
       className={isFeature ? "md:col-span-2" : ""}
     >
-      <Link href={`/portfolio/${work.slug}`}>
+      <Link href={`/success-stories/${work.slug}`}>
         <div className="group cursor-pointer">
           <div className={`relative overflow-hidden rounded-2xl ${isFeature ? "aspect-[16/7]" : "aspect-[4/3]"}`}>
             {imgSrc ? (

@@ -105,7 +105,7 @@ export function Navbar() {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <Link href="/portfolio">
+                <Link href="/success-stories">
                   <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-muted-foreground hover:bg-transparent text-transparent bg-clip-text bg-gradient-to-r from-brand-rose via-brand-orange to-brand-yellow !text-base font-medium")}>
                     Success Stories
                   </NavigationMenuLink>
@@ -199,7 +199,7 @@ export function Navbar() {
             </div>
 
             <div className="pt-1 mt-2">
-              <Link href="/portfolio">
+              <Link href="/success-stories">
                 <a className="block p-3 text-base font-semibold text-white hover:bg-white/5 rounded-xl transition-colors" onClick={() => setIsOpen(false)}>Success Stories</a>
               </Link>
               <Link href="/thought-leadership">
