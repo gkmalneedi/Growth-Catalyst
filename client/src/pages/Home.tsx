@@ -481,13 +481,13 @@ export default function Home() {
       <section className="py-24 bg-black text-white">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row items-center gap-16">
-            <div className="md:w-1/2 grid grid-cols-3 gap-x-12 gap-y-10 items-center">
+            <div className="w-full md:w-1/2 grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-8 md:gap-x-12 md:gap-y-10 items-center">
               {Array.isArray(partners.logos) && partners.logos.length > 0
                 ? partners.logos.map((p: any, i: number) => (
                   <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex items-center justify-start">
                     {p.imageUrl
-                      ? <img src={p.imageUrl} alt={p.name} className="h-12 max-w-36 object-contain" />
-                      : <span className="text-white text-lg font-bold font-heading opacity-60">{p.name}</span>
+                      ? <img src={p.imageUrl} alt={p.name} className="h-9 md:h-12 max-w-full object-contain" />
+                      : <span className="text-white text-base md:text-lg font-bold font-heading opacity-60">{p.name}</span>
                     }
                   </motion.div>
                 ))
