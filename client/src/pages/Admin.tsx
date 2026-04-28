@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +9,7 @@ import {
   LayoutDashboard, Settings, Layers, Globe, Briefcase, FileText,
   Newspaper, Radio, Mail, LogOut, Plus, Pencil, Trash2, Save, X,
   Eye, EyeOff, BarChart3, Users, MessageSquare, CheckCircle2, AlertTriangle,
+  Monitor, Phone, Share2, Upload, Home as HomeIcon,
 } from "lucide-react";
 
 function apiFetch(url: string, opts: RequestInit = {}) {
@@ -177,13 +178,17 @@ function LoginScreen({ onLogin }: { onLogin: (token: string) => void }) {
 
 const navItems = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { id: "home-page", label: "Home Page", icon: HomeIcon },
+  { id: "about-page", label: "About Page", icon: Users },
+  { id: "contact-page", label: "Contact Page", icon: Phone },
+  { id: "footer-settings", label: "Footer & Social", icon: Share2 },
   { id: "services", label: "Services", icon: Layers },
   { id: "industries", label: "Industries", icon: Globe },
   { id: "portfolio", label: "Portfolio", icon: Briefcase },
   { id: "blogs", label: "Blog Posts", icon: FileText },
   { id: "case-studies", label: "Case Studies", icon: Newspaper },
   { id: "press-releases", label: "Press Releases", icon: Radio },
-  { id: "site-settings", label: "Site Settings", icon: Settings },
+  { id: "site-settings", label: "Raw Settings", icon: Settings },
   { id: "submissions", label: "Contact Submissions", icon: Mail },
 ];
 
@@ -1299,6 +1304,557 @@ function SubmissionsManager({ token }: { token: string }) {
   );
 }
 
+// ── Image Upload ──────────────────────────────────────────────────────────────
+
+function ImageUpload({ token, label, value, onChange }: {
+  token: string; label: string; value: string; onChange: (url: string) => void;
+}) {
+  const [uploading, setUploading] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleFile = async (file: File) => {
+    setUploading(true);
+    const fd = new FormData();
+    fd.append("image", file);
+    try {
+      const r = await fetch("/api/admin/upload", {
+        method: "POST",
+        headers: { "x-admin-password": token },
+        body: fd,
+      });
+      if (!r.ok) throw new Error("Upload failed");
+      const { url } = await r.json();
+      onChange(url);
+    } catch (e) { console.error(e); }
+    setUploading(false);
+  };
+
+  return (
+    <div>
+      <Label className="text-zinc-300 mb-2 block text-sm">{label}</Label>
+      <div className="space-y-2">
+        {value && (
+          <img src={value} alt="preview" className="h-24 max-w-xs object-cover rounded-lg border border-zinc-700" />
+        )}
+        <div className="flex gap-2">
+          <Input value={value} onChange={e => onChange(e.target.value)}
+            placeholder="/uploads/image.jpg or https://..."
+            className="bg-zinc-800 border-zinc-700 text-white text-sm" />
+          <input type="file" ref={inputRef} accept="image/*" className="hidden"
+            onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])} />
+          <Button type="button" variant="outline" size="sm"
+            className="border-zinc-600 text-zinc-300 hover:bg-zinc-800 flex-shrink-0"
+            onClick={() => inputRef.current?.click()} disabled={uploading}>
+            <Upload className="h-3.5 w-3.5 mr-1" />
+            {uploading ? "Uploading..." : "Upload"}
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Section Card (generic edit card for any site-settings key) ────────────────
+
+function SectionCard({ title, desc, settingsKey, token, renderForm }: {
+  title: string; desc?: string; settingsKey: string; token: string;
+  renderForm: (draft: any, set: (v: any) => void) => React.ReactNode;
+}) {
+  const qc = useQueryClient();
+  const { data: settings = {} } = useQuery<Record<string, any>>({ queryKey: ["/api/site-settings"] });
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState<any>(null);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+
+  const current = (settings as any)[settingsKey];
+
+  const openEdit = () => {
+    setDraft(current != null ? JSON.parse(JSON.stringify(current)) : Array.isArray(current) ? [] : {});
+    setEditing(true);
+    setError("");
+  };
+
+  const save = async () => {
+    setSaving(true); setError("");
+    try {
+      await apiFetch(`/api/admin/site-settings/${settingsKey}`, {
+        method: "PUT", headers: authHeaders(token), body: JSON.stringify({ value: draft }),
+      });
+      await qc.invalidateQueries({ queryKey: ["/api/site-settings"] });
+      setEditing(false);
+    } catch (e: any) { setError(e.message || "Save failed"); }
+    setSaving(false);
+  };
+
+  if (editing && draft !== null) {
+    return (
+      <div className="bg-zinc-900 border border-brand-pink/20 rounded-2xl p-5 space-y-5">
+        <div className="flex justify-between items-start gap-3">
+          <div>
+            <h3 className="text-white font-semibold">{title}</h3>
+            {desc && <p className="text-zinc-500 text-xs mt-0.5">{desc}</p>}
+          </div>
+          <div className="flex gap-2 flex-shrink-0">
+            <Button type="button" variant="outline" size="sm" className="border-zinc-700 text-zinc-300 rounded-full h-8"
+              onClick={() => { setEditing(false); setError(""); }}>
+              <X className="h-3.5 w-3.5 mr-1" /> Cancel
+            </Button>
+            <Button type="button" size="sm" className="bg-gradient-to-r from-brand-pink to-brand-yellow text-white border-0 rounded-full h-8"
+              onClick={save} disabled={saving}>
+              <Save className="h-3.5 w-3.5 mr-1" />{saving ? "Saving..." : "Save"}
+            </Button>
+          </div>
+        </div>
+        {error && <p className="text-red-400 text-sm bg-red-400/10 px-3 py-2 rounded-lg flex items-center gap-2"><AlertTriangle className="h-4 w-4 flex-shrink-0" />{error}</p>}
+        <div className="space-y-4">{renderForm(draft, setDraft)}</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-4 flex items-start justify-between gap-4">
+      <div className="flex-1 min-w-0">
+        <p className="text-white font-medium text-sm">{title}</p>
+        {desc && <p className="text-zinc-500 text-xs mb-2">{desc}</p>}
+        {current != null && (
+          <pre className="text-zinc-600 text-xs bg-zinc-800/70 rounded-lg p-2 overflow-x-auto whitespace-pre-wrap line-clamp-2">
+            {JSON.stringify(current).substring(0, 150)}{JSON.stringify(current).length > 150 ? "..." : ""}
+          </pre>
+        )}
+      </div>
+      <Button variant="outline" size="sm" className="border-zinc-700 text-zinc-300 hover:bg-zinc-800 rounded-lg flex-shrink-0"
+        onClick={openEdit}>
+        <Pencil className="h-3.5 w-3.5 mr-1" /> Edit
+      </Button>
+    </div>
+  );
+}
+
+// ── Home Page Manager ─────────────────────────────────────────────────────────
+
+function HomePageManager({ token }: { token: string }) {
+  return (
+    <div className="space-y-3">
+      <div>
+        <h2 className="text-2xl font-heading font-bold text-white mb-1">Home Page</h2>
+        <p className="text-zinc-400 text-sm">Edit every section visible on the home page</p>
+      </div>
+
+      <SectionCard title="Hero Section" desc="Main banner: headings, description, CTA buttons, background image" settingsKey="home_hero" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField label="Heading Line 1 (white)" value={d.title1 || ""} onChange={v => set({ ...d, title1: v })} placeholder="We're the Crusaders of" />
+              <FormField label="Heading Line 2 (white/grey)" value={d.title2 || ""} onChange={v => set({ ...d, title2: v })} placeholder="Redefining Engagement" />
+            </div>
+            <div>
+              <Label className="text-zinc-300 mb-1.5 block text-sm">Description</Label>
+              <Textarea value={d.description || ""} onChange={e => set({ ...d, description: e.target.value })} className="bg-zinc-800 border-zinc-700 text-white min-h-[80px]" />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <FormField label="Primary CTA Text" value={d.cta1Text || ""} onChange={v => set({ ...d, cta1Text: v })} />
+              <FormField label="Primary CTA Link" value={d.cta1Href || ""} onChange={v => set({ ...d, cta1Href: v })} />
+              <FormField label="Secondary CTA Text" value={d.cta2Text || ""} onChange={v => set({ ...d, cta2Text: v })} />
+              <FormField label="Secondary CTA Link" value={d.cta2Href || ""} onChange={v => set({ ...d, cta2Href: v })} />
+            </div>
+            <ImageUpload token={token} label="Hero Background Image" value={d.bgImage || ""} onChange={v => set({ ...d, bgImage: v })} />
+          </div>
+        )} />
+
+      <SectionCard title="Hero Stats Bar" desc="The numbers shown at the bottom of the hero (12+, 68+, 200+...)" settingsKey="home_stats" token={token}
+        renderForm={(d, set) => (
+          <ObjectArrayField label="Stats" value={Array.isArray(d) ? d : []}
+            fields={[{ key: "value" as const, label: "Value (e.g. 200+)" }, { key: "label" as const, label: "Label (e.g. Number of Clients)" }]}
+            onChange={v => set(v)} />
+        )} />
+
+      <SectionCard title="Trusted Logos Marquee" desc="Scrolling brand names in the banner below hero" settingsKey="home_trusted_logos" token={token}
+        renderForm={(d, set) => (
+          <ObjectArrayField label="Logos" value={Array.isArray(d) ? d : []}
+            fields={[{ key: "name" as const, label: "Brand Name" }, { key: "color" as const, label: "Tailwind color class (e.g. text-orange-400)" }]}
+            onChange={v => set(v)} />
+        )} />
+
+      <SectionCard title="How We Work (Workflow)" desc="5-step process section headings and step cards" settingsKey="home_workflow" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="Section Title" value={d.title || ""} onChange={v => set({ ...d, title: v })} />
+            <FormField label="Subtitle" value={d.subtitle || ""} onChange={v => set({ ...d, subtitle: v })} />
+            <ObjectArrayField label="Workflow Steps" value={d.steps || []}
+              fields={[
+                { key: "number" as const, label: "Step Number (01, 02...)" },
+                { key: "title" as const, label: "Step Title" },
+                { key: "desc" as const, label: "Step Description", textarea: true },
+              ]}
+              onChange={v => set({ ...d, steps: v })} />
+          </div>
+        )} />
+
+      <SectionCard title="Testimonials" desc="Client review carousel with name, role, quote, and star rating" settingsKey="home_testimonials" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="Section Label (small badge text)" value={d.sectionLabel || ""} onChange={v => set({ ...d, sectionLabel: v })} />
+            <FormField label="Section Title" value={d.title || ""} onChange={v => set({ ...d, title: v })} />
+            <ObjectArrayField label="Testimonials" value={d.items || []}
+              fields={[
+                { key: "quote" as const, label: "Quote Text", textarea: true },
+                { key: "name" as const, label: "Client Name" },
+                { key: "role" as const, label: "Role & Company" },
+                { key: "rating" as const, label: "Rating (1-5)" },
+              ]}
+              onChange={v => set({ ...d, items: v })} />
+          </div>
+        )} />
+
+      <SectionCard title="Partners Section" desc="Logo grid with heading and description" settingsKey="home_partners" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="Heading" value={d.heading || ""} onChange={v => set({ ...d, heading: v })} />
+            <div>
+              <Label className="text-zinc-300 mb-1.5 block text-sm">Description</Label>
+              <Textarea value={d.description || ""} onChange={e => set({ ...d, description: e.target.value })} className="bg-zinc-800 border-zinc-700 text-white min-h-[80px]" />
+            </div>
+            <ObjectArrayField label="Partner Logos" value={d.logos || []}
+              fields={[{ key: "name" as const, label: "Company Name" }]}
+              onChange={v => set({ ...d, logos: v })} />
+          </div>
+        )} />
+
+      <SectionCard title="Awards Section" desc="Awards heading, subheading, and award items" settingsKey="home_awards" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="Heading" value={d.heading || ""} onChange={v => set({ ...d, heading: v })} />
+            <FormField label="Subheading" value={d.description || ""} onChange={v => set({ ...d, description: v })} />
+            <ObjectArrayField label="Award Items" value={d.items || []}
+              fields={[
+                { key: "name" as const, label: "Award Name" },
+                { key: "subtitle" as const, label: "Subtitle (e.g. TOP DIGITAL MARKETING)" },
+                { key: "site" as const, label: "Website (e.g. goodfirms.co)" },
+              ]}
+              onChange={v => set({ ...d, items: v })} />
+          </div>
+        )} />
+    </div>
+  );
+}
+
+// ── About Page Manager ────────────────────────────────────────────────────────
+
+function AboutPageManager({ token }: { token: string }) {
+  return (
+    <div className="space-y-3">
+      <div>
+        <h2 className="text-2xl font-heading font-bold text-white mb-1">About Page</h2>
+        <p className="text-zinc-400 text-sm">Edit all sections of the About Us page</p>
+      </div>
+
+      <SectionCard title="Hero Section" desc="Page banner with title, description, CTA, background image" settingsKey="about_hero" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField label="Title (white text)" value={d.title || ""} onChange={v => set({ ...d, title: v })} />
+              <FormField label="Title Highlight (gradient)" value={d.titleHighlight || ""} onChange={v => set({ ...d, titleHighlight: v })} />
+            </div>
+            <div>
+              <Label className="text-zinc-300 mb-1.5 block text-sm">Description</Label>
+              <Textarea value={d.description || ""} onChange={e => set({ ...d, description: e.target.value })} className="bg-zinc-800 border-zinc-700 text-white min-h-[100px]" />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <FormField label="CTA Button Text" value={d.ctaText || ""} onChange={v => set({ ...d, ctaText: v })} />
+              <FormField label="CTA Link" value={d.ctaHref || ""} onChange={v => set({ ...d, ctaHref: v })} />
+            </div>
+            <ImageUpload token={token} label="Hero Background Image" value={d.bgImage || ""} onChange={v => set({ ...d, bgImage: v })} />
+          </div>
+        )} />
+
+      <SectionCard title="Stats Section" desc="4 key metrics shown below the hero" settingsKey="about_stats" token={token}
+        renderForm={(d, set) => (
+          <ObjectArrayField label="Stats" value={Array.isArray(d) ? d : []}
+            fields={[{ key: "value" as const, label: "Value (e.g. 300%)" }, { key: "label" as const, label: "Label" }]}
+            onChange={v => set(v)} />
+        )} />
+
+      <SectionCard title="Mission Statement" settingsKey="about_mission" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="Section Title" value={d.title || ""} onChange={v => set({ ...d, title: v })} />
+            <div>
+              <Label className="text-zinc-300 mb-1.5 block text-sm">Mission Text</Label>
+              <Textarea value={d.text || ""} onChange={e => set({ ...d, text: e.target.value })} className="bg-zinc-800 border-zinc-700 text-white min-h-[100px]" />
+            </div>
+          </div>
+        )} />
+
+      <SectionCard title="Vision Statement" settingsKey="about_vision" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="Section Title" value={d.title || ""} onChange={v => set({ ...d, title: v })} />
+            <div>
+              <Label className="text-zinc-300 mb-1.5 block text-sm">Vision Text</Label>
+              <Textarea value={d.text || ""} onChange={e => set({ ...d, text: e.target.value })} className="bg-zinc-800 border-zinc-700 text-white min-h-[100px]" />
+            </div>
+          </div>
+        )} />
+
+      <SectionCard title="Strategic Approach" desc="3-card section: Analysis, Targeting, Personalization" settingsKey="about_strategic" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="Section Title" value={d.title || ""} onChange={v => set({ ...d, title: v })} />
+            <FormField label="Subtitle" value={d.subtitle || ""} onChange={v => set({ ...d, subtitle: v })} />
+            <ObjectArrayField label="Approach Cards" value={d.items || []}
+              fields={[
+                { key: "title" as const, label: "Card Title" },
+                { key: "desc" as const, label: "Description", textarea: true },
+                { key: "icon" as const, label: "Icon name (bar-chart / target / zap)" },
+              ]}
+              onChange={v => set({ ...d, items: v })} />
+          </div>
+        )} />
+
+      <SectionCard title="Why Choose Us" desc="Grid of 8 differentiators" settingsKey="about_whyus" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="Section Title" value={d.title || ""} onChange={v => set({ ...d, title: v })} />
+            <ObjectArrayField label="Reasons" value={d.items || []}
+              fields={[{ key: "title" as const, label: "Title (e.g. AI-Driven Precision)" }]}
+              onChange={v => set({ ...d, items: v })} />
+          </div>
+        )} />
+
+      <SectionCard title="Client Community Marquee" desc="Scrolling ticker of client brand names" settingsKey="about_clients" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="Section Title" value={d.title || ""} onChange={v => set({ ...d, title: v })} />
+            <StringArrayField label="Client Names" value={d.clients || []} onChange={v => set({ ...d, clients: v })} />
+          </div>
+        )} />
+
+      <SectionCard title="Leadership Team" desc="C-Suite member cards with photo, name, role, LinkedIn" settingsKey="about_team" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="Section Title" value={d.title || ""} onChange={v => set({ ...d, title: v })} />
+            <div>
+              <Label className="text-zinc-300 mb-1.5 block text-sm">Section Subtitle</Label>
+              <Textarea value={d.subtitle || ""} onChange={e => set({ ...d, subtitle: e.target.value })} className="bg-zinc-800 border-zinc-700 text-white min-h-[60px]" />
+            </div>
+            <div className="space-y-4">
+              {(d.members || []).map((member: any, i: number) => (
+                <div key={i} className="bg-zinc-800/60 border border-zinc-700 rounded-xl p-4 space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-zinc-500 font-medium">Member #{i + 1}</span>
+                    <Button type="button" variant="ghost" size="sm" className="h-6 w-6 p-0 text-red-400 hover:text-red-300"
+                      onClick={() => { const m = [...(d.members || [])]; m.splice(i, 1); set({ ...d, members: m }); }}>
+                      <X className="h-3 w-3" />
+                    </Button>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label className="text-xs text-zinc-400 mb-1 block">Full Name</Label>
+                      <Input value={member.name || ""} onChange={e => { const m = [...(d.members || [])]; m[i] = { ...m[i], name: e.target.value }; set({ ...d, members: m }); }}
+                        className="bg-zinc-900 border-zinc-600 text-white text-sm" />
+                    </div>
+                    <div>
+                      <Label className="text-xs text-zinc-400 mb-1 block">Designation</Label>
+                      <Input value={member.designation || ""} onChange={e => { const m = [...(d.members || [])]; m[i] = { ...m[i], designation: e.target.value }; set({ ...d, members: m }); }}
+                        className="bg-zinc-900 border-zinc-600 text-white text-sm" />
+                    </div>
+                    <div>
+                      <Label className="text-xs text-zinc-400 mb-1 block">Initials (2 letters)</Label>
+                      <Input value={member.initials || ""} onChange={e => { const m = [...(d.members || [])]; m[i] = { ...m[i], initials: e.target.value }; set({ ...d, members: m }); }}
+                        className="bg-zinc-900 border-zinc-600 text-white text-sm" />
+                    </div>
+                    <div>
+                      <Label className="text-xs text-zinc-400 mb-1 block">LinkedIn URL</Label>
+                      <Input value={member.linkedin || ""} onChange={e => { const m = [...(d.members || [])]; m[i] = { ...m[i], linkedin: e.target.value }; set({ ...d, members: m }); }}
+                        className="bg-zinc-900 border-zinc-600 text-white text-sm" />
+                    </div>
+                  </div>
+                  <div>
+                    <Label className="text-xs text-zinc-400 mb-1 block">Gradient (CSS, e.g. linear-gradient(135deg, #C13584, #E1306C))</Label>
+                    <Input value={member.gradient || ""} onChange={e => { const m = [...(d.members || [])]; m[i] = { ...m[i], gradient: e.target.value }; set({ ...d, members: m }); }}
+                      className="bg-zinc-900 border-zinc-600 text-white text-sm" />
+                  </div>
+                  <div>
+                    <Label className="text-xs text-zinc-400 mb-1 block">Photo URL (leave blank for initials avatar)</Label>
+                    <div className="flex gap-2">
+                      <Input value={member.photo || ""} onChange={e => { const m = [...(d.members || [])]; m[i] = { ...m[i], photo: e.target.value }; set({ ...d, members: m }); }}
+                        placeholder="/uploads/photo.jpg" className="bg-zinc-900 border-zinc-600 text-white text-sm" />
+                    </div>
+                    {member.photo && <img src={member.photo} alt="preview" className="h-12 w-12 rounded-full object-cover mt-2 border border-zinc-600" />}
+                  </div>
+                </div>
+              ))}
+              <Button type="button" variant="outline" size="sm" className="border-zinc-600 text-zinc-300 hover:bg-zinc-800"
+                onClick={() => { const m = [...(d.members || [])]; m.push({ name: "", designation: "", initials: "", gradient: "", linkedin: "", photo: "" }); set({ ...d, members: m }); }}>
+                <Plus className="h-3 w-3 mr-1" /> Add Member
+              </Button>
+            </div>
+          </div>
+        )} />
+
+      <SectionCard title="Pre-Footer CTA" desc="'Ready to Embark...' call-to-action above footer" settingsKey="about_prefooter" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="Title Line 1" value={d.title || ""} onChange={v => set({ ...d, title: v })} />
+            <FormField label="Title Highlight (gradient text)" value={d.titleHighlight || ""} onChange={v => set({ ...d, titleHighlight: v })} />
+            <div className="grid grid-cols-2 gap-4">
+              <FormField label="CTA Button Text" value={d.ctaText || ""} onChange={v => set({ ...d, ctaText: v })} />
+              <FormField label="CTA Link" value={d.ctaHref || ""} onChange={v => set({ ...d, ctaHref: v })} />
+            </div>
+          </div>
+        )} />
+    </div>
+  );
+}
+
+// ── Contact Page Manager ──────────────────────────────────────────────────────
+
+function ContactPageManager({ token }: { token: string }) {
+  return (
+    <div className="space-y-3">
+      <div>
+        <h2 className="text-2xl font-heading font-bold text-white mb-1">Contact Page</h2>
+        <p className="text-zinc-400 text-sm">Edit all sections of the Contact Us page</p>
+      </div>
+
+      <SectionCard title="Hero & Contact Info" desc="Page heading, sub-description, email, phone, address, background" settingsKey="contact_info" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField label="Hero Badge Label" value={d.heroLabel || ""} onChange={v => set({ ...d, heroLabel: v })} placeholder="Contact Us" />
+              <FormField label="Hero Title" value={d.heroTitle || ""} onChange={v => set({ ...d, heroTitle: v })} placeholder="Get in Touch" />
+              <FormField label="Title Highlight (gradient)" value={d.heroTitleHighlight || ""} onChange={v => set({ ...d, heroTitleHighlight: v })} placeholder="with Us" />
+            </div>
+            <div>
+              <Label className="text-zinc-300 mb-1.5 block text-sm">Hero Description</Label>
+              <Textarea value={d.heroDescription || ""} onChange={e => set({ ...d, heroDescription: e.target.value })} className="bg-zinc-800 border-zinc-700 text-white min-h-[80px]" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-zinc-800">
+              <FormField label="Email" value={d.email || ""} onChange={v => set({ ...d, email: v })} type="email" />
+              <FormField label="Phone" value={d.phone || ""} onChange={v => set({ ...d, phone: v })} />
+            </div>
+            <div>
+              <Label className="text-zinc-300 mb-1.5 block text-sm">Address</Label>
+              <Textarea value={d.address || ""} onChange={e => set({ ...d, address: e.target.value })} className="bg-zinc-800 border-zinc-700 text-white min-h-[60px]" />
+            </div>
+            <ImageUpload token={token} label="Hero Background Image" value={d.bgImage || ""} onChange={v => set({ ...d, bgImage: v })} />
+          </div>
+        )} />
+
+      <SectionCard title="Partners Bar" desc="Partner logos/names shown below contact details on hero" settingsKey="contact_partners" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="Heading" value={d.heading || ""} onChange={v => set({ ...d, heading: v })} />
+            <StringArrayField label="Partner Names" value={d.partners || []} onChange={v => set({ ...d, partners: v })} />
+          </div>
+        )} />
+
+      <SectionCard title="India Office Details" desc="Office card: city, full address, email, phone, Google Maps embed" settingsKey="contact_office" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="City Name" value={d.city || ""} onChange={v => set({ ...d, city: v })} />
+            <div>
+              <Label className="text-zinc-300 mb-1.5 block text-sm">Full Address</Label>
+              <Textarea value={d.address || ""} onChange={e => set({ ...d, address: e.target.value })} className="bg-zinc-800 border-zinc-700 text-white min-h-[60px]" />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <FormField label="Email" value={d.email || ""} onChange={v => set({ ...d, email: v })} type="email" />
+              <FormField label="Phone" value={d.phone || ""} onChange={v => set({ ...d, phone: v })} />
+            </div>
+            <div>
+              <Label className="text-zinc-300 mb-1.5 block text-sm">Google Maps Embed URL</Label>
+              <Textarea value={d.mapsUrl || ""} onChange={e => set({ ...d, mapsUrl: e.target.value })}
+                placeholder="https://www.google.com/maps?q=...&output=embed"
+                className="bg-zinc-800 border-zinc-700 text-white min-h-[60px] text-xs" />
+            </div>
+          </div>
+        )} />
+
+      <SectionCard title="Awards Section" desc="Award recognition grid displayed on contact page" settingsKey="contact_awards" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="Title" value={d.title || ""} onChange={v => set({ ...d, title: v })} />
+            <FormField label="Subtitle" value={d.subtitle || ""} onChange={v => set({ ...d, subtitle: v })} />
+            <StringArrayField label="Award Names" value={d.awards || []} onChange={v => set({ ...d, awards: v })} />
+          </div>
+        )} />
+
+      <SectionCard title="FAQ Section" desc="Frequently asked questions accordion" settingsKey="contact_faq" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="Section Title" value={d.title || ""} onChange={v => set({ ...d, title: v })} />
+            <div>
+              <Label className="text-zinc-300 mb-1.5 block text-sm">Section Description</Label>
+              <Textarea value={d.description || ""} onChange={e => set({ ...d, description: e.target.value })} className="bg-zinc-800 border-zinc-700 text-white min-h-[60px]" />
+            </div>
+            <ObjectArrayField label="FAQ Items" value={d.items || []}
+              fields={[{ key: "q" as const, label: "Question" }, { key: "a" as const, label: "Answer", textarea: true }]}
+              onChange={v => set({ ...d, items: v })} />
+          </div>
+        )} />
+    </div>
+  );
+}
+
+// ── Footer Settings Manager ───────────────────────────────────────────────────
+
+function FooterSettingsManager({ token }: { token: string }) {
+  return (
+    <div className="space-y-3">
+      <div>
+        <h2 className="text-2xl font-heading font-bold text-white mb-1">Footer & Social</h2>
+        <p className="text-zinc-400 text-sm">Edit footer content, social media links, and the marketing banner</p>
+      </div>
+
+      <SectionCard title="Social Media Links" desc="All social media URLs used in the footer" settingsKey="footer_social" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="Instagram URL" value={d.instagram || ""} onChange={v => set({ ...d, instagram: v })} placeholder="https://www.instagram.com/username/" />
+            <FormField label="LinkedIn URL" value={d.linkedin || ""} onChange={v => set({ ...d, linkedin: v })} placeholder="https://www.linkedin.com/company/name/" />
+            <FormField label="Twitter / X URL" value={d.twitter || ""} onChange={v => set({ ...d, twitter: v })} placeholder="https://x.com/username" />
+            <FormField label="YouTube URL" value={d.youtube || ""} onChange={v => set({ ...d, youtube: v })} placeholder="https://www.youtube.com/@handle" />
+            <FormField label="Facebook URL" value={d.facebook || ""} onChange={v => set({ ...d, facebook: v })} placeholder="https://www.facebook.com/pagename" />
+          </div>
+        )} />
+
+      <SectionCard title="Footer Contact Info" desc="Email, phone, and address shown in the footer column" settingsKey="footer_contact" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="Email" value={d.email || ""} onChange={v => set({ ...d, email: v })} type="email" />
+            <FormField label="Phone" value={d.phone || ""} onChange={v => set({ ...d, phone: v })} />
+            <div>
+              <Label className="text-zinc-300 mb-1.5 block text-sm">Address</Label>
+              <Textarea value={d.address || ""} onChange={e => set({ ...d, address: e.target.value })} className="bg-zinc-800 border-zinc-700 text-white min-h-[60px]" />
+            </div>
+          </div>
+        )} />
+
+      <SectionCard title="Marketing Banner" desc="The gradient 'Market Smarter Not Harder' banner above footer" settingsKey="footer_banner" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <div>
+              <Label className="text-zinc-300 mb-1.5 block text-sm">Banner Title</Label>
+              <Textarea value={d.title || ""} onChange={e => set({ ...d, title: e.target.value })} className="bg-zinc-800 border-zinc-700 text-white min-h-[60px]" />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <FormField label="CTA Button Text" value={d.ctaText || ""} onChange={v => set({ ...d, ctaText: v })} />
+              <FormField label="CTA Link" value={d.ctaHref || ""} onChange={v => set({ ...d, ctaHref: v })} />
+            </div>
+          </div>
+        )} />
+
+      <SectionCard title="Copyright Bar" desc="Bottom footer copyright text and developer credit" settingsKey="footer_copyright" token={token}
+        renderForm={(d, set) => (
+          <div className="space-y-4">
+            <FormField label="Copyright Text (after © year)" value={d.text || ""} onChange={v => set({ ...d, text: v })} placeholder="Marketing AI Agency. All rights reserved." />
+            <FormField label="Developer Name" value={d.developer || ""} onChange={v => set({ ...d, developer: v })} placeholder="Gopikrishna Malneedi" />
+          </div>
+        )} />
+    </div>
+  );
+}
+
 // ── Main Admin ───────────────────────────────────────────────────────────────
 
 export default function Admin() {
@@ -1312,6 +1868,10 @@ export default function Admin() {
 
   const sections: Record<string, React.ReactNode> = {
     dashboard: <Dashboard token={token} />,
+    "home-page": <HomePageManager token={token} />,
+    "about-page": <AboutPageManager token={token} />,
+    "contact-page": <ContactPageManager token={token} />,
+    "footer-settings": <FooterSettingsManager token={token} />,
     services: <ServicesManager token={token} />,
     industries: <IndustriesManager token={token} />,
     portfolio: <PortfolioManager token={token} />,

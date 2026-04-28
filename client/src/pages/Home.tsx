@@ -161,7 +161,6 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navbar />
-
       {/* ── SECTION 1: HERO ── */}
       <section className="relative min-h-screen flex items-center justify-center pt-44 md:pt-48 pb-20 overflow-hidden bg-zinc-950 text-white section-black">
         <div className="absolute inset-0 z-0">
@@ -238,9 +237,8 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-
       {/* ── SECTION 2: TRUSTED PARTNERS MARQUEE ── */}
-      <section className="py-14 bg-black border-y border-white/5 overflow-hidden">
+      <section className="py-14 bg-black border-y border-white/5 overflow-hidden text-[19px] font-bold">
         <div className="container mx-auto px-4 md:px-8 mb-8">
           <p className="text-center text-xs font-medium tracking-widest uppercase text-zinc-500">
             Trusted by leading brands & enterprises worldwide
@@ -273,7 +271,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* ── SECTION 3: HOW WE WORK ── */}
       <section className="py-28 bg-zinc-950 section-black relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(193,53,132,0.08),transparent_60%)]" />
@@ -325,7 +322,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* ── SECTION 4: SERVICES OVERVIEW ── */}
       <section className="py-28 bg-white/5 backdrop-blur-sm">
         <div className="container mx-auto px-4 md:px-8">
@@ -369,7 +365,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* ── SECTION 5: TESTIMONIALS ── */}
       <section className="py-28 bg-zinc-950 section-black relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(253,29,29,0.06),transparent_60%)]" />
@@ -413,7 +408,6 @@ export default function Home() {
           </Carousel>
         </div>
       </section>
-
       {/* ── SECTION 6: PARTNER LOGOS (screenshot layout) ── */}
       <section className="py-24 bg-black text-white">
         <div className="container mx-auto px-4 md:px-8">
@@ -452,7 +446,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* ── SECTION 7: AWARDS (screenshot layout) ── */}
       <section className="py-24 bg-black text-white border-t border-white/5">
         <div className="container mx-auto px-4 md:px-8">
@@ -497,7 +490,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <Footer />
     </div>
   );

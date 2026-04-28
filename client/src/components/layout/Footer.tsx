@@ -2,10 +2,46 @@ import { Mail, MapPin, Phone, Instagram, Twitter, Linkedin, Youtube, Facebook, A
 import logoImg from "@assets/MAI_logo_final_transparent.png";
 import { Link, useLocation } from "wouter";
 import { servicesList, industriesList } from "@/lib/data";
+import { useQuery } from "@tanstack/react-query";
+
+const DEFAULT_SOCIAL = {
+  instagram: "https://www.instagram.com/marketingaigency/",
+  linkedin: "https://www.linkedin.com/company/marketingaigency/",
+  twitter: "https://x.com/MAIgency",
+  youtube: "https://www.youtube.com/@MarketingAIgency",
+  facebook: "https://www.facebook.com/marketingaigency",
+};
+
+const DEFAULT_CONTACT = {
+  email: "info@marketingaigency.in",
+  phone: "+91 6309966282",
+  address: "Flat No. 102, Life Style Building, Plot No 1038 & 1039, 3monkeys circle, Pragathi Nagar, Hyderabad, Telangana 500090",
+};
+
+const DEFAULT_BANNER = {
+  title: "It's Time to Market Smarter Not Harder!",
+  ctaText: "Talk to Us",
+  ctaHref: "/contact",
+};
+
+const DEFAULT_COPYRIGHT = {
+  text: "Marketing AI Agency. All rights reserved.",
+  developer: "Gopikrishna Malneedi",
+};
 
 export function Footer() {
   const [location] = useLocation();
   const isIndustryPage = location.startsWith('/industries/') || location === '/about';
+
+  const { data: settings = {} } = useQuery<Record<string, any>>({
+    queryKey: ["/api/site-settings"],
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const social = { ...DEFAULT_SOCIAL, ...(settings.footer_social || {}) };
+  const contact = { ...DEFAULT_CONTACT, ...(settings.footer_contact || {}) };
+  const banner = { ...DEFAULT_BANNER, ...(settings.footer_banner || {}) };
+  const copyright = { ...DEFAULT_COPYRIGHT, ...(settings.footer_copyright || {}) };
 
   return (
     <>
@@ -14,15 +50,14 @@ export function Footer() {
         <div className="bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow py-16">
           <div className="container mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
             <h2 className="text-3xl md:text-5xl font-heading font-bold text-white tracking-tight text-center md:text-left">
-              It's Time to Market Smarter <br className="hidden md:block" />
-              Not Harder!
+              {banner.title}
             </h2>
-            <Link href="/contact">
+            <Link href={banner.ctaHref || "/contact"}>
               <div className="flex items-center gap-4 group cursor-pointer">
                 <div className="h-12 w-12 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white group-hover:text-brand-pink transition-all duration-300">
                   <ArrowRight className="h-5 w-5 text-white group-hover:text-brand-pink" />
                 </div>
-                <span className="text-xl font-medium text-white">Talk to Us</span>
+                <span className="text-xl font-medium text-white">{banner.ctaText}</span>
               </div>
             </Link>
           </div>
@@ -44,23 +79,23 @@ export function Footer() {
                 Empowering businesses with next-gen digital solutions, brand strategy, and AI-driven growth.
               </p>
               <div className="flex gap-3 pt-1">
-                <a href="https://www.instagram.com/marketingaigency/" target="_blank" rel="noopener noreferrer"
+                <a href={social.instagram} target="_blank" rel="noopener noreferrer"
                   className="p-2 bg-white/5 rounded-full hover:bg-pink-500/20 hover:text-pink-400 transition-colors">
                   <Instagram className="h-4 w-4" />
                 </a>
-                <a href="https://www.linkedin.com/company/marketingaigency/" target="_blank" rel="noopener noreferrer"
+                <a href={social.linkedin} target="_blank" rel="noopener noreferrer"
                   className="p-2 bg-white/5 rounded-full hover:bg-blue-500/20 hover:text-blue-400 transition-colors">
                   <Linkedin className="h-4 w-4" />
                 </a>
-                <a href="https://x.com/MAIgency" target="_blank" rel="noopener noreferrer"
+                <a href={social.twitter} target="_blank" rel="noopener noreferrer"
                   className="p-2 bg-white/5 rounded-full hover:bg-sky-500/20 hover:text-sky-400 transition-colors">
                   <Twitter className="h-4 w-4" />
                 </a>
-                <a href="https://www.youtube.com/@MarketingAIgency" target="_blank" rel="noopener noreferrer"
+                <a href={social.youtube} target="_blank" rel="noopener noreferrer"
                   className="p-2 bg-white/5 rounded-full hover:bg-red-500/20 hover:text-red-400 transition-colors">
                   <Youtube className="h-4 w-4" />
                 </a>
-                <a href="https://www.facebook.com/marketingaigency" target="_blank" rel="noopener noreferrer"
+                <a href={social.facebook} target="_blank" rel="noopener noreferrer"
                   className="p-2 bg-white/5 rounded-full hover:bg-blue-600/20 hover:text-blue-400 transition-colors">
                   <Facebook className="h-4 w-4" />
                 </a>
@@ -110,17 +145,17 @@ export function Footer() {
             <div>
               <h3 className="font-heading font-bold text-sm uppercase tracking-wider mb-4 text-white/80">Contact</h3>
               <div className="space-y-3 text-muted-foreground text-sm">
-                <a href="mailto:info@marketingaigency.in" className="flex items-start gap-2 hover:text-primary transition-colors">
+                <a href={`mailto:${contact.email}`} className="flex items-start gap-2 hover:text-primary transition-colors">
                   <Mail className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                  <span>info@marketingaigency.in</span>
+                  <span>{contact.email}</span>
                 </a>
-                <a href="tel:+916309966282" className="flex items-start gap-2 hover:text-primary transition-colors">
+                <a href={`tel:${contact.phone?.replace(/\s/g, "")}`} className="flex items-start gap-2 hover:text-primary transition-colors">
                   <Phone className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                  <span>+91 6309966282</span>
+                  <span>{contact.phone}</span>
                 </a>
                 <div className="flex items-start gap-2">
                   <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                  <span>Flat No. 102, Life Style Building, Plot No 1038 &amp; 1039, 3monkeys circle, Pragathi Nagar, Hyderabad, Telangana 500090</span>
+                  <span>{contact.address}</span>
                 </div>
               </div>
             </div>
@@ -128,8 +163,8 @@ export function Footer() {
 
           {/* Bottom bar */}
           <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-3 text-muted-foreground text-sm">
-            <div>&copy; {new Date().getFullYear()} Marketing AI Agency. All rights reserved.</div>
-            <div>Developed by <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow font-semibold">Gopikrishna Malneedi</span></div>
+            <div>&copy; {new Date().getFullYear()} {copyright.text}</div>
+            <div>Developed by <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-pink via-brand-red to-brand-yellow font-semibold">{copyright.developer}</span></div>
           </div>
         </div>
       </footer>
