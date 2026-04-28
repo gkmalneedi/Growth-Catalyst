@@ -111,7 +111,7 @@ export default function About() {
   const prefooter = { ...DEFAULT_PREFOOTER, ...(settings.about_prefooter || {}) };
 
   const bgSrc = hero.bgImage || heroBg;
-  const clientsList: string[] = Array.isArray(clientsData.clients) ? clientsData.clients : DEFAULT_CLIENTS.clients;
+  const clientsList: (string | { name: string; imageUrl: string })[] = Array.isArray(clientsData.clients) ? clientsData.clients : DEFAULT_CLIENTS.clients;
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -280,15 +280,15 @@ export default function About() {
 
         <div className="relative flex overflow-x-hidden group">
           <div className="flex animate-marquee whitespace-nowrap gap-20 items-center">
-            {clientsList.map((logo, i) => (
-              <div key={i} className="text-xl md:text-3xl font-bold font-heading text-white/50 hover:text-white transition-colors duration-300 mx-4 cursor-default select-none">
-                {logo}
-              </div>
+            {clientsList.map((client, i) => (
+              typeof client === "object" && client.imageUrl
+                ? <img key={i} src={client.imageUrl} alt={client.name} className="h-8 max-w-28 object-contain mx-4 opacity-50 hover:opacity-100 transition-opacity brightness-0 invert" />
+                : <div key={i} className="text-xl md:text-3xl font-bold font-heading text-white/50 hover:text-white transition-colors duration-300 mx-4 cursor-default select-none">{typeof client === "string" ? client : client.name}</div>
             ))}
-            {clientsList.map((logo, i) => (
-              <div key={`dup-${i}`} className="text-xl md:text-3xl font-bold font-heading text-white/50 hover:text-white transition-colors duration-300 mx-4 cursor-default select-none">
-                {logo}
-              </div>
+            {clientsList.map((client, i) => (
+              typeof client === "object" && client.imageUrl
+                ? <img key={`dup-${i}`} src={client.imageUrl} alt={client.name} className="h-8 max-w-28 object-contain mx-4 opacity-50 hover:opacity-100 transition-opacity brightness-0 invert" />
+                : <div key={`dup-${i}`} className="text-xl md:text-3xl font-bold font-heading text-white/50 hover:text-white transition-colors duration-300 mx-4 cursor-default select-none">{typeof client === "string" ? client : client.name}</div>
             ))}
           </div>
         </div>

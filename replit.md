@@ -34,6 +34,12 @@ A full-stack digital marketing agency website (marketingaigency.in) built with R
 - Sections: Dashboard, **Home Page**, **About Page**, **Contact Page**, **Footer & Social**, Services, Industries, Portfolio, Blogs, Case Studies, Press Releases, Raw Settings, Contact Submissions
 - Every piece of content visible on the live site is editable from the admin panel — all sections use SectionCard components that read/write to site_settings
 - Image upload supported via `POST /api/admin/upload` (multer, stored in `uploads/`, served at `/uploads/`)
+- **Logo/image arrays** (trusted logos, partners, awards, clients) use `{ name, imageUrl }` objects — images render with `brightness-0 invert` (white on dark); text fallback if no imageUrl
+- **Awards** use `{ name, subtitle, site, imageUrl }` objects
+- **Team members** use `{ name, role, imageUrl, linkedin }` objects
+- **Services/Industries** have `heroImage` DB column — services show image on right of hero; industries use it as a subtle background overlay
+- **Workflow steps** support named icons (mapped via ICON_NAME_MAP on frontend); fallback to index-based icons
+- Contact submissions show full service names (SMO → Social Media Optimization, etc.)
 - Adding a new service or industry automatically creates its live page (no code changes needed)
 
 ## API Routes

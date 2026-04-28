@@ -126,6 +126,12 @@ export default function IndustryTemplate() {
 
       {/* HERO */}
       <section className="relative pt-36 pb-32 overflow-hidden bg-zinc-950 text-white section-black">
+        {data.heroImage && (
+          <div className="absolute inset-0 z-0">
+            <img src={data.heroImage} alt="" className="w-full h-full object-cover opacity-15" />
+            <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/70 via-transparent to-zinc-950" />
+          </div>
+        )}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(193,53,132,0.12),transparent_55%)] pointer-events-none" />
         <div className="container mx-auto px-4 md:px-8 text-center relative z-10">
           <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-sm font-medium tracking-widest uppercase text-zinc-400 mb-8">

@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Star, Search, Lightbulb, Rocket, BarChart2, RefreshCw } from "lucide-react";
+import { ArrowRight, Star, Search, Lightbulb, Rocket, BarChart2, RefreshCw, Zap, Target, Users, TrendingUp, Settings, Globe, Heart, Shield, Mail, Eye, Layers, PenTool, Palette, Megaphone, Briefcase, Database, Gauge } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import { useState, useEffect } from "react";
@@ -184,6 +184,16 @@ const awardBadges = [
 
 const stepIcons = [Search, Lightbulb, Rocket, BarChart2, RefreshCw];
 
+const ICON_NAME_MAP: Record<string, React.FC<any>> = {
+  "search": Search, "lightbulb": Lightbulb, "rocket": Rocket,
+  "bar-chart-2": BarChart2, "refresh-cw": RefreshCw, "zap": Zap,
+  "target": Target, "users": Users, "star": Star, "trending-up": TrendingUp,
+  "settings": Settings, "globe": Globe, "heart": Heart, "shield": Shield,
+  "mail": Mail, "arrow-right": ArrowRight, "eye": Eye, "layers": Layers,
+  "pen-tool": PenTool, "palette": Palette, "megaphone": Megaphone,
+  "briefcase": Briefcase, "database": Database, "gauge": Gauge,
+};
+
 export default function Home() {
   const [wordIndex, setWordIndex] = useState(0);
 
@@ -222,7 +232,7 @@ export default function Home() {
       {/* ── SECTION 1: HERO ── */}
       <section className="relative min-h-screen flex items-center justify-center pt-44 md:pt-48 pb-20 overflow-hidden bg-zinc-950 text-white section-black">
         <div className="absolute inset-0 z-0">
-          <img src={heroBg} alt="" className="w-full h-full object-cover opacity-15" />
+          <img src={settings.home_hero?.bgImage || heroBg} alt="" className="w-full h-full object-cover opacity-15" />
           <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/80 via-transparent to-zinc-950" />
         </div>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(193,53,132,0.1),transparent_65%)]" />
@@ -296,27 +306,27 @@ export default function Home() {
         </div>
         <div className="relative flex overflow-x-hidden">
           <div className="flex animate-marquee whitespace-nowrap gap-16 items-center">
-            {trustedLogos.map((logo, i) => (
-              <span key={i} className={`text-xl md:text-2xl font-bold font-heading ${logo.color || "text-white"} opacity-50 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>
-                {logo.name}
-              </span>
+            {trustedLogos.map((logo: any, i: number) => (
+              logo.imageUrl
+                ? <img key={i} src={logo.imageUrl} alt={logo.name} className="h-8 max-w-28 object-contain mx-6 opacity-50 hover:opacity-100 transition-opacity brightness-0 invert" />
+                : <span key={i} className={`text-xl md:text-2xl font-bold font-heading ${logo.color || "text-white"} opacity-50 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>{logo.name}</span>
             ))}
-            {trustedLogos.map((logo, i) => (
-              <span key={`d-${i}`} className={`text-xl md:text-2xl font-bold font-heading ${logo.color || "text-white"} opacity-50 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>
-                {logo.name}
-              </span>
+            {trustedLogos.map((logo: any, i: number) => (
+              logo.imageUrl
+                ? <img key={`d-${i}`} src={logo.imageUrl} alt={logo.name} className="h-8 max-w-28 object-contain mx-6 opacity-50 hover:opacity-100 transition-opacity brightness-0 invert" />
+                : <span key={`d-${i}`} className={`text-xl md:text-2xl font-bold font-heading ${logo.color || "text-white"} opacity-50 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>{logo.name}</span>
             ))}
           </div>
           <div className="absolute top-0 flex animate-marquee2 whitespace-nowrap gap-16 items-center">
-            {trustedLogos.map((logo, i) => (
-              <span key={`d2-${i}`} className={`text-xl md:text-2xl font-bold font-heading ${logo.color || "text-white"} opacity-50 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>
-                {logo.name}
-              </span>
+            {trustedLogos.map((logo: any, i: number) => (
+              logo.imageUrl
+                ? <img key={`d2-${i}`} src={logo.imageUrl} alt={logo.name} className="h-8 max-w-28 object-contain mx-6 opacity-50 hover:opacity-100 transition-opacity brightness-0 invert" />
+                : <span key={`d2-${i}`} className={`text-xl md:text-2xl font-bold font-heading ${logo.color || "text-white"} opacity-50 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>{logo.name}</span>
             ))}
-            {trustedLogos.map((logo, i) => (
-              <span key={`d3-${i}`} className={`text-xl md:text-2xl font-bold font-heading ${logo.color || "text-white"} opacity-50 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>
-                {logo.name}
-              </span>
+            {trustedLogos.map((logo: any, i: number) => (
+              logo.imageUrl
+                ? <img key={`d3-${i}`} src={logo.imageUrl} alt={logo.name} className="h-8 max-w-28 object-contain mx-6 opacity-50 hover:opacity-100 transition-opacity brightness-0 invert" />
+                : <span key={`d3-${i}`} className={`text-xl md:text-2xl font-bold font-heading ${logo.color || "text-white"} opacity-50 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>{logo.name}</span>
             ))}
           </div>
         </div>
@@ -339,8 +349,8 @@ export default function Home() {
           <div className="relative">
             <div className="hidden lg:block absolute top-16 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
-              {(workflow.steps || []).map((step: { number: string; title: string; desc: string }, i: number) => {
-                const StepIcon = stepIcons[i] || stepIcons[0];
+              {(workflow.steps || []).map((step: { number: string; title: string; desc: string; icon?: string }, i: number) => {
+                const StepIcon = (step.icon && ICON_NAME_MAP[step.icon]) ? ICON_NAME_MAP[step.icon] : (stepIcons[i] || stepIcons[0]);
                 return (
                   <motion.div
                     key={i}
@@ -472,17 +482,21 @@ export default function Home() {
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row items-center gap-16">
             <div className="md:w-1/2 grid grid-cols-3 gap-x-12 gap-y-10 items-center">
-              {partnerLogos.map((p) => (
-                <motion.div
-                  key={p.id}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="flex items-center justify-start"
-                >
-                  {p.logo}
-                </motion.div>
-              ))}
+              {Array.isArray(partners.logos) && partners.logos.length > 0
+                ? partners.logos.map((p: any, i: number) => (
+                  <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex items-center justify-start">
+                    {p.imageUrl
+                      ? <img src={p.imageUrl} alt={p.name} className="h-10 max-w-28 object-contain opacity-60 hover:opacity-100 transition-opacity brightness-0 invert" />
+                      : <span className="text-white text-lg font-bold font-heading opacity-60">{p.name}</span>
+                    }
+                  </motion.div>
+                ))
+                : partnerLogos.map((p) => (
+                  <motion.div key={p.id} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex items-center justify-start">
+                    {p.logo}
+                  </motion.div>
+                ))
+              }
             </div>
             <motion.div
               initial={{ opacity: 0, x: 30 }}
@@ -519,22 +533,49 @@ export default function Home() {
               </p>
             </motion.div>
             <div className="md:w-1/2">
-              <Carousel opts={{ loop: true }} plugins={[Autoplay({ delay: 3000 })]}>
-                <CarouselContent>
-                  {awardBadges.map((badge) => (
-                    <CarouselItem key={badge.id}>
-                      <div className="flex items-center justify-center py-8">
-                        {badge.badge}
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <div className="flex justify-center gap-2 mt-4">
-                  {awardBadges.map((_, i) => (
-                    <div key={i} className="h-2 w-2 rounded-full bg-white/30" />
-                  ))}
-                </div>
-              </Carousel>
+              {Array.isArray(awards.items) && awards.items.some((a: any) => a.imageUrl) ? (
+                <Carousel opts={{ loop: true }} plugins={[Autoplay({ delay: 3000 })]}>
+                  <CarouselContent>
+                    {awards.items.map((award: any, i: number) => (
+                      <CarouselItem key={i}>
+                        <div className="flex items-center justify-center py-8">
+                          {award.imageUrl
+                            ? <img src={award.imageUrl} alt={award.name} className="max-h-48 max-w-48 object-contain" />
+                            : (
+                              <div className="w-48 h-48 rounded-full border-4 border-brand-orange flex flex-col items-center justify-center text-center p-4">
+                                <p className="text-white font-bold text-lg">{award.name}</p>
+                                {award.subtitle && <p className="text-zinc-400 text-xs mt-1">{award.subtitle}</p>}
+                              </div>
+                            )
+                          }
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <div className="flex justify-center gap-2 mt-4">
+                    {awards.items.map((_: any, i: number) => (
+                      <div key={i} className="h-2 w-2 rounded-full bg-white/30" />
+                    ))}
+                  </div>
+                </Carousel>
+              ) : (
+                <Carousel opts={{ loop: true }} plugins={[Autoplay({ delay: 3000 })]}>
+                  <CarouselContent>
+                    {awardBadges.map((badge) => (
+                      <CarouselItem key={badge.id}>
+                        <div className="flex items-center justify-center py-8">
+                          {badge.badge}
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <div className="flex justify-center gap-2 mt-4">
+                    {awardBadges.map((_, i) => (
+                      <div key={i} className="h-2 w-2 rounded-full bg-white/30" />
+                    ))}
+                  </div>
+                </Carousel>
+              )}
             </div>
           </div>
         </div>

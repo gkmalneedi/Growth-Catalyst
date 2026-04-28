@@ -140,8 +140,10 @@ export default function Contact() {
               <div className="border-t border-white/10 pt-10">
                 <h3 className="text-lg font-medium text-zinc-400 mb-6 uppercase tracking-wide">{partnersData.heading}</h3>
                 <div className="flex flex-wrap gap-6 items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-                  {(partnersData.partners || []).map((partner: string, i: number) => (
-                    <span key={i} className="text-lg font-bold">{partner}</span>
+                  {(partnersData.partners || []).map((partner: any, i: number) => (
+                    typeof partner === "object" && partner.imageUrl
+                      ? <img key={i} src={partner.imageUrl} alt={partner.name} className="h-8 max-w-24 object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity" />
+                      : <span key={i} className="text-lg font-bold">{typeof partner === "string" ? partner : partner.name}</span>
                   ))}
                 </div>
               </div>

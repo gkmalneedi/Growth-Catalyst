@@ -330,7 +330,7 @@ function ServicesManager({ token }: { token: string }) {
   };
 
   if (editing) return (
-    <ServiceForm service={editing} isNew={isNew} error={saveError}
+    <ServiceForm service={editing} isNew={isNew} error={saveError} token={token}
       onChange={setEditing} onSave={save} onCancel={() => { setEditing(null); setSaveError(""); }} />
   );
 
@@ -381,8 +381,8 @@ function ServicesManager({ token }: { token: string }) {
   );
 }
 
-function ServiceForm({ service, isNew, error, onChange, onSave, onCancel }: {
-  service: any; isNew: boolean; error: string;
+function ServiceForm({ service, isNew, error, token, onChange, onSave, onCancel }: {
+  service: any; isNew: boolean; error: string; token: string;
   onChange: (v: any) => void; onSave: (e: React.FormEvent) => void; onCancel: () => void;
 }) {
   const f = service;
@@ -426,6 +426,7 @@ function ServiceForm({ service, isNew, error, onChange, onSave, onCancel }: {
             <Label htmlFor="svc-active" className="text-zinc-300">Active (visible on website)</Label>
           </div>
           <FormField label="Display Order" value={String(f.displayOrder ?? 0)} onChange={v => set("displayOrder", parseInt(v) || 0)} type="number" />
+          <ImageUpload token={token} label="Hero Image (optional — overrides default service image)" value={f.heroImage || ""} onChange={v => set("heroImage", v)} />
         </div>
 
         <div className="space-y-4">
@@ -524,7 +525,7 @@ function IndustriesManager({ token }: { token: string }) {
   };
 
   if (editing) return (
-    <IndustryForm industry={editing} isNew={isNew} error={saveError}
+    <IndustryForm industry={editing} isNew={isNew} error={saveError} token={token}
       onChange={setEditing} onSave={save} onCancel={() => { setEditing(null); setSaveError(""); }} />
   );
 
@@ -575,8 +576,8 @@ function IndustriesManager({ token }: { token: string }) {
   );
 }
 
-function IndustryForm({ industry, isNew, error, onChange, onSave, onCancel }: {
-  industry: any; isNew: boolean; error: string;
+function IndustryForm({ industry, isNew, error, token, onChange, onSave, onCancel }: {
+  industry: any; isNew: boolean; error: string; token: string;
   onChange: (v: any) => void; onSave: (e: React.FormEvent) => void; onCancel: () => void;
 }) {
   const f = industry;
@@ -627,6 +628,7 @@ function IndustryForm({ industry, isNew, error, onChange, onSave, onCancel }: {
             <Label htmlFor="ind-active" className="text-zinc-300">Active (visible on website)</Label>
           </div>
           <FormField label="Display Order" value={String(f.displayOrder ?? 0)} onChange={v => set("displayOrder", parseInt(v) || 0)} type="number" />
+          <ImageUpload token={token} label="Hero Image (optional — custom hero background for this industry page)" value={f.heroImage || ""} onChange={v => set("heroImage", v)} />
         </div>
 
         <div className="space-y-4">
@@ -1254,6 +1256,19 @@ function SiteSettingsManager({ token }: { token: string }) {
 
 // ── Submissions ──────────────────────────────────────────────────────────────
 
+const SERVICE_NAMES: Record<string, string> = {
+  "smo": "Social Media Optimization",
+  "seo": "SEO & SEM",
+  "content": "Content Marketing",
+  "branding": "Brand Management",
+  "automation": "Marketing Automation",
+  "whatsapp": "WhatsApp Marketing",
+  "email": "Email Marketing",
+  "uiux": "UI/UX Design",
+  "video": "Video Production",
+  "other": "Other / Not Sure",
+};
+
 function SubmissionsManager({ token }: { token: string }) {
   const { data: submissions = [], isLoading } = useQuery<any[]>({
     queryKey: ["/api/admin/submissions"],
@@ -1286,7 +1301,7 @@ function SubmissionsManager({ token }: { token: string }) {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  {s.service && <span className="text-xs bg-brand-pink/15 text-brand-rose px-2 py-1 rounded-full">{s.service}</span>}
+                  {s.service && <span className="text-xs bg-brand-pink/15 text-brand-rose px-2 py-1 rounded-full">{SERVICE_NAMES[s.service] || s.service}</span>}
                   {s.phone && <span className="text-xs text-zinc-500">{s.phone}</span>}
                 </div>
               </div>
@@ -1348,6 +1363,221 @@ function ImageUpload({ token, label, value, onChange }: {
             <Upload className="h-3.5 w-3.5 mr-1" />
             {uploading ? "Uploading..." : "Upload"}
           </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Logo Array Field ──────────────────────────────────────────────────────────
+
+const WORKFLOW_ICON_OPTIONS = [
+  "search", "lightbulb", "rocket", "bar-chart-2", "refresh-cw",
+  "zap", "target", "users", "star", "trending-up",
+  "settings", "globe", "heart", "shield", "mail",
+  "arrow-right", "eye", "layers", "pen-tool", "palette",
+  "megaphone", "briefcase", "database", "gauge", "brain-circuit",
+];
+
+function LogoArrayField({ label, token, value, onChange, hint }: {
+  label: string; token: string;
+  value: { name: string; imageUrl: string }[];
+  onChange: (v: { name: string; imageUrl: string }[]) => void;
+  hint?: string;
+}) {
+  const [uploading, setUploading] = useState<number | null>(null);
+  const fileInputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const uploadFor = async (idx: number, file: File) => {
+    setUploading(idx);
+    const fd = new FormData();
+    fd.append("image", file);
+    try {
+      const r = await fetch("/api/admin/upload", {
+        method: "POST",
+        headers: { "x-admin-password": token },
+        body: fd,
+      });
+      if (!r.ok) throw new Error("Upload failed");
+      const { url } = await r.json();
+      const updated = [...value];
+      updated[idx] = { ...updated[idx], imageUrl: url };
+      onChange(updated);
+    } catch (e) { console.error(e); }
+    setUploading(null);
+  };
+
+  return (
+    <div className="space-y-3">
+      <Label className="text-zinc-300 text-sm">{label}</Label>
+      {hint && <p className="text-zinc-500 text-xs">{hint}</p>}
+      {value.map((item, i) => (
+        <div key={i} className="bg-zinc-800/60 border border-zinc-700 rounded-xl p-4 space-y-3">
+          <div className="flex justify-between items-center">
+            <span className="text-xs text-zinc-500 font-medium">Logo #{i + 1}</span>
+            <Button type="button" variant="ghost" size="sm" className="h-6 w-6 p-0 text-red-400 hover:text-red-300"
+              onClick={() => { const v = [...value]; v.splice(i, 1); onChange(v); }}>
+              <X className="h-3 w-3" />
+            </Button>
+          </div>
+          <div>
+            <Label className="text-xs text-zinc-400 mb-1 block">Name / Alt Text</Label>
+            <Input value={item.name} onChange={e => { const v = [...value]; v[i] = { ...v[i], name: e.target.value }; onChange(v); }}
+              className="bg-zinc-900 border-zinc-600 text-white text-sm" placeholder="Company name" />
+          </div>
+          <div>
+            <Label className="text-xs text-zinc-400 mb-1 block">Logo Image</Label>
+            <div className="flex gap-2 items-center flex-wrap">
+              {item.imageUrl && (
+                <img src={item.imageUrl} alt={item.name} className="h-10 max-w-[6rem] object-contain rounded border border-zinc-700 bg-white/5 p-1" />
+              )}
+              <input type="file" accept="image/*" className="hidden"
+                ref={el => { fileInputRefs.current[i] = el; }}
+                onChange={e => e.target.files?.[0] && uploadFor(i, e.target.files[0])} />
+              <Button type="button" variant="outline" size="sm" className="border-zinc-600 text-zinc-300 text-xs"
+                onClick={() => fileInputRefs.current[i]?.click()} disabled={uploading === i}>
+                <Upload className="h-3 w-3 mr-1" />
+                {uploading === i ? "Uploading..." : item.imageUrl ? "Change" : "Upload Logo"}
+              </Button>
+            </div>
+            <Input value={item.imageUrl} onChange={e => { const v = [...value]; v[i] = { ...v[i], imageUrl: e.target.value }; onChange(v); }}
+              className="bg-zinc-900 border-zinc-600 text-white text-xs mt-2" placeholder="Or paste URL: /uploads/logo.png" />
+          </div>
+        </div>
+      ))}
+      <Button type="button" variant="outline" size="sm" className="border-zinc-600 text-zinc-300 hover:bg-zinc-800 w-full"
+        onClick={() => onChange([...value, { name: "", imageUrl: "" }])}>
+        <Plus className="h-3 w-3 mr-1" /> Add Logo
+      </Button>
+    </div>
+  );
+}
+
+function AwardArrayField({ token, value, onChange }: {
+  token: string;
+  value: { name: string; subtitle: string; site: string; imageUrl?: string }[];
+  onChange: (v: any[]) => void;
+}) {
+  const [uploading, setUploading] = useState<number | null>(null);
+  const fileInputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const uploadFor = async (idx: number, file: File) => {
+    setUploading(idx);
+    const fd = new FormData();
+    fd.append("image", file);
+    try {
+      const r = await fetch("/api/admin/upload", {
+        method: "POST",
+        headers: { "x-admin-password": token },
+        body: fd,
+      });
+      if (!r.ok) throw new Error("Upload failed");
+      const { url } = await r.json();
+      const updated = [...value];
+      updated[idx] = { ...updated[idx], imageUrl: url };
+      onChange(updated);
+    } catch (e) { console.error(e); }
+    setUploading(null);
+  };
+
+  return (
+    <div className="space-y-3">
+      <Label className="text-zinc-300 text-sm">Award Items</Label>
+      {value.map((item, i) => (
+        <div key={i} className="bg-zinc-800/60 border border-zinc-700 rounded-xl p-4 space-y-3">
+          <div className="flex justify-between items-center">
+            <span className="text-xs text-zinc-500 font-medium">Award #{i + 1}</span>
+            <Button type="button" variant="ghost" size="sm" className="h-6 w-6 p-0 text-red-400 hover:text-red-300"
+              onClick={() => { const v = [...value]; v.splice(i, 1); onChange(v); }}>
+              <X className="h-3 w-3" />
+            </Button>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label className="text-xs text-zinc-400 mb-1 block">Award Name</Label>
+              <Input value={item.name} onChange={e => { const v = [...value]; v[i] = { ...v[i], name: e.target.value }; onChange(v); }}
+                className="bg-zinc-900 border-zinc-600 text-white text-sm" />
+            </div>
+            <div>
+              <Label className="text-xs text-zinc-400 mb-1 block">Subtitle</Label>
+              <Input value={item.subtitle} onChange={e => { const v = [...value]; v[i] = { ...v[i], subtitle: e.target.value }; onChange(v); }}
+                className="bg-zinc-900 border-zinc-600 text-white text-sm" />
+            </div>
+            <div>
+              <Label className="text-xs text-zinc-400 mb-1 block">Website</Label>
+              <Input value={item.site} onChange={e => { const v = [...value]; v[i] = { ...v[i], site: e.target.value }; onChange(v); }}
+                className="bg-zinc-900 border-zinc-600 text-white text-sm" />
+            </div>
+          </div>
+          <div>
+            <Label className="text-xs text-zinc-400 mb-1 block">Award Logo / Badge Image</Label>
+            <div className="flex gap-2 items-center flex-wrap">
+              {item.imageUrl && (
+                <img src={item.imageUrl} alt={item.name} className="h-12 max-w-[6rem] object-contain rounded border border-zinc-700 bg-white/5 p-1" />
+              )}
+              <input type="file" accept="image/*" className="hidden"
+                ref={el => { fileInputRefs.current[i] = el; }}
+                onChange={e => e.target.files?.[0] && uploadFor(i, e.target.files[0])} />
+              <Button type="button" variant="outline" size="sm" className="border-zinc-600 text-zinc-300 text-xs"
+                onClick={() => fileInputRefs.current[i]?.click()} disabled={uploading === i}>
+                <Upload className="h-3 w-3 mr-1" />
+                {uploading === i ? "Uploading..." : item.imageUrl ? "Change" : "Upload Badge"}
+              </Button>
+            </div>
+            <Input value={item.imageUrl || ""} onChange={e => { const v = [...value]; v[i] = { ...v[i], imageUrl: e.target.value }; onChange(v); }}
+              className="bg-zinc-900 border-zinc-600 text-white text-xs mt-2" placeholder="Or paste URL: /uploads/award.png" />
+          </div>
+        </div>
+      ))}
+      <Button type="button" variant="outline" size="sm" className="border-zinc-600 text-zinc-300 hover:bg-zinc-800 w-full"
+        onClick={() => onChange([...value, { name: "", subtitle: "", site: "", imageUrl: "" }])}>
+        <Plus className="h-3 w-3 mr-1" /> Add Award
+      </Button>
+    </div>
+  );
+}
+
+function TeamPhotoUpload({ token, photo, onChange }: {
+  token: string; photo: string; onChange: (url: string) => void;
+}) {
+  const [uploading, setUploading] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const handleFile = async (file: File) => {
+    setUploading(true);
+    const fd = new FormData();
+    fd.append("image", file);
+    try {
+      const r = await fetch("/api/admin/upload", {
+        method: "POST",
+        headers: { "x-admin-password": token },
+        body: fd,
+      });
+      if (!r.ok) throw new Error("Upload failed");
+      const { url } = await r.json();
+      onChange(url);
+    } catch (e) { console.error(e); }
+    setUploading(false);
+  };
+
+  return (
+    <div>
+      <Label className="text-xs text-zinc-400 mb-1 block">Photo (leave blank for initials avatar)</Label>
+      <div className="flex gap-3 items-center">
+        {photo && <img src={photo} alt="preview" className="h-16 w-16 rounded-full object-cover border-2 border-zinc-600 flex-shrink-0" />}
+        <div className="flex-1 space-y-2">
+          <div className="flex gap-2">
+            <input type="file" ref={fileRef} accept="image/*" className="hidden"
+              onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])} />
+            <Button type="button" variant="outline" size="sm" className="border-zinc-600 text-zinc-300 hover:bg-zinc-800"
+              onClick={() => fileRef.current?.click()} disabled={uploading}>
+              <Upload className="h-3.5 w-3.5 mr-1" />
+              {uploading ? "Uploading..." : photo ? "Change Photo" : "Upload Photo"}
+            </Button>
+            {photo && <Button type="button" variant="ghost" size="sm" className="text-red-400 hover:text-red-300" onClick={() => onChange("")}>Remove</Button>}
+          </div>
+          <Input value={photo} onChange={e => onChange(e.target.value)}
+            placeholder="/uploads/photo.jpg" className="bg-zinc-900 border-zinc-600 text-white text-xs" />
         </div>
       </div>
     </div>
@@ -1469,10 +1699,11 @@ function HomePageManager({ token }: { token: string }) {
             onChange={v => set(v)} />
         )} />
 
-      <SectionCard title="Trusted Logos Marquee" desc="Scrolling brand names in the banner below hero" settingsKey="home_trusted_logos" token={token}
+      <SectionCard title="Trusted Logos Marquee" desc="Scrolling brand logos/names in the banner below hero" settingsKey="home_trusted_logos" token={token}
         renderForm={(d, set) => (
-          <ObjectArrayField label="Logos" value={Array.isArray(d) ? d : []}
-            fields={[{ key: "name" as const, label: "Brand Name" }, { key: "color" as const, label: "Tailwind color class (e.g. text-orange-400)" }]}
+          <LogoArrayField label="Brand Logos" token={token}
+            hint="Upload logo images. If no image is uploaded, the brand name text will be shown instead."
+            value={Array.isArray(d) ? d : []}
             onChange={v => set(v)} />
         )} />
 
@@ -1481,13 +1712,48 @@ function HomePageManager({ token }: { token: string }) {
           <div className="space-y-4">
             <FormField label="Section Title" value={d.title || ""} onChange={v => set({ ...d, title: v })} />
             <FormField label="Subtitle" value={d.subtitle || ""} onChange={v => set({ ...d, subtitle: v })} />
-            <ObjectArrayField label="Workflow Steps" value={d.steps || []}
-              fields={[
-                { key: "number" as const, label: "Step Number (01, 02...)" },
-                { key: "title" as const, label: "Step Title" },
-                { key: "desc" as const, label: "Step Description", textarea: true },
-              ]}
-              onChange={v => set({ ...d, steps: v })} />
+            <div className="space-y-3">
+              <Label className="text-zinc-300 text-sm">Workflow Steps</Label>
+              {(d.steps || []).map((step: any, i: number) => (
+                <div key={i} className="bg-zinc-800/60 border border-zinc-700 rounded-xl p-4 space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-zinc-500 font-medium">Step #{i + 1}</span>
+                    <Button type="button" variant="ghost" size="sm" className="h-6 w-6 p-0 text-red-400 hover:text-red-300"
+                      onClick={() => { const s = [...(d.steps || [])]; s.splice(i, 1); set({ ...d, steps: s }); }}>
+                      <X className="h-3 w-3" />
+                    </Button>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label className="text-xs text-zinc-400 mb-1 block">Step Number (01, 02…)</Label>
+                      <Input value={step.number || ""} onChange={e => { const s = [...(d.steps || [])]; s[i] = { ...s[i], number: e.target.value }; set({ ...d, steps: s }); }}
+                        className="bg-zinc-900 border-zinc-600 text-white text-sm" />
+                    </div>
+                    <div>
+                      <Label className="text-xs text-zinc-400 mb-1 block">Icon</Label>
+                      <select value={step.icon || "search"} onChange={e => { const s = [...(d.steps || [])]; s[i] = { ...s[i], icon: e.target.value }; set({ ...d, steps: s }); }}
+                        className="w-full bg-zinc-900 border border-zinc-600 text-white rounded-md px-3 py-2 text-sm">
+                        {WORKFLOW_ICON_OPTIONS.map(ic => <option key={ic} value={ic}>{ic}</option>)}
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <Label className="text-xs text-zinc-400 mb-1 block">Step Title</Label>
+                    <Input value={step.title || ""} onChange={e => { const s = [...(d.steps || [])]; s[i] = { ...s[i], title: e.target.value }; set({ ...d, steps: s }); }}
+                      className="bg-zinc-900 border-zinc-600 text-white text-sm" />
+                  </div>
+                  <div>
+                    <Label className="text-xs text-zinc-400 mb-1 block">Step Description</Label>
+                    <Textarea value={step.desc || ""} onChange={e => { const s = [...(d.steps || [])]; s[i] = { ...s[i], desc: e.target.value }; set({ ...d, steps: s }); }}
+                      className="bg-zinc-900 border-zinc-600 text-white text-sm min-h-[80px]" />
+                  </div>
+                </div>
+              ))}
+              <Button type="button" variant="outline" size="sm" className="border-zinc-600 text-zinc-300 hover:bg-zinc-800 w-full"
+                onClick={() => { const s = [...(d.steps || [])]; s.push({ number: `0${s.length + 1}`, title: "", desc: "", icon: "search" }); set({ ...d, steps: s }); }}>
+                <Plus className="h-3 w-3 mr-1" /> Add Step
+              </Button>
+            </div>
           </div>
         )} />
 
@@ -1515,24 +1781,19 @@ function HomePageManager({ token }: { token: string }) {
               <Label className="text-zinc-300 mb-1.5 block text-sm">Description</Label>
               <Textarea value={d.description || ""} onChange={e => set({ ...d, description: e.target.value })} className="bg-zinc-800 border-zinc-700 text-white min-h-[80px]" />
             </div>
-            <ObjectArrayField label="Partner Logos" value={d.logos || []}
-              fields={[{ key: "name" as const, label: "Company Name" }]}
+            <LogoArrayField label="Partner Logos" token={token}
+              hint="Upload partner logo images. If no image is uploaded, the company name text will be shown."
+              value={d.logos || []}
               onChange={v => set({ ...d, logos: v })} />
           </div>
         )} />
 
-      <SectionCard title="Awards Section" desc="Awards heading, subheading, and award items" settingsKey="home_awards" token={token}
+      <SectionCard title="Awards Section" desc="Awards heading, subheading, and award items with logo upload" settingsKey="home_awards" token={token}
         renderForm={(d, set) => (
           <div className="space-y-4">
             <FormField label="Heading" value={d.heading || ""} onChange={v => set({ ...d, heading: v })} />
             <FormField label="Subheading" value={d.description || ""} onChange={v => set({ ...d, description: v })} />
-            <ObjectArrayField label="Award Items" value={d.items || []}
-              fields={[
-                { key: "name" as const, label: "Award Name" },
-                { key: "subtitle" as const, label: "Subtitle (e.g. TOP DIGITAL MARKETING)" },
-                { key: "site" as const, label: "Website (e.g. goodfirms.co)" },
-              ]}
-              onChange={v => set({ ...d, items: v })} />
+            <AwardArrayField token={token} value={d.items || []} onChange={v => set({ ...d, items: v })} />
           </div>
         )} />
     </div>
@@ -1622,11 +1883,14 @@ function AboutPageManager({ token }: { token: string }) {
           </div>
         )} />
 
-      <SectionCard title="Client Community Marquee" desc="Scrolling ticker of client brand names" settingsKey="about_clients" token={token}
+      <SectionCard title="Client Community Marquee" desc="Scrolling ticker of client brand logos/names" settingsKey="about_clients" token={token}
         renderForm={(d, set) => (
           <div className="space-y-4">
             <FormField label="Section Title" value={d.title || ""} onChange={v => set({ ...d, title: v })} />
-            <StringArrayField label="Client Names" value={d.clients || []} onChange={v => set({ ...d, clients: v })} />
+            <LogoArrayField label="Client Logos" token={token}
+              hint="Upload client logo images. If no image is uploaded, the client name text will be shown in the marquee."
+              value={Array.isArray(d.clients) ? d.clients.map((c: any) => typeof c === "string" ? { name: c, imageUrl: "" } : c) : []}
+              onChange={v => set({ ...d, clients: v })} />
           </div>
         )} />
 
@@ -1675,14 +1939,7 @@ function AboutPageManager({ token }: { token: string }) {
                     <Input value={member.gradient || ""} onChange={e => { const m = [...(d.members || [])]; m[i] = { ...m[i], gradient: e.target.value }; set({ ...d, members: m }); }}
                       className="bg-zinc-900 border-zinc-600 text-white text-sm" />
                   </div>
-                  <div>
-                    <Label className="text-xs text-zinc-400 mb-1 block">Photo URL (leave blank for initials avatar)</Label>
-                    <div className="flex gap-2">
-                      <Input value={member.photo || ""} onChange={e => { const m = [...(d.members || [])]; m[i] = { ...m[i], photo: e.target.value }; set({ ...d, members: m }); }}
-                        placeholder="/uploads/photo.jpg" className="bg-zinc-900 border-zinc-600 text-white text-sm" />
-                    </div>
-                    {member.photo && <img src={member.photo} alt="preview" className="h-12 w-12 rounded-full object-cover mt-2 border border-zinc-600" />}
-                  </div>
+                  <TeamPhotoUpload token={token} photo={member.photo || ""} onChange={url => { const m = [...(d.members || [])]; m[i] = { ...m[i], photo: url }; set({ ...d, members: m }); }} />
                 </div>
               ))}
               <Button type="button" variant="outline" size="sm" className="border-zinc-600 text-zinc-300 hover:bg-zinc-800"
@@ -1742,11 +1999,14 @@ function ContactPageManager({ token }: { token: string }) {
           </div>
         )} />
 
-      <SectionCard title="Partners Bar" desc="Partner logos/names shown below contact details on hero" settingsKey="contact_partners" token={token}
+      <SectionCard title="Partners Bar" desc="Partner logos shown below contact details on hero" settingsKey="contact_partners" token={token}
         renderForm={(d, set) => (
           <div className="space-y-4">
             <FormField label="Heading" value={d.heading || ""} onChange={v => set({ ...d, heading: v })} />
-            <StringArrayField label="Partner Names" value={d.partners || []} onChange={v => set({ ...d, partners: v })} />
+            <LogoArrayField label="Partner Logos" token={token}
+              hint="Upload partner logo images. If no image is uploaded, the partner name text will be shown."
+              value={Array.isArray(d.partners) ? d.partners.map((p: any) => typeof p === "string" ? { name: p, imageUrl: "" } : p) : []}
+              onChange={v => set({ ...d, partners: v })} />
           </div>
         )} />
 

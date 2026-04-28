@@ -170,7 +170,7 @@ export default function ServiceTemplate() {
     { q: `How long before we see results?`, a: `Most clients see measurable impact within 30–60 days. We set clear milestones and share transparent reporting throughout.` },
   ];
 
-  const heroImage = serviceImages[slug] || automationImg;
+  const heroImage = data.heroImage || serviceImages[slug] || automationImg;
 
   const gridItems = [
     ...benefits.map(b => ({ ...b, icon: getIcon(b.title) })),
