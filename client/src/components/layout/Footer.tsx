@@ -108,9 +108,7 @@ export function Footer() {
               <ul className="space-y-2 text-muted-foreground text-sm">
                 {servicesList.map((service) => (
                   <li key={service.title}>
-                    <Link href={service.href}>
-                      <a className="hover:text-primary cursor-pointer transition-colors">{service.title}</a>
-                    </Link>
+                    <Link href={service.href} className="hover:text-primary cursor-pointer transition-colors">{service.title}</Link>
                   </li>
                 ))}
               </ul>
@@ -122,9 +120,7 @@ export function Footer() {
               <ul className="space-y-2 text-muted-foreground text-sm">
                 {industriesList.map((industry) => (
                   <li key={industry.title}>
-                    <Link href={industry.href}>
-                      <a className="hover:text-primary cursor-pointer transition-colors">{industry.title}</a>
-                    </Link>
+                    <Link href={industry.href} className="hover:text-primary cursor-pointer transition-colors">{industry.title}</Link>
                   </li>
                 ))}
               </ul>
@@ -134,10 +130,10 @@ export function Footer() {
             <div>
               <h3 className="font-heading font-bold text-sm uppercase tracking-wider mb-4 text-white/80">Company</h3>
               <ul className="space-y-2 text-muted-foreground text-sm">
-                <li><Link href="/about"><a className="hover:text-primary cursor-pointer transition-colors">About Us</a></Link></li>
-                <li><Link href="/contact"><a className="hover:text-primary cursor-pointer transition-colors">Contact</a></Link></li>
-                <li><Link href="/privacy-policy"><a className="hover:text-primary cursor-pointer transition-colors">Privacy Policy</a></Link></li>
-                <li><Link href="/terms"><a className="hover:text-primary cursor-pointer transition-colors">Terms &amp; Conditions</a></Link></li>
+                <li><Link href="/about" className="hover:text-primary cursor-pointer transition-colors">About Us</Link></li>
+                <li><Link href="/contact" className="hover:text-primary cursor-pointer transition-colors">Contact</Link></li>
+                <li><Link href="/privacy-policy" className="hover:text-primary cursor-pointer transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="hover:text-primary cursor-pointer transition-colors">Terms &amp; Conditions</Link></li>
               </ul>
             </div>
 

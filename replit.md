@@ -23,7 +23,7 @@ A full-stack digital marketing agency website (marketingaigency.in) built with R
 - `blogs` - Blog posts with slug, category, content, featured flag
 - `case_studies` - Client case studies with stats (JSON), gradient color
 - `press_releases` - Press releases with source, year
-- `site_settings` - Key-value store for global site content (contact_info, home_stats, about_stats)
+- `site_settings` - Key-value store for ALL page content: home_hero, home_stats, home_trusted_logos, home_workflow, home_testimonials, home_partners, home_awards, about_hero, about_stats, about_mission, about_vision, about_strategic, about_whyus, about_clients, about_team, about_prefooter, contact_info, contact_partners, contact_office, contact_awards, contact_faq, footer_social, footer_contact, footer_banner, footer_copyright
 - `contact_submissions` - Contact form entries (name, email, phone, service, message)
 - `newsletter_subscribers` - Email newsletter subscriptions
 
@@ -31,8 +31,9 @@ A full-stack digital marketing agency website (marketingaigency.in) built with R
 - Route: `/admin`
 - Password: `MAI@Admin2025` (or `ADMIN_PASSWORD` env var)
 - Auth: `x-admin-password` header sent on every admin API call
-- Sections: Dashboard, Services, Industries, Portfolio, Blogs, Case Studies, Press Releases, Site Settings, Contact Submissions
-- All website content is fully editable from the admin — including nested JSON (stats, benefits, process, FAQs, approach steps, results)
+- Sections: Dashboard, **Home Page**, **About Page**, **Contact Page**, **Footer & Social**, Services, Industries, Portfolio, Blogs, Case Studies, Press Releases, Raw Settings, Contact Submissions
+- Every piece of content visible on the live site is editable from the admin panel — all sections use SectionCard components that read/write to site_settings
+- Image upload supported via `POST /api/admin/upload` (multer, stored in `uploads/`, served at `/uploads/`)
 - Adding a new service or industry automatically creates its live page (no code changes needed)
 
 ## API Routes
@@ -62,6 +63,7 @@ A full-stack digital marketing agency website (marketingaigency.in) built with R
 - `POST/PUT/DELETE /api/admin/case-studies/:id` — CRUD case studies
 - `POST/PUT/DELETE /api/admin/press-releases/:id` — CRUD press releases
 - `PUT /api/admin/site-settings/:key` — Update site setting
+- `POST /api/admin/upload` — Upload image (multipart/form-data, field: "image"); returns `{ url: "/uploads/filename" }`
 - `GET /api/admin/submissions` — View contact submissions
 
 ## Key Design Decisions
