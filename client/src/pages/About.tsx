@@ -282,12 +282,12 @@ export default function About() {
           <div className="flex animate-marquee whitespace-nowrap gap-20 items-center">
             {clientsList.map((client, i) => (
               typeof client === "object" && client.imageUrl
-                ? <img key={i} src={client.imageUrl} alt={client.name} className="h-8 max-w-28 object-contain mx-4 opacity-50 hover:opacity-100 transition-opacity brightness-0 invert" />
+                ? <span key={i} className="inline-flex items-center justify-center bg-white/8 rounded-xl px-5 py-2 mx-4 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300"><img src={client.imageUrl} alt={client.name} className="h-8 max-w-28 object-contain" /></span>
                 : <div key={i} className="text-xl md:text-3xl font-bold font-heading text-white/50 hover:text-white transition-colors duration-300 mx-4 cursor-default select-none">{typeof client === "string" ? client : client.name}</div>
             ))}
             {clientsList.map((client, i) => (
               typeof client === "object" && client.imageUrl
-                ? <img key={`dup-${i}`} src={client.imageUrl} alt={client.name} className="h-8 max-w-28 object-contain mx-4 opacity-50 hover:opacity-100 transition-opacity brightness-0 invert" />
+                ? <span key={`dup-${i}`} className="inline-flex items-center justify-center bg-white/8 rounded-xl px-5 py-2 mx-4 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300"><img src={client.imageUrl} alt={client.name} className="h-8 max-w-28 object-contain" /></span>
                 : <div key={`dup-${i}`} className="text-xl md:text-3xl font-bold font-heading text-white/50 hover:text-white transition-colors duration-300 mx-4 cursor-default select-none">{typeof client === "string" ? client : client.name}</div>
             ))}
           </div>
