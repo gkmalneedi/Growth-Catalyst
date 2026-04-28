@@ -308,24 +308,24 @@ export default function Home() {
           <div className="flex animate-marquee whitespace-nowrap gap-8 items-center">
             {trustedLogos.map((logo: any, i: number) => (
               logo.imageUrl
-                ? <span key={i} className="inline-flex items-center justify-center bg-white/8 rounded-xl px-5 py-2 mx-4 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300"><img src={logo.imageUrl} alt={logo.name} className="h-8 max-w-28 object-contain" /></span>
+                ? <span key={i} className="inline-flex items-center justify-center mx-6"><img src={logo.imageUrl} alt={logo.name} className="h-12 max-w-36 object-contain" /></span>
                 : <span key={i} className={`text-xl md:text-2xl font-bold font-heading ${logo.color || "text-white"} opacity-50 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>{logo.name}</span>
             ))}
             {trustedLogos.map((logo: any, i: number) => (
               logo.imageUrl
-                ? <span key={`d-${i}`} className="inline-flex items-center justify-center bg-white/8 rounded-xl px-5 py-2 mx-4 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300"><img src={logo.imageUrl} alt={logo.name} className="h-8 max-w-28 object-contain" /></span>
+                ? <span key={`d-${i}`} className="inline-flex items-center justify-center mx-6"><img src={logo.imageUrl} alt={logo.name} className="h-12 max-w-36 object-contain" /></span>
                 : <span key={`d-${i}`} className={`text-xl md:text-2xl font-bold font-heading ${logo.color || "text-white"} opacity-50 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>{logo.name}</span>
             ))}
           </div>
           <div className="absolute top-0 flex animate-marquee2 whitespace-nowrap gap-8 items-center">
             {trustedLogos.map((logo: any, i: number) => (
               logo.imageUrl
-                ? <span key={`d2-${i}`} className="inline-flex items-center justify-center bg-white/8 rounded-xl px-5 py-2 mx-4 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300"><img src={logo.imageUrl} alt={logo.name} className="h-8 max-w-28 object-contain" /></span>
+                ? <span key={`d2-${i}`} className="inline-flex items-center justify-center mx-6"><img src={logo.imageUrl} alt={logo.name} className="h-12 max-w-36 object-contain" /></span>
                 : <span key={`d2-${i}`} className={`text-xl md:text-2xl font-bold font-heading ${logo.color || "text-white"} opacity-50 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>{logo.name}</span>
             ))}
             {trustedLogos.map((logo: any, i: number) => (
               logo.imageUrl
-                ? <span key={`d3-${i}`} className="inline-flex items-center justify-center bg-white/8 rounded-xl px-5 py-2 mx-4 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300"><img src={logo.imageUrl} alt={logo.name} className="h-8 max-w-28 object-contain" /></span>
+                ? <span key={`d3-${i}`} className="inline-flex items-center justify-center mx-6"><img src={logo.imageUrl} alt={logo.name} className="h-12 max-w-36 object-contain" /></span>
                 : <span key={`d3-${i}`} className={`text-xl md:text-2xl font-bold font-heading ${logo.color || "text-white"} opacity-50 hover:opacity-100 transition-opacity mx-6 cursor-default select-none`}>{logo.name}</span>
             ))}
           </div>
@@ -486,7 +486,7 @@ export default function Home() {
                 ? partners.logos.map((p: any, i: number) => (
                   <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex items-center justify-start">
                     {p.imageUrl
-                      ? <span className="inline-flex items-center justify-center bg-white/8 rounded-xl px-4 py-2 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300"><img src={p.imageUrl} alt={p.name} className="h-8 max-w-24 object-contain" /></span>
+                      ? <img src={p.imageUrl} alt={p.name} className="h-12 max-w-36 object-contain" />
                       : <span className="text-white text-lg font-bold font-heading opacity-60">{p.name}</span>
                     }
                   </motion.div>

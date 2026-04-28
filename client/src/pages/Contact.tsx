@@ -142,7 +142,7 @@ export default function Contact() {
                 <div className="flex flex-wrap gap-4 items-center">
                   {(partnersData.partners || []).map((partner: any, i: number) => (
                     typeof partner === "object" && partner.imageUrl
-                      ? <span key={i} className="inline-flex items-center justify-center bg-white/8 rounded-xl px-4 py-2 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300"><img src={partner.imageUrl} alt={partner.name} className="h-7 max-w-24 object-contain" /></span>
+                      ? <img key={i} src={partner.imageUrl} alt={partner.name} className="h-12 max-w-36 object-contain" />
                       : <span key={i} className="text-lg font-bold opacity-60 hover:opacity-100 transition-opacity">{typeof partner === "string" ? partner : partner.name}</span>
                   ))}
                 </div>
