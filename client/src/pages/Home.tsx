@@ -16,7 +16,6 @@ import {
 
 import heroBg from "@assets/generated_images/abstract_blue_vector_wave_background.png";
 import { servicesList } from "@/lib/data";
-import isoBadge2 from "@assets/stock_images/gold_iso_certificati_91c79c8d.jpg";
 
 const highlightWords = ["Agent Marketing", "AI Marketing", "Automation", "More ROI"];
 
@@ -143,16 +142,6 @@ const awardBadges = [
             <p className="text-white text-[8px] font-bold tracking-wider uppercase">COMPANY</p>
           </div>
           <p className="text-zinc-500 text-[9px] mt-1">goodfirms.co</p>
-        </div>
-      </div>
-    )
-  },
-  {
-    id: "iso",
-    badge: (
-      <div className="flex items-center justify-center gap-6">
-        <div className="text-center">
-          <img src={isoBadge2} alt="ISO 9001" className="h-40 w-40 object-contain drop-shadow-[0_0_20px_rgba(234,179,8,0.4)]" />
         </div>
       </div>
     )
